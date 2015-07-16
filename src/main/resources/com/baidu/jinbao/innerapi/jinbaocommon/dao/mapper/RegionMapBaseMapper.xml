@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.innerapi.jinbaocommon.dao.mapper.RegionMapMapper">
+
+  <resultMap id="BaseResultMap" type="com.baidu.jinbao.innerapi.jinbaocommon.bo.RegionMap">
+			<id     column="id"		jdbcType="BIGINT"		property="id" />
+	 		<result column="cityid"		jdbcType="INTEGER"		property="cityid" />
+			<result column="cityname"		jdbcType="VARCHAR"		property="cityname" />
+			<result column="regionid"		jdbcType="INTEGER"		property="regionid" />
+			<result column="regionname"		jdbcType="VARCHAR"		property="regionname" />
+			<result column="addtime"		jdbcType="TIMESTAMP"		property="addtime" />
+			<result column="updatetime"		jdbcType="TIMESTAMP"		property="updatetime" />
+	  </resultMap>
+  
+  <sql id="Base_Column_List">
+	id,cityid,cityname,regionid,regionname,addtime,updatetime  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from region_map
+    where 1=1  and id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from region_map
+    where 1=1 and id = #{id,jdbcType=BIGINT}  </delete>
+  
+  <insert id="insert" parameterType="com.baidu.jinbao.innerapi.jinbaocommon.bo.RegionMap" useGeneratedKeys="true" keyProperty="id">
+    insert into region_map 
+	(id, cityid, cityname, regionid, regionname, addtime, updatetime)
+    values 
+	( #{id,jdbcType=BIGINT},#{cityid,jdbcType=INTEGER},#{cityname,jdbcType=VARCHAR},#{regionid,jdbcType=INTEGER},#{regionname,jdbcType=VARCHAR},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.baidu.jinbao.innerapi.jinbaocommon.bo.RegionMap" useGeneratedKeys="true" keyProperty="id">
+    insert into region_map
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		
+	  <if test="id != null">
+        id,
+      </if>
+				
+	  <if test="cityid != null">
+        cityid,
+      </if>
+			
+	  <if test="cityname != null">
+        cityname,
+      </if>
+			
+	  <if test="regionid != null">
+        regionid,
+      </if>
+			
+	  <if test="regionname != null">
+        regionname,
+      </if>
+			
+	  <if test="addtime != null">
+        addtime,
+      </if>
+			
+	  <if test="updatetime != null">
+        updatetime,
+      </if>
+	    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+			
+	  <if test="id != null">
+         #{id,jdbcType=BIGINT},
+      </if>
+				
+	  <if test="cityid != null">
+         #{cityid,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="cityname != null">
+         #{cityname,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="regionid != null">
+         #{regionid,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="regionname != null">
+         #{regionname,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="addtime != null">
+         #{addtime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="updatetime != null">
+         #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.innerapi.jinbaocommon.bo.RegionMap">
+    update region_map
+    <set>      <if test="cityid != null">
+        cityid = #{cityid,jdbcType=INTEGER},
+      </if>
+	        <if test="cityname != null">
+        cityname = #{cityname,jdbcType=VARCHAR},
+      </if>
+	        <if test="regionid != null">
+        regionid = #{regionid,jdbcType=INTEGER},
+      </if>
+	        <if test="regionname != null">
+        regionname = #{regionname,jdbcType=VARCHAR},
+      </if>
+	        <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	      </set>
+    where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.innerapi.jinbaocommon.bo.RegionMap">
+    update region_map
+    set 
+     	cityid = #{cityid,jdbcType=INTEGER},
+    	cityname = #{cityname,jdbcType=VARCHAR},
+    	regionid = #{regionid,jdbcType=INTEGER},
+    	regionname = #{regionname,jdbcType=VARCHAR},
+    	addtime = #{addtime,jdbcType=TIMESTAMP},
+    	updatetime = #{updatetime,jdbcType=TIMESTAMP}
+        where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+
+</mapper>

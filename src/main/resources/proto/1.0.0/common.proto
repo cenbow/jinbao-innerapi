@@ -1,0 +1,111 @@
+package com.baidu.jinbao.innerapi.rpc;
+
+option java_outer_classname = "CommonRpc";  
+option java_generic_services = true;
+
+message ModifyResponse
+{
+        optional int32 status = 1;		// 标志位 0:成功，1：失败
+		optional string message = 2; 	//  描述信息
+		optional int32 successNum = 3;	// 更改成功记录数
+		optional int32 failedNum = 4;	// 更改失败记录数
+};
+
+message JinbaoCommonCondition {  
+		repeated int64 idList=1;
+}
+
+//  ------------- merchant_info 表 --------------------------
+message MerchantInfoDto {  
+		optional int64 id=1;
+		optional int64 ucid=2;
+		optional string name=3;
+		optional string addtime=4;
+		optional string updatetime=5;
+}
+
+message MerchantInfoDtoList
+{
+		repeated MerchantInfoDto dto = 1;
+}
+
+
+message MerchantInfoSearchResponse
+{
+		optional int32 status = 1;				// 标志位 0:成功，1：失败
+		optional string message = 2; 			//  描述信息
+		optional MerchantInfoDtoList dtoList = 3; 	// 类目表记录List
+}
+
+service merchantInfoRpcService
+{
+        rpc insertRecords(MerchantInfoDtoList) returns (ModifyResponse);
+		rpc updateRecords(MerchantInfoDtoList) returns (ModifyResponse);
+		rpc deleteRecords(JinbaoCommonCondition) returns (ModifyResponse);
+		rpc getRecords(JinbaoCommonCondition) returns (MerchantInfoSearchResponse);
+};
+
+//  ------------- region_map 表 --------------------------
+message RegionMapDto {  
+		optional int64 id=1;
+		optional int32 cityid=2;
+		optional string cityname=3;
+		optional int32 regionid=4;
+		optional string regionname=5;
+		optional string addtime=6;
+		optional string updatetime=7;
+}
+
+message RegionMapDtoList
+{
+		repeated RegionMapDto dto = 1;
+}
+
+
+message RegionMapSearchResponse
+{
+		optional int32 status = 1;				// 标志位 0:成功，1：失败
+		optional string message = 2; 			//  描述信息
+		optional RegionMapDtoList dtoList = 3; 	// 类目表记录List
+}
+
+service regionMapRpcService
+{
+        rpc insertRecords(RegionMapDtoList) returns (ModifyResponse);
+		rpc updateRecords(RegionMapDtoList) returns (ModifyResponse);
+		rpc deleteRecords(JinbaoCommonCondition) returns (ModifyResponse);
+		rpc getRecords(JinbaoCommonCondition) returns (RegionMapSearchResponse);
+};
+
+
+//  ------------- merchant_router 表 --------------------------
+message MerchantRouterDto {  
+		optional int64 id=1;
+		optional int64 merchantId=2;
+		optional string usedShards=3;
+		optional int32 merchantAmountType=4;
+		optional int32 merchantRouterStat=5;
+		optional string addtime=6;
+		optional string updatetime=7;
+}
+
+message MerchantRouterDtoList
+{
+		repeated MerchantRouterDto dto = 1;
+}
+
+
+message MerchantRouterSearchResponse
+{
+		optional int32 status = 1;				// 标志位 0:成功，1：失败
+		optional string message = 2; 			//  描述信息
+		optional MerchantRouterDtoList dtoList = 3; 	// 类目表记录List
+}
+
+service merchantRouterRpcService
+{
+        rpc insertRecords(MerchantRouterDtoList) returns (ModifyResponse);
+		rpc updateRecords(MerchantRouterDtoList) returns (ModifyResponse);
+		rpc deleteRecords(JinbaoCommonCondition) returns (ModifyResponse);
+		rpc getRecords(JinbaoCommonCondition) returns (MerchantRouterSearchResponse);
+};

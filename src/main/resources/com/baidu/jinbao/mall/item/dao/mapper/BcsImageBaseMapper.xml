@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.mall.item.dao.mapper.BcsImageMapper">
+
+  <resultMap id="BaseResultMap" type="com.baidu.jinbao.mall.item.bo.BcsImage">
+			<id     column="id"		jdbcType="BIGINT"		property="id" />
+	 		<result column="itemid"		jdbcType="BIGINT"		property="itemid" />
+			<result column="skuid"		jdbcType="BIGINT"		property="skuid" />
+			<result column="imageUrl"		jdbcType="VARCHAR"		property="imageurl" />
+			<result column="imageBCSUrl"		jdbcType="VARCHAR"		property="imagebcsurl" />
+			<result column="bcs_status"		jdbcType="TINYINT"		property="bcsStatus" />
+			<result column="addtime"		jdbcType="TIMESTAMP"		property="addtime" />
+			<result column="updatetime"		jdbcType="TIMESTAMP"		property="updatetime" />
+			<result column="errormessage"		jdbcType="VARCHAR"		property="errormessage" />
+			<result column="width"		jdbcType="INTEGER"		property="width" />
+			<result column="height"		jdbcType="INTEGER"		property="height" />
+			<result column="content_md5"		jdbcType="CHAR"		property="contentMd5" />
+			<result column="sequence"		jdbcType="INTEGER"		property="sequence" />
+			<result column="gips_image"		jdbcType="VARCHAR"		property="gipsImage" />
+			<result column="pic_type"		jdbcType="TINYINT"		property="picType" />
+	  </resultMap>
+  
+  <sql id="Base_Column_List">
+	id,itemid,skuid,imageUrl,imageBCSUrl,bcs_status,addtime,updatetime,errormessage,width,height,content_md5,sequence,gips_image,pic_type  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bcs_image
+    where 1=1  and id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bcs_image
+    where 1=1 and id = #{id,jdbcType=BIGINT}  </delete>
+  
+  <insert id="insert" parameterType="com.baidu.jinbao.mall.item.bo.BcsImage" useGeneratedKeys="true" keyProperty="id">
+    insert into bcs_image 
+	(id, itemid, skuid, imageUrl, imageBCSUrl, bcs_status, addtime, updatetime, errormessage, width, height, content_md5, sequence, gips_image, pic_type)
+    values 
+	( #{id,jdbcType=BIGINT},#{itemid,jdbcType=BIGINT},#{skuid,jdbcType=BIGINT},#{imageurl,jdbcType=VARCHAR},#{imagebcsurl,jdbcType=VARCHAR},#{bcsStatus,jdbcType=TINYINT},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP},#{errormessage,jdbcType=VARCHAR},#{width,jdbcType=INTEGER},#{height,jdbcType=INTEGER},#{contentMd5,jdbcType=CHAR},#{sequence,jdbcType=INTEGER},#{gipsImage,jdbcType=VARCHAR},#{picType,jdbcType=TINYINT})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.baidu.jinbao.mall.item.bo.BcsImage" useGeneratedKeys="true" keyProperty="id">
+    insert into bcs_image
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		
+	  <if test="id != null">
+        id,
+      </if>
+				
+	  <if test="itemid != null">
+        itemid,
+      </if>
+			
+	  <if test="skuid != null">
+        skuid,
+      </if>
+			
+	  <if test="imageurl != null">
+        imageUrl,
+      </if>
+			
+	  <if test="imagebcsurl != null">
+        imageBCSUrl,
+      </if>
+			
+	  <if test="bcsStatus != null">
+        bcs_status,
+      </if>
+			
+	  <if test="addtime != null">
+        addtime,
+      </if>
+			
+	  <if test="updatetime != null">
+        updatetime,
+      </if>
+			
+	  <if test="errormessage != null">
+        errormessage,
+      </if>
+			
+	  <if test="width != null">
+        width,
+      </if>
+			
+	  <if test="height != null">
+        height,
+      </if>
+			
+	  <if test="contentMd5 != null">
+        content_md5,
+      </if>
+			
+	  <if test="sequence != null">
+        sequence,
+      </if>
+			
+	  <if test="gipsImage != null">
+        gips_image,
+      </if>
+			
+	  <if test="picType != null">
+        pic_type,
+      </if>
+	    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+			
+	  <if test="id != null">
+         #{id,jdbcType=BIGINT},
+      </if>
+				
+	  <if test="itemid != null">
+         #{itemid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="skuid != null">
+         #{skuid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="imageurl != null">
+         #{imageurl,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="imagebcsurl != null">
+         #{imagebcsurl,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="bcsStatus != null">
+         #{bcsStatus,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="addtime != null">
+         #{addtime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="updatetime != null">
+         #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="errormessage != null">
+         #{errormessage,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="width != null">
+         #{width,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="height != null">
+         #{height,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="contentMd5 != null">
+         #{contentMd5,jdbcType=CHAR},
+      </if>
+			
+	  <if test="sequence != null">
+         #{sequence,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="gipsImage != null">
+         #{gipsImage,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="picType != null">
+         #{picType,jdbcType=TINYINT},
+      </if>
+	    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.mall.item.bo.BcsImage">
+    update bcs_image
+    <set>      <if test="itemid != null">
+        itemid = #{itemid,jdbcType=BIGINT},
+      </if>
+	        <if test="skuid != null">
+        skuid = #{skuid,jdbcType=BIGINT},
+      </if>
+	        <if test="imageurl != null">
+        imageUrl = #{imageurl,jdbcType=VARCHAR},
+      </if>
+	        <if test="imagebcsurl != null">
+        imageBCSUrl = #{imagebcsurl,jdbcType=VARCHAR},
+      </if>
+	        <if test="bcsStatus != null">
+        bcs_status = #{bcsStatus,jdbcType=TINYINT},
+      </if>
+	        <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="errormessage != null">
+        errormessage = #{errormessage,jdbcType=VARCHAR},
+      </if>
+	        <if test="width != null">
+        width = #{width,jdbcType=INTEGER},
+      </if>
+	        <if test="height != null">
+        height = #{height,jdbcType=INTEGER},
+      </if>
+	        <if test="contentMd5 != null">
+        content_md5 = #{contentMd5,jdbcType=CHAR},
+      </if>
+	        <if test="sequence != null">
+        sequence = #{sequence,jdbcType=INTEGER},
+      </if>
+	        <if test="gipsImage != null">
+        gips_image = #{gipsImage,jdbcType=VARCHAR},
+      </if>
+	        <if test="picType != null">
+        pic_type = #{picType,jdbcType=TINYINT},
+      </if>
+	      </set>
+    where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.mall.item.bo.BcsImage">
+    update bcs_image
+    set 
+     	itemid = #{itemid,jdbcType=BIGINT},
+    	skuid = #{skuid,jdbcType=BIGINT},
+    	imageUrl = #{imageurl,jdbcType=VARCHAR},
+    	imageBCSUrl = #{imagebcsurl,jdbcType=VARCHAR},
+    	bcs_status = #{bcsStatus,jdbcType=TINYINT},
+    	addtime = #{addtime,jdbcType=TIMESTAMP},
+    	updatetime = #{updatetime,jdbcType=TIMESTAMP},
+    	errormessage = #{errormessage,jdbcType=VARCHAR},
+    	width = #{width,jdbcType=INTEGER},
+    	height = #{height,jdbcType=INTEGER},
+    	content_md5 = #{contentMd5,jdbcType=CHAR},
+    	sequence = #{sequence,jdbcType=INTEGER},
+    	gips_image = #{gipsImage,jdbcType=VARCHAR},
+    	pic_type = #{picType,jdbcType=TINYINT}
+        where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+
+</mapper>

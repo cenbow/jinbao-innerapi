@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.innerapi.category.dao.mapper.CategoryMapper">
+
+  <resultMap id="BaseResultMap" type="com.baidu.jinbao.innerapi.category.bo.Category">
+			<id     column="categoryid"		jdbcType="BIGINT"		property="categoryid" />
+	 		<result column="parentid"		jdbcType="BIGINT"		property="parentid" />
+			<result column="name"		jdbcType="VARCHAR"		property="name" />
+			<result column="isleaf"		jdbcType="TINYINT"		property="isleaf" />
+			<result column="pos"		jdbcType="INTEGER"		property="pos" />
+			<result column="addtime"		jdbcType="TIMESTAMP"		property="addtime" />
+			<result column="updatetime"		jdbcType="TIMESTAMP"		property="updatetime" />
+			<result column="deleted"		jdbcType="TINYINT"		property="deleted" />
+	  </resultMap>
+  
+  <sql id="Base_Column_List">
+	categoryid,parentid,name,isleaf,pos,addtime,updatetime,deleted  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from category
+    where 1=1  and categoryid = #{categoryid,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from category
+    where 1=1 and categoryid = #{categoryid,jdbcType=BIGINT}  </delete>
+  
+  <insert id="insert" parameterType="com.baidu.jinbao.innerapi.category.bo.Category" useGeneratedKeys="true" keyProperty="categoryid">
+    insert into category 
+	(categoryid, parentid, name, isleaf, pos, addtime, updatetime, deleted)
+    values 
+	( #{categoryid,jdbcType=BIGINT},#{parentid,jdbcType=BIGINT},#{name,jdbcType=VARCHAR},#{isleaf,jdbcType=TINYINT},#{pos,jdbcType=INTEGER},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP},#{deleted,jdbcType=TINYINT})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.baidu.jinbao.innerapi.category.bo.Category" useGeneratedKeys="true" keyProperty="categoryid">
+    insert into category
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		
+	  <if test="categoryid != null">
+        categoryid,
+      </if>
+				
+	  <if test="parentid != null">
+        parentid,
+      </if>
+			
+	  <if test="name != null">
+        name,
+      </if>
+			
+	  <if test="isleaf != null">
+        isleaf,
+      </if>
+			
+	  <if test="pos != null">
+        pos,
+      </if>
+			
+	  <if test="addtime != null">
+        addtime,
+      </if>
+			
+	  <if test="updatetime != null">
+        updatetime,
+      </if>
+			
+	  <if test="deleted != null">
+        deleted,
+      </if>
+	    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+			
+	  <if test="categoryid != null">
+         #{categoryid,jdbcType=BIGINT},
+      </if>
+				
+	  <if test="parentid != null">
+         #{parentid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="name != null">
+         #{name,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="isleaf != null">
+         #{isleaf,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="pos != null">
+         #{pos,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="addtime != null">
+         #{addtime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="updatetime != null">
+         #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="deleted != null">
+         #{deleted,jdbcType=TINYINT},
+      </if>
+	    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.innerapi.category.bo.Category">
+    update category
+    <set>      <if test="parentid != null">
+        parentid = #{parentid,jdbcType=BIGINT},
+      </if>
+	        <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+	        <if test="isleaf != null">
+        isleaf = #{isleaf,jdbcType=TINYINT},
+      </if>
+	        <if test="pos != null">
+        pos = #{pos,jdbcType=INTEGER},
+      </if>
+	        <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="deleted != null">
+        deleted = #{deleted,jdbcType=TINYINT},
+      </if>
+	      </set>
+    where 1=1 and categoryid = #{categoryid,jdbcType=BIGINT}  
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.innerapi.category.bo.Category">
+    update category
+    set 
+     	parentid = #{parentid,jdbcType=BIGINT},
+    	name = #{name,jdbcType=VARCHAR},
+    	isleaf = #{isleaf,jdbcType=TINYINT},
+    	pos = #{pos,jdbcType=INTEGER},
+    	addtime = #{addtime,jdbcType=TIMESTAMP},
+    	updatetime = #{updatetime,jdbcType=TIMESTAMP},
+    	deleted = #{deleted,jdbcType=TINYINT}
+        where 1=1 and categoryid = #{categoryid,jdbcType=BIGINT}  
+  </update>
+
+</mapper>

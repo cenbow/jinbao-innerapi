@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.innerapi.spu.dao.mapper.CspuLevelMapper">
+
+  <resultMap id="BaseResultMap" type="com.baidu.jinbao.innerapi.spu.bo.CspuLevel">
+			<id     column="id"		jdbcType="BIGINT"		property="id" />
+	 		<result column="cspuid"		jdbcType="BIGINT"		property="cspuid" />
+			<result column="level"		jdbcType="BIGINT"		property="level" />
+			<result column="addtime"		jdbcType="TIMESTAMP"		property="addtime" />
+			<result column="updatetime"		jdbcType="TIMESTAMP"		property="updatetime" />
+	  </resultMap>
+  
+  <sql id="Base_Column_List">
+	id,cspuid,level,addtime,updatetime  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cspu_level
+    where 1=1  and id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from cspu_level
+    where 1=1 and id = #{id,jdbcType=BIGINT}  </delete>
+  
+  <insert id="insert" parameterType="com.baidu.jinbao.innerapi.spu.bo.CspuLevel" useGeneratedKeys="true" keyProperty="id">
+    insert into cspu_level 
+	(id, cspuid, level, addtime, updatetime)
+    values 
+	( #{id,jdbcType=BIGINT},#{cspuid,jdbcType=BIGINT},#{level,jdbcType=BIGINT},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.baidu.jinbao.innerapi.spu.bo.CspuLevel" useGeneratedKeys="true" keyProperty="id">
+    insert into cspu_level
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		
+	  <if test="id != null">
+        id,
+      </if>
+				
+	  <if test="cspuid != null">
+        cspuid,
+      </if>
+			
+	  <if test="level != null">
+        level,
+      </if>
+			
+	  <if test="addtime != null">
+        addtime,
+      </if>
+			
+	  <if test="updatetime != null">
+        updatetime,
+      </if>
+	    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+			
+	  <if test="id != null">
+         #{id,jdbcType=BIGINT},
+      </if>
+				
+	  <if test="cspuid != null">
+         #{cspuid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="level != null">
+         #{level,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="addtime != null">
+         #{addtime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="updatetime != null">
+         #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.innerapi.spu.bo.CspuLevel">
+    update cspu_level
+    <set>      <if test="cspuid != null">
+        cspuid = #{cspuid,jdbcType=BIGINT},
+      </if>
+	        <if test="level != null">
+        level = #{level,jdbcType=BIGINT},
+      </if>
+	        <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	      </set>
+    where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.innerapi.spu.bo.CspuLevel">
+    update cspu_level
+    set 
+     	cspuid = #{cspuid,jdbcType=BIGINT},
+    	level = #{level,jdbcType=BIGINT},
+    	addtime = #{addtime,jdbcType=TIMESTAMP},
+    	updatetime = #{updatetime,jdbcType=TIMESTAMP}
+        where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+
+</mapper>

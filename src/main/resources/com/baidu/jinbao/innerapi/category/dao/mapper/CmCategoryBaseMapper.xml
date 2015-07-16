@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.innerapi.category.dao.mapper.CmCategoryMapper">
+
+  <resultMap id="BaseResultMap" type="com.baidu.jinbao.innerapi.category.bo.CmCategory">
+			<id     column="id"		jdbcType="BIGINT"		property="id" />
+	 		<result column="name"		jdbcType="VARCHAR"		property="name" />
+			<result column="parentid"		jdbcType="INTEGER"		property="parentid" />
+			<result column="isleaf"		jdbcType="TINYINT"		property="isleaf" />
+			<result column="pos"		jdbcType="INTEGER"		property="pos" />
+			<result column="active"		jdbcType="TINYINT"		property="active" />
+			<result column="updatetime"		jdbcType="TIMESTAMP"		property="updatetime" />
+	  </resultMap>
+  
+  <sql id="Base_Column_List">
+	id,name,parentid,isleaf,pos,active,updatetime  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cm_category
+    where 1=1  and id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from cm_category
+    where 1=1 and id = #{id,jdbcType=BIGINT}  </delete>
+  
+  <insert id="insert" parameterType="com.baidu.jinbao.innerapi.category.bo.CmCategory" useGeneratedKeys="true" keyProperty="id">
+    insert into cm_category 
+	(id, name, parentid, isleaf, pos, active, updatetime)
+    values 
+	( #{id,jdbcType=BIGINT},#{name,jdbcType=VARCHAR},#{parentid,jdbcType=INTEGER},#{isleaf,jdbcType=TINYINT},#{pos,jdbcType=INTEGER},#{active,jdbcType=TINYINT},#{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.baidu.jinbao.innerapi.category.bo.CmCategory" useGeneratedKeys="true" keyProperty="id">
+    insert into cm_category
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		
+	  <if test="id != null">
+        id,
+      </if>
+				
+	  <if test="name != null">
+        name,
+      </if>
+			
+	  <if test="parentid != null">
+        parentid,
+      </if>
+			
+	  <if test="isleaf != null">
+        isleaf,
+      </if>
+			
+	  <if test="pos != null">
+        pos,
+      </if>
+			
+	  <if test="active != null">
+        active,
+      </if>
+			
+	  <if test="updatetime != null">
+        updatetime,
+      </if>
+	    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+			
+	  <if test="id != null">
+         #{id,jdbcType=BIGINT},
+      </if>
+				
+	  <if test="name != null">
+         #{name,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="parentid != null">
+         #{parentid,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="isleaf != null">
+         #{isleaf,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="pos != null">
+         #{pos,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="active != null">
+         #{active,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="updatetime != null">
+         #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.innerapi.category.bo.CmCategory">
+    update cm_category
+    <set>      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+	        <if test="parentid != null">
+        parentid = #{parentid,jdbcType=INTEGER},
+      </if>
+	        <if test="isleaf != null">
+        isleaf = #{isleaf,jdbcType=TINYINT},
+      </if>
+	        <if test="pos != null">
+        pos = #{pos,jdbcType=INTEGER},
+      </if>
+	        <if test="active != null">
+        active = #{active,jdbcType=TINYINT},
+      </if>
+	        <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	      </set>
+    where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.innerapi.category.bo.CmCategory">
+    update cm_category
+    set 
+     	name = #{name,jdbcType=VARCHAR},
+    	parentid = #{parentid,jdbcType=INTEGER},
+    	isleaf = #{isleaf,jdbcType=TINYINT},
+    	pos = #{pos,jdbcType=INTEGER},
+    	active = #{active,jdbcType=TINYINT},
+    	updatetime = #{updatetime,jdbcType=TIMESTAMP}
+        where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+
+</mapper>

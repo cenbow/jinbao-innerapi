@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baidu.jinbao.mall.item.dao.mapper.MallSkuPpsMapper">
+	<update id="batchUpdate">
+		UPDATE
+		sku_pps
+		<trim prefix="SET" suffixOverrides=",">
+			<trim prefix="shopid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.shopid!=null">
+						WHEN pps_md5 = #{item.ppsMd5,jdbcType=CHAR}
+						THEN
+						#{item.shopid,jdbcType=INTEGER}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="merchantid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.merchantid!=null">
+						WHEN pps_md5 = #{item.ppsMd5,jdbcType=CHAR}
+						THEN
+						#{item.merchantid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="skuid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.skuid!=null">
+						WHEN pps_md5 = #{item.ppsMd5,jdbcType=CHAR}
+						THEN
+						#{item.skuid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="regionid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.regionid!=null">
+						WHEN pps_md5 = #{item.ppsMd5,jdbcType=CHAR}
+						THEN
+						#{item.regionid,jdbcType=INTEGER}
+					</if>
+				</foreach>
+			</trim>
+
+			<trim prefix="pc_mobile=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.pcMobile!=null">
+						WHEN pps_md5 = #{item.ppsMd5,jdbcType=CHAR}
+						THEN
+						#{item.pcMobile,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+
+			<trim prefix="price=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.price!=null">
+						WHEN pps_md5 = #{item.ppsMd5,jdbcType=CHAR}
+						THEN
+						#{item.price,jdbcType=DECIMAL}
+					</if>
+				</foreach>
+			</trim>
+
+			<trim prefix="discount_price=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.discountPrice!=null">
+						WHEN pps_md5 = #{item.ppsMd5,jdbcType=CHAR}
+						THEN
+						#{item.discountPrice,jdbcType=DECIMAL}
+					</if>
+				</foreach>
+			</trim>
+
+			<trim prefix="flash_price=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.flashPrice!=null">
+						WHEN pps_md5 = #{item.ppsMd5,jdbcType=CHAR}
+						THEN
+						#{item.flashPrice,jdbcType=DECIMAL}
+					</if>
+				</foreach>
+			</trim>
+
+			<trim prefix="ticket_price=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.ticketPrice!=null">
+						WHEN pps_md5 = #{item.ppsMd5,jdbcType=CHAR}
+						THEN
+						#{item.ticketPrice,jdbcType=DECIMAL}
+					</if>
+				</foreach>
+			</trim>
+
+			<trim prefix="promotion_type=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.promotionType!=null">
+						WHEN pps_md5 = #{item.ppsMd5,jdbcType=CHAR}
+						THEN
+						#{item.promotionType,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="stock=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.stock!=null">
+						WHEN pps_md5 = #{item.ppsMd5,jdbcType=CHAR}
+						THEN
+						#{item.stock,jdbcType=INTEGER}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="post_pay=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.postPay!=null">
+						WHEN pps_md5 = #{item.ppsMd5,jdbcType=CHAR}
+						THEN
+						#{item.postPay,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+
+			<trim prefix="m_update_time=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.mUpdateTime!=null">
+						WHEN pps_md5 = #{item.ppsMd5,jdbcType=CHAR}
+						THEN
+						#{item.mUpdateTime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="inventory_warning=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.inventoryWarning!=null">
+						WHEN pps_md5 = #{item.ppsMd5,jdbcType=CHAR}
+						THEN
+						#{item.inventoryWarning,jdbcType=INTEGER}
+					</if>
+				</foreach>
+			</trim>
+
+
+			<trim prefix="addtime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.addtime!=null">
+						WHEN pps_md5 = #{item.ppsMd5,jdbcType=CHAR}
+						THEN
+						#{item.addtime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+
+
+			<trim prefix="updatetime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.updatetime!=null">
+						WHEN pps_md5 = #{item.ppsMd5,jdbcType=CHAR}
+						THEN
+						#{item.updatetime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+		WHERE pps_md5 IN
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item.ppsMd5,jdbcType=CHAR}
+		</foreach>
+	</update>
+
+	<update id="update" parameterType="com.baidu.jinbao.mall.item.bo.MallSkuPps">
+		update sku_pps
+		<set>
+			<if test="shopid != null">
+				shopid = #{shopid,jdbcType=INTEGER},
+			</if>
+			<if test="merchantid != null">
+				merchantid = #{merchantid,jdbcType=BIGINT},
+			</if>
+			<if test="skuid != null">
+				skuid = #{skuid,jdbcType=BIGINT},
+			</if>
+			<if test="regionid != null">
+				regionid = #{regionid,jdbcType=INTEGER},
+			</if>
+			<if test="pcMobile != null">
+				pc_mobile = #{pcMobile,jdbcType=TINYINT},
+			</if>
+			<if test="price != null">
+				price = #{price,jdbcType=DECIMAL},
+			</if>
+			<if test="discountPrice != null">
+				discount_price = #{discountPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="flashPrice != null">
+				flash_price = #{flashPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="ticketPrice != null">
+				ticket_price = #{ticketPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="promotionType != null">
+				promotion_type = #{promotionType,jdbcType=TINYINT},
+			</if>
+			<if test="stock != null">
+				stock = #{stock,jdbcType=INTEGER},
+			</if>
+			<if test="postPay != null">
+				post_pay = #{postPay,jdbcType=TINYINT},
+			</if>
+			<if test="mUpdateTime != null">
+				m_update_time = #{mUpdateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="inventoryWarning != null">
+				inventory_warning = #{inventoryWarning,jdbcType=INTEGER},
+			</if>
+			<if test="addtime != null">
+				addtime = #{addtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="ppsMd5 != null">
+				pps_md5 = #{ppsMd5,jdbcType=CHAR},
+			</if>
+		</set>
+		where 1=1 and pps_md5 = #{ppsMd5,jdbcType=CHAR}
+	</update>
+
+	<delete id="delete" parameterType="java.lang.Long">
+		delete from sku_pps
+		where 1=1
+		and pps_md5 = #{ppsMd5,jdbcType=CHAR}
+	</delete>
+
+	<!-- =========================Batch INSERT========================= -->
+	<insert id="batchInsert">
+		insert into sku_pps
+		(shopid, merchantid, skuid, regionid, pc_mobile,
+		price,
+		discount_price, flash_price, ticket_price, promotion_type,
+		stock,
+		post_pay, m_update_time, inventory_warning, addtime, updatetime,
+		pps_md5)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.shopid,jdbcType=INTEGER},
+			#{item.merchantid,jdbcType=BIGINT},
+			#{item.skuid,jdbcType=BIGINT},
+			#{item.regionid,jdbcType=INTEGER},
+			#{item.pcMobile,jdbcType=TINYINT},
+			#{item.price,jdbcType=DECIMAL},
+			#{item.discountPrice,jdbcType=DECIMAL},
+			#{item.flashPrice,jdbcType=DECIMAL},
+			#{item.ticketPrice,jdbcType=DECIMAL},
+			#{item.promotionType,jdbcType=TINYINT},
+			#{item.stock,jdbcType=INTEGER},
+			#{item.postPay,jdbcType=TINYINT},
+			#{item.mUpdateTime,jdbcType=TIMESTAMP},
+			#{item.inventoryWarning,jdbcType=INTEGER},
+			#{item.addtime,jdbcType=TIMESTAMP},
+			#{item.updatetime,jdbcType=TIMESTAMP},
+			#{item.ppsMd5,jdbcType=CHAR})
+		</foreach>
+	</insert>
+
+	<select id="batchSelectBySkuIdList" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM sku_pps
+		WHERE skuid IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	<insert id="insertOne" parameterType="com.baidu.jinbao.mall.item.bo.MallSkuPps"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into sku_pps
+		(shopid, merchantid, skuid, regionid, pc_mobile, price,
+		discount_price, flash_price, ticket_price, promotion_type, stock,
+		post_pay, m_update_time, inventory_warning, addtime, updatetime,
+		pps_md5)
+		values
+		(
+		#{shopid,jdbcType=INTEGER},#{merchantid,jdbcType=BIGINT},#{skuid,jdbcType=BIGINT},#{regionid,jdbcType=INTEGER},#{pcMobile,jdbcType=TINYINT},#{price,jdbcType=DECIMAL},#{discountPrice,jdbcType=DECIMAL},#{flashPrice,jdbcType=DECIMAL},#{ticketPrice,jdbcType=DECIMAL},#{promotionType,jdbcType=TINYINT},#{stock,jdbcType=INTEGER},#{postPay,jdbcType=TINYINT},#{mUpdateTime,jdbcType=TIMESTAMP},#{inventoryWarning,jdbcType=INTEGER},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP},#{ppsMd5,jdbcType=CHAR})
+	</insert>
+	
+	<select id="selectBySkuId" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM sku_pps
+		WHERE skuid = #{skuid}
+	</select>
+
+	<select id="selectByPpsMd5" resultMap="BaseResultMap" parameterType="list">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM sku_pps
+		WHERE pps_md5 IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+	
+</mapper>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.mall.item.dao.mapper.ItemDescriptionMapper">
+
+  <resultMap id="BaseResultMap" type="com.baidu.jinbao.mall.item.bo.ItemDescription">
+			<id     column="id"		jdbcType="BIGINT"		property="id" />
+	 		<result column="merchantid"		jdbcType="INTEGER"		property="merchantid" />
+			<result column="shopid"		jdbcType="INTEGER"		property="shopid" />
+			<result column="itemid"		jdbcType="BIGINT"		property="itemid" />
+			<result column="item_desc_ori"		jdbcType="LONGVARBINARY"		property="itemDescOri" />
+			<result column="pd_md5"		jdbcType="CHAR"		property="pdMd5" />
+			<result column="item_desc"		jdbcType="LONGVARBINARY"		property="itemDesc" />
+			<result column="addtime"		jdbcType="TIMESTAMP"		property="addtime" />
+			<result column="updatetime"		jdbcType="TIMESTAMP"		property="updatetime" />
+	  </resultMap>
+  
+  <sql id="Base_Column_List">
+	id,merchantid,shopid,itemid,item_desc_ori,pd_md5,item_desc,addtime,updatetime  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from item_description
+    where 1=1  and id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from item_description
+    where 1=1 and id = #{id,jdbcType=BIGINT}  </delete>
+  
+  <insert id="insert" parameterType="com.baidu.jinbao.mall.item.bo.ItemDescription" useGeneratedKeys="true" keyProperty="id">
+    insert into item_description 
+	(id, merchantid, shopid, itemid, item_desc_ori, pd_md5, item_desc, addtime, updatetime)
+    values 
+	( #{id,jdbcType=BIGINT},#{merchantid,jdbcType=INTEGER},#{shopid,jdbcType=INTEGER},#{itemid,jdbcType=BIGINT},#{itemDescOri,jdbcType=LONGVARBINARY},#{pdMd5,jdbcType=CHAR},#{itemDesc,jdbcType=LONGVARBINARY},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.baidu.jinbao.mall.item.bo.ItemDescription" useGeneratedKeys="true" keyProperty="id">
+    insert into item_description
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		
+	  <if test="id != null">
+        id,
+      </if>
+				
+	  <if test="merchantid != null">
+        merchantid,
+      </if>
+			
+	  <if test="shopid != null">
+        shopid,
+      </if>
+			
+	  <if test="itemid != null">
+        itemid,
+      </if>
+			
+	  <if test="itemDescOri != null">
+        item_desc_ori,
+      </if>
+			
+	  <if test="pdMd5 != null">
+        pd_md5,
+      </if>
+			
+	  <if test="itemDesc != null">
+        item_desc,
+      </if>
+			
+	  <if test="addtime != null">
+        addtime,
+      </if>
+			
+	  <if test="updatetime != null">
+        updatetime,
+      </if>
+	    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+			
+	  <if test="id != null">
+         #{id,jdbcType=BIGINT},
+      </if>
+				
+	  <if test="merchantid != null">
+         #{merchantid,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="shopid != null">
+         #{shopid,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="itemid != null">
+         #{itemid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="itemDescOri != null">
+         #{itemDescOri,jdbcType=LONGVARBINARY},
+      </if>
+			
+	  <if test="pdMd5 != null">
+         #{pdMd5,jdbcType=CHAR},
+      </if>
+			
+	  <if test="itemDesc != null">
+         #{itemDesc,jdbcType=LONGVARBINARY},
+      </if>
+			
+	  <if test="addtime != null">
+         #{addtime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="updatetime != null">
+         #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.mall.item.bo.ItemDescription">
+    update item_description
+    <set>      <if test="merchantid != null">
+        merchantid = #{merchantid,jdbcType=INTEGER},
+      </if>
+	        <if test="shopid != null">
+        shopid = #{shopid,jdbcType=INTEGER},
+      </if>
+	        <if test="itemid != null">
+        itemid = #{itemid,jdbcType=BIGINT},
+      </if>
+	        <if test="itemDescOri != null">
+        item_desc_ori = #{itemDescOri,jdbcType=LONGVARBINARY},
+      </if>
+	        <if test="pdMd5 != null">
+        pd_md5 = #{pdMd5,jdbcType=CHAR},
+      </if>
+	        <if test="itemDesc != null">
+        item_desc = #{itemDesc,jdbcType=LONGVARBINARY},
+      </if>
+	        <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	      </set>
+    where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.mall.item.bo.ItemDescription">
+    update item_description
+    set 
+     	merchantid = #{merchantid,jdbcType=INTEGER},
+    	shopid = #{shopid,jdbcType=INTEGER},
+    	itemid = #{itemid,jdbcType=BIGINT},
+    	item_desc_ori = #{itemDescOri,jdbcType=LONGVARBINARY},
+    	pd_md5 = #{pdMd5,jdbcType=CHAR},
+    	item_desc = #{itemDesc,jdbcType=LONGVARBINARY},
+    	addtime = #{addtime,jdbcType=TIMESTAMP},
+    	updatetime = #{updatetime,jdbcType=TIMESTAMP}
+        where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+
+</mapper>

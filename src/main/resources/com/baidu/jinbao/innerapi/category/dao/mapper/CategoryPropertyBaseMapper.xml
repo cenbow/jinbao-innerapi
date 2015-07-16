@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.innerapi.category.dao.mapper.CategoryPropertyMapper">
+
+  <resultMap id="BaseResultMap" type="com.baidu.jinbao.innerapi.category.bo.CategoryProperty">
+			<id     column="id"		jdbcType="BIGINT"		property="id" />
+	 		<result column="c_id"		jdbcType="INTEGER"		property="cId" />
+			<result column="isleaf"		jdbcType="TINYINT"		property="isleaf" />
+			<result column="name"		jdbcType="VARCHAR"		property="name" />
+			<result column="pid"		jdbcType="BIGINT"		property="pid" />
+			<result column="is_required"		jdbcType="TINYINT"		property="isRequired" />
+			<result column="is_selfdefine"		jdbcType="TINYINT"		property="isSelfdefine" />
+			<result column="type"		jdbcType="TINYINT"		property="type" />
+			<result column="value_range"		jdbcType="VARCHAR"		property="valueRange" />
+			<result column="prop_type"		jdbcType="TINYINT"		property="propType" />
+			<result column="sequence"		jdbcType="INTEGER"		property="sequence" />
+			<result column="active"		jdbcType="TINYINT"		property="active" />
+			<result column="addtime"		jdbcType="TIMESTAMP"		property="addtime" />
+			<result column="updatetime"		jdbcType="TIMESTAMP"		property="updatetime" />
+	  </resultMap>
+  
+  <sql id="Base_Column_List">
+	id,c_id,isleaf,name,pid,is_required,is_selfdefine,type,value_range,prop_type,sequence,active,addtime,updatetime  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from category_property
+    where 1=1  and id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from category_property
+    where 1=1 and id = #{id,jdbcType=BIGINT}  </delete>
+  
+  <insert id="insert" parameterType="com.baidu.jinbao.innerapi.category.bo.CategoryProperty" useGeneratedKeys="true" keyProperty="id">
+    insert into category_property 
+	(id, c_id, isleaf, name, pid, is_required, is_selfdefine, type, value_range, prop_type, sequence, active, addtime, updatetime)
+    values 
+	( #{id,jdbcType=BIGINT},#{cId,jdbcType=INTEGER},#{isleaf,jdbcType=TINYINT},#{name,jdbcType=VARCHAR},#{pid,jdbcType=BIGINT},#{isRequired,jdbcType=TINYINT},#{isSelfdefine,jdbcType=TINYINT},#{type,jdbcType=TINYINT},#{valueRange,jdbcType=VARCHAR},#{propType,jdbcType=TINYINT},#{sequence,jdbcType=INTEGER},#{active,jdbcType=TINYINT},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.baidu.jinbao.innerapi.category.bo.CategoryProperty" useGeneratedKeys="true" keyProperty="id">
+    insert into category_property
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		
+	  <if test="id != null">
+        id,
+      </if>
+				
+	  <if test="cId != null">
+        c_id,
+      </if>
+			
+	  <if test="isleaf != null">
+        isleaf,
+      </if>
+			
+	  <if test="name != null">
+        name,
+      </if>
+			
+	  <if test="pid != null">
+        pid,
+      </if>
+			
+	  <if test="isRequired != null">
+        is_required,
+      </if>
+			
+	  <if test="isSelfdefine != null">
+        is_selfdefine,
+      </if>
+			
+	  <if test="type != null">
+        type,
+      </if>
+			
+	  <if test="valueRange != null">
+        value_range,
+      </if>
+			
+	  <if test="propType != null">
+        prop_type,
+      </if>
+			
+	  <if test="sequence != null">
+        sequence,
+      </if>
+			
+	  <if test="active != null">
+        active,
+      </if>
+			
+	  <if test="addtime != null">
+        addtime,
+      </if>
+			
+	  <if test="updatetime != null">
+        updatetime,
+      </if>
+	    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+			
+	  <if test="id != null">
+         #{id,jdbcType=BIGINT},
+      </if>
+				
+	  <if test="cId != null">
+         #{cId,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="isleaf != null">
+         #{isleaf,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="name != null">
+         #{name,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="pid != null">
+         #{pid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="isRequired != null">
+         #{isRequired,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="isSelfdefine != null">
+         #{isSelfdefine,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="type != null">
+         #{type,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="valueRange != null">
+         #{valueRange,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="propType != null">
+         #{propType,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="sequence != null">
+         #{sequence,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="active != null">
+         #{active,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="addtime != null">
+         #{addtime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="updatetime != null">
+         #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.innerapi.category.bo.CategoryProperty">
+    update category_property
+    <set>      <if test="cId != null">
+        c_id = #{cId,jdbcType=INTEGER},
+      </if>
+	        <if test="isleaf != null">
+        isleaf = #{isleaf,jdbcType=TINYINT},
+      </if>
+	        <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+	        <if test="pid != null">
+        pid = #{pid,jdbcType=BIGINT},
+      </if>
+	        <if test="isRequired != null">
+        is_required = #{isRequired,jdbcType=TINYINT},
+      </if>
+	        <if test="isSelfdefine != null">
+        is_selfdefine = #{isSelfdefine,jdbcType=TINYINT},
+      </if>
+	        <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+	        <if test="valueRange != null">
+        value_range = #{valueRange,jdbcType=VARCHAR},
+      </if>
+	        <if test="propType != null">
+        prop_type = #{propType,jdbcType=TINYINT},
+      </if>
+	        <if test="sequence != null">
+        sequence = #{sequence,jdbcType=INTEGER},
+      </if>
+	        <if test="active != null">
+        active = #{active,jdbcType=TINYINT},
+      </if>
+	        <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	      </set>
+    where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.innerapi.category.bo.CategoryProperty">
+    update category_property
+    set 
+     	c_id = #{cId,jdbcType=INTEGER},
+    	isleaf = #{isleaf,jdbcType=TINYINT},
+    	name = #{name,jdbcType=VARCHAR},
+    	pid = #{pid,jdbcType=BIGINT},
+    	is_required = #{isRequired,jdbcType=TINYINT},
+    	is_selfdefine = #{isSelfdefine,jdbcType=TINYINT},
+    	type = #{type,jdbcType=TINYINT},
+    	value_range = #{valueRange,jdbcType=VARCHAR},
+    	prop_type = #{propType,jdbcType=TINYINT},
+    	sequence = #{sequence,jdbcType=INTEGER},
+    	active = #{active,jdbcType=TINYINT},
+    	addtime = #{addtime,jdbcType=TIMESTAMP},
+    	updatetime = #{updatetime,jdbcType=TIMESTAMP}
+        where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+
+</mapper>

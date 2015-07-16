@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.innerapi.spu.dao.mapper.CspuInfoMapper">
+
+  <resultMap id="BaseResultMap" type="com.baidu.jinbao.innerapi.spu.bo.CspuInfo">
+			<id     column="cspuid"		jdbcType="BIGINT"		property="cspuid" />
+	 		<result column="cid"		jdbcType="BIGINT"		property="cid" />
+			<result column="spuid"		jdbcType="BIGINT"		property="spuid" />
+			<result column="name"		jdbcType="VARCHAR"		property="name" />
+			<result column="alias"		jdbcType="VARCHAR"		property="alias" />
+			<result column="brand"		jdbcType="BIGINT"		property="brand" />
+			<result column="product_model"		jdbcType="VARCHAR"		property="productModel" />
+			<result column="product_upc"		jdbcType="VARCHAR"		property="productUpc" />
+			<result column="sale_attribute"		jdbcType="VARCHAR"		property="saleAttribute" />
+			<result column="attribute"		jdbcType="VARCHAR"		property="attribute" />
+			<result column="sale_attribute_orig"		jdbcType="VARCHAR"		property="saleAttributeOrig" />
+			<result column="attribute_orig"		jdbcType="VARCHAR"		property="attributeOrig" />
+			<result column="extend_attribute"		jdbcType="VARCHAR"		property="extendAttribute" />
+			<result column="pack_list"		jdbcType="VARCHAR"		property="packList" />
+			<result column="price"		jdbcType="DECIMAL"		property="price" />
+			<result column="url"		jdbcType="VARCHAR"		property="url" />
+			<result column="big_field"		jdbcType="LONGVARBINARY"		property="bigField" />
+			<result column="deleted"		jdbcType="TINYINT"		property="deleted" />
+			<result column="active"		jdbcType="TINYINT"		property="active" />
+			<result column="level"		jdbcType="BIGINT"		property="level" />
+			<result column="cspu_from"		jdbcType="TINYINT"		property="cspuFrom" />
+			<result column="addtime"		jdbcType="TIMESTAMP"		property="addtime" />
+			<result column="updatetime"		jdbcType="TIMESTAMP"		property="updatetime" />
+	  </resultMap>
+  
+  <sql id="Base_Column_List">
+	cspuid,cid,spuid,name,alias,brand,product_model,product_upc,sale_attribute,attribute,sale_attribute_orig,attribute_orig,extend_attribute,pack_list,price,url,big_field,deleted,active,level,cspu_from,addtime,updatetime  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cspu_info
+    where 1=1  and cspuid = #{cspuid,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from cspu_info
+    where 1=1 and cspuid = #{cspuid,jdbcType=BIGINT}  </delete>
+  
+  <insert id="insert" parameterType="com.baidu.jinbao.innerapi.spu.bo.CspuInfo" useGeneratedKeys="true" keyProperty="cspuid">
+    insert into cspu_info 
+	(cspuid, cid, spuid, name, alias, brand, product_model, product_upc, sale_attribute, attribute, sale_attribute_orig, attribute_orig, extend_attribute, pack_list, price, url, big_field, deleted, active, level, cspu_from, addtime, updatetime)
+    values 
+	( #{cspuid,jdbcType=BIGINT},#{cid,jdbcType=BIGINT},#{spuid,jdbcType=BIGINT},#{name,jdbcType=VARCHAR},#{alias,jdbcType=VARCHAR},#{brand,jdbcType=BIGINT},#{productModel,jdbcType=VARCHAR},#{productUpc,jdbcType=VARCHAR},#{saleAttribute,jdbcType=VARCHAR},#{attribute,jdbcType=VARCHAR},#{saleAttributeOrig,jdbcType=VARCHAR},#{attributeOrig,jdbcType=VARCHAR},#{extendAttribute,jdbcType=VARCHAR},#{packList,jdbcType=VARCHAR},#{price,jdbcType=DECIMAL},#{url,jdbcType=VARCHAR},#{bigField,jdbcType=LONGVARBINARY},#{deleted,jdbcType=TINYINT},#{active,jdbcType=TINYINT},#{level,jdbcType=BIGINT},#{cspuFrom,jdbcType=TINYINT},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.baidu.jinbao.innerapi.spu.bo.CspuInfo" useGeneratedKeys="true" keyProperty="cspuid">
+    insert into cspu_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		
+	  <if test="cspuid != null">
+        cspuid,
+      </if>
+				
+	  <if test="cid != null">
+        cid,
+      </if>
+			
+	  <if test="spuid != null">
+        spuid,
+      </if>
+			
+	  <if test="name != null">
+        name,
+      </if>
+			
+	  <if test="alias != null">
+        alias,
+      </if>
+			
+	  <if test="brand != null">
+        brand,
+      </if>
+			
+	  <if test="productModel != null">
+        product_model,
+      </if>
+			
+	  <if test="productUpc != null">
+        product_upc,
+      </if>
+			
+	  <if test="saleAttribute != null">
+        sale_attribute,
+      </if>
+			
+	  <if test="attribute != null">
+        attribute,
+      </if>
+			
+	  <if test="saleAttributeOrig != null">
+        sale_attribute_orig,
+      </if>
+			
+	  <if test="attributeOrig != null">
+        attribute_orig,
+      </if>
+			
+	  <if test="extendAttribute != null">
+        extend_attribute,
+      </if>
+			
+	  <if test="packList != null">
+        pack_list,
+      </if>
+			
+	  <if test="price != null">
+        price,
+      </if>
+			
+	  <if test="url != null">
+        url,
+      </if>
+			
+	  <if test="bigField != null">
+        big_field,
+      </if>
+			
+	  <if test="deleted != null">
+        deleted,
+      </if>
+			
+	  <if test="active != null">
+        active,
+      </if>
+			
+	  <if test="level != null">
+        level,
+      </if>
+			
+	  <if test="cspuFrom != null">
+        cspu_from,
+      </if>
+			
+	  <if test="addtime != null">
+        addtime,
+      </if>
+			
+	  <if test="updatetime != null">
+        updatetime,
+      </if>
+	    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+			
+	  <if test="cspuid != null">
+         #{cspuid,jdbcType=BIGINT},
+      </if>
+				
+	  <if test="cid != null">
+         #{cid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="spuid != null">
+         #{spuid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="name != null">
+         #{name,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="alias != null">
+         #{alias,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="brand != null">
+         #{brand,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="productModel != null">
+         #{productModel,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="productUpc != null">
+         #{productUpc,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="saleAttribute != null">
+         #{saleAttribute,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="attribute != null">
+         #{attribute,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="saleAttributeOrig != null">
+         #{saleAttributeOrig,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="attributeOrig != null">
+         #{attributeOrig,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="extendAttribute != null">
+         #{extendAttribute,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="packList != null">
+         #{packList,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="price != null">
+         #{price,jdbcType=DECIMAL},
+      </if>
+			
+	  <if test="url != null">
+         #{url,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="bigField != null">
+         #{bigField,jdbcType=LONGVARBINARY},
+      </if>
+			
+	  <if test="deleted != null">
+         #{deleted,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="active != null">
+         #{active,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="level != null">
+         #{level,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="cspuFrom != null">
+         #{cspuFrom,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="addtime != null">
+         #{addtime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="updatetime != null">
+         #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.innerapi.spu.bo.CspuInfo">
+    update cspu_info
+    <set>      <if test="cid != null">
+        cid = #{cid,jdbcType=BIGINT},
+      </if>
+	        <if test="spuid != null">
+        spuid = #{spuid,jdbcType=BIGINT},
+      </if>
+	        <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+	        <if test="alias != null">
+        alias = #{alias,jdbcType=VARCHAR},
+      </if>
+	        <if test="brand != null">
+        brand = #{brand,jdbcType=BIGINT},
+      </if>
+	        <if test="productModel != null">
+        product_model = #{productModel,jdbcType=VARCHAR},
+      </if>
+	        <if test="productUpc != null">
+        product_upc = #{productUpc,jdbcType=VARCHAR},
+      </if>
+	        <if test="saleAttribute != null">
+        sale_attribute = #{saleAttribute,jdbcType=VARCHAR},
+      </if>
+	        <if test="attribute != null">
+        attribute = #{attribute,jdbcType=VARCHAR},
+      </if>
+	        <if test="saleAttributeOrig != null">
+        sale_attribute_orig = #{saleAttributeOrig,jdbcType=VARCHAR},
+      </if>
+	        <if test="attributeOrig != null">
+        attribute_orig = #{attributeOrig,jdbcType=VARCHAR},
+      </if>
+	        <if test="extendAttribute != null">
+        extend_attribute = #{extendAttribute,jdbcType=VARCHAR},
+      </if>
+	        <if test="packList != null">
+        pack_list = #{packList,jdbcType=VARCHAR},
+      </if>
+	        <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+	        <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+	        <if test="bigField != null">
+        big_field = #{bigField,jdbcType=LONGVARBINARY},
+      </if>
+	        <if test="deleted != null">
+        deleted = #{deleted,jdbcType=TINYINT},
+      </if>
+	        <if test="active != null">
+        active = #{active,jdbcType=TINYINT},
+      </if>
+	        <if test="level != null">
+        level = #{level,jdbcType=BIGINT},
+      </if>
+	        <if test="cspuFrom != null">
+        cspu_from = #{cspuFrom,jdbcType=TINYINT},
+      </if>
+	        <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	      </set>
+    where 1=1 and cspuid = #{cspuid,jdbcType=BIGINT}  
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.innerapi.spu.bo.CspuInfo">
+    update cspu_info
+    set 
+     	cid = #{cid,jdbcType=BIGINT},
+    	spuid = #{spuid,jdbcType=BIGINT},
+    	name = #{name,jdbcType=VARCHAR},
+    	alias = #{alias,jdbcType=VARCHAR},
+    	brand = #{brand,jdbcType=BIGINT},
+    	product_model = #{productModel,jdbcType=VARCHAR},
+    	product_upc = #{productUpc,jdbcType=VARCHAR},
+    	sale_attribute = #{saleAttribute,jdbcType=VARCHAR},
+    	attribute = #{attribute,jdbcType=VARCHAR},
+    	sale_attribute_orig = #{saleAttributeOrig,jdbcType=VARCHAR},
+    	attribute_orig = #{attributeOrig,jdbcType=VARCHAR},
+    	extend_attribute = #{extendAttribute,jdbcType=VARCHAR},
+    	pack_list = #{packList,jdbcType=VARCHAR},
+    	price = #{price,jdbcType=DECIMAL},
+    	url = #{url,jdbcType=VARCHAR},
+    	big_field = #{bigField,jdbcType=LONGVARBINARY},
+    	deleted = #{deleted,jdbcType=TINYINT},
+    	active = #{active,jdbcType=TINYINT},
+    	level = #{level,jdbcType=BIGINT},
+    	cspu_from = #{cspuFrom,jdbcType=TINYINT},
+    	addtime = #{addtime,jdbcType=TIMESTAMP},
+    	updatetime = #{updatetime,jdbcType=TIMESTAMP}
+        where 1=1 and cspuid = #{cspuid,jdbcType=BIGINT}  
+  </update>
+
+</mapper>

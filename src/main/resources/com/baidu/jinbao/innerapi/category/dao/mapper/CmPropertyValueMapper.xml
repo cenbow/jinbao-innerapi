@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baidu.jinbao.innerapi.category.dao.mapper.CmPropertyValueMapper">
+<!-- ===========================SELECT======================== -->
+<select id="batchSelect" resultMap="BaseResultMap">
+SELECT <include refid="Base_Column_List" />
+FROM cm_property_value
+WHERE id IN
+<foreach item="item" index="index" collection="list" open="(" separator="," close=")"> #{item}</foreach>
+</select>
+<!-- =============================DELETE===================== -->
+<delete id="batchDelete">
+DELETE FROM cm_property_value
+WHERE id IN
+<foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item}</foreach>
+</delete>
+<!-- =========================INSERT========================= -->
+ <insert id="batchInsert">
+INSERT INTO cm_property_value
+(
+cid,
+cm_pid,
+dic_vid,
+pos,
+active,
+updatetime
+)
+VALUES
+<foreach collection="list" item="item" index="index" separator=",">
+(
+#{item.cid,jdbcType=INTEGER},
+#{item.cmPid,jdbcType=INTEGER},
+#{item.dicVid,jdbcType=INTEGER},
+#{item.pos,jdbcType=INTEGER},
+#{item.active,jdbcType=TINYINT},
+#{item.updatetime,jdbcType=TIMESTAMP}
+)
+</foreach>
+</insert>
+<!-- =========================UPDATE========================= -->
+<update id="batchUpdate">
+UPDATE
+cm_property_value
+<trim prefix="SET" suffixOverrides=",">
+<trim prefix="cid=CASE" suffix="END,">
+<foreach collection="list" item="item" index="index" separator=" ">
+<if test="item.cid!=null">
+ WHEN id = #{item.id,jdbcType=BIGINT}
+THEN
+#{item.cid,jdbcType=INTEGER}
+</if>
+</foreach>
+</trim>
+<trim prefix="cm_pid=CASE" suffix="END,">
+<foreach collection="list" item="item" index="index" separator=" ">
+<if test="item.cmPid!=null">
+ WHEN id = #{item.id,jdbcType=BIGINT}
+THEN
+#{item.cmPid,jdbcType=INTEGER}
+</if>
+</foreach>
+</trim>
+<trim prefix="dic_vid=CASE" suffix="END,">
+<foreach collection="list" item="item" index="index" separator=" ">
+<if test="item.dicVid!=null">
+ WHEN id = #{item.id,jdbcType=BIGINT}
+THEN
+#{item.dicVid,jdbcType=INTEGER}
+</if>
+</foreach>
+</trim>
+<trim prefix="pos=CASE" suffix="END,">
+<foreach collection="list" item="item" index="index" separator=" ">
+<if test="item.pos!=null">
+ WHEN id = #{item.id,jdbcType=BIGINT}
+THEN
+#{item.pos,jdbcType=INTEGER}
+</if>
+</foreach>
+</trim>
+<trim prefix="active=CASE" suffix="END,">
+<foreach collection="list" item="item" index="index" separator=" ">
+<if test="item.active!=null">
+ WHEN id = #{item.id,jdbcType=BIGINT}
+THEN
+#{item.active,jdbcType=TINYINT}
+</if>
+</foreach>
+</trim>
+<trim prefix="updatetime=CASE" suffix="END,">
+<foreach collection="list" item="item" index="index" separator=" ">
+<if test="item.updatetime!=null">
+ WHEN id = #{item.id,jdbcType=BIGINT}
+THEN
+#{item.updatetime,jdbcType=TIMESTAMP}
+</if>
+</foreach>
+</trim>
+</trim>
+WHERE id IN
+<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+#{item.id,jdbcType=BIGINT}
+</foreach>
+</update>
+</mapper>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baidu.jinbao.mall.item.dao.mapper.ItemCdtMapper">
+
+
+	<select id="select" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from item_cdt
+		where 1=1 and itemid = #{itemid,jdbcType=BIGINT}
+	</select>
+
+	<update id="update" parameterType="com.baidu.jinbao.mall.item.bo.ItemCdt">
+		update item_cdt
+		<set>
+			<if test="itemid != null">
+				itemid = #{itemid,jdbcType=BIGINT},
+			</if>
+			<if test="leafcategoryid != null">
+				leafcategoryid = #{leafcategoryid,jdbcType=BIGINT},
+			</if>
+			<if test="classificationtype != null">
+				classificationtype =
+				#{classificationtype,jdbcType=TINYINT},
+			</if>
+			<if test="operator != null">
+				operator = #{operator,jdbcType=BIGINT},
+			</if>
+			<if test="confidence != null">
+				confidence = #{confidence,jdbcType=INTEGER},
+			</if>
+			<if test="addtime != null">
+				addtime = #{addtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="cdtMd5 != null">
+				cdt_md5 = #{cdtMd5,jdbcType=CHAR},
+			</if>
+		</set>
+		where 1=1 and cdt_md5 = #{cdtMd5,jdbcType=CHAR}
+	</update>
+
+	<delete id="delete" parameterType="java.lang.Long">
+		delete from item_cdt
+		where 1=1
+		and itemid = #{itemid,jdbcType=BIGINT}
+	</delete>
+
+	<update id="updateByItemId" parameterType="com.baidu.jinbao.mall.item.bo.ItemCdt">
+		update item_cdt
+		<set>
+			<if test="itemid != null">
+				itemid = #{itemid,jdbcType=BIGINT},
+			</if>
+			<if test="leafcategoryid != null">
+				leafcategoryid = #{leafcategoryid,jdbcType=BIGINT},
+			</if>
+			<if test="classificationtype != null">
+				classificationtype =
+				#{classificationtype,jdbcType=TINYINT},
+			</if>
+			<if test="operator != null">
+				operator = #{operator,jdbcType=BIGINT},
+			</if>
+			<if test="confidence != null">
+				confidence = #{confidence,jdbcType=INTEGER},
+			</if>
+			<if test="addtime != null">
+				addtime = #{addtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="cdtMd5 != null">
+				cdt_md5 = #{cdtMd5,jdbcType=CHAR},
+			</if>
+		</set>
+		where 1=1 and itemid = #{itemid,jdbcType=BIGINT}
+	</update>
+
+	<select id="batchSelectByItemIdList" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM item_cdt
+		WHERE itemid IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+	<select id="selectByItemId" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from item_cdt
+		where 1=1 and itemid = #{itemid,jdbcType=BIGINT}
+	</select>
+
+	<update id="batchUpdate" parameterType="java.util.List">
+		UPDATE
+		item_cdt
+		<trim prefix="SET" suffixOverrides=",">
+			<trim prefix="leafcategoryid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.leafcategoryid!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.leafcategoryid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="classificationtype=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.classificationtype!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.classificationtype,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="operator=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.operator!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.operator,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="confidence=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.confidence!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.confidence,jdbcType=INTEGER}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="addtime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.addtime!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.addtime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="updatetime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.updatetime!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.updatetime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="cdt_md5=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.cdtMd5!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.cdtMd5,jdbcType=CHAR}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+		WHERE itemid IN
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item.itemid,jdbcType=BIGINT}
+		</foreach>
+	</update>
+
+	<insert id="insertOne" parameterType="com.baidu.jinbao.mall.item.bo.ItemCdt"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into item_cdt
+		(itemid,
+		leafcategoryid, classificationtype, operator, confidence,
+		addtime,
+		updatetime, cdt_md5)
+		values
+		(
+		#{itemid,jdbcType=BIGINT},#{leafcategoryid,jdbcType=BIGINT},#{classificationtype,jdbcType=TINYINT},#{operator,jdbcType=BIGINT},#{confidence,jdbcType=INTEGER},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP},#{cdtMd5,jdbcType=CHAR})
+	</insert>
+	<insert id="batchInsert">
+		INSERT INTO item_cdt
+		(
+		itemid, leafcategoryid, classificationtype,
+		operator, confidence,
+		addtime, updatetime, cdt_md5
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.itemid,jdbcType=BIGINT},
+			#{item.leafcategoryid,jdbcType=BIGINT},
+			#{item.classificationtype,jdbcType=TINYINT},
+			#{item.operator,jdbcType=BIGINT},
+			#{item.confidence,jdbcType=INTEGER},
+			#{item.addtime,jdbcType=TIMESTAMP},
+			#{item.updatetime,jdbcType=TIMESTAMP},
+			#{item.cdtMd5,jdbcType=CHAR}
+			)
+		</foreach>
+	</insert>
+</mapper>

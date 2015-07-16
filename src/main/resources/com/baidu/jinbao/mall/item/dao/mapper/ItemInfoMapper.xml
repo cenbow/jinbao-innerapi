@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baidu.jinbao.mall.item.dao.mapper.ItemInfoMapper">
+
+	<resultMap id="ItemAttributeResultMap" type="com.baidu.jinbao.mall.item.bo.ItemAttribute">
+		<id column="item_attribute_id" jdbcType="BIGINT" property="id" />
+		<result column="item_attribute_itemid" jdbcType="BIGINT"
+			property="itemid" />
+		<result column="item_attribute_property_id" jdbcType="VARCHAR"
+			property="propertyId" />
+		<result column="item_attribute_property_values" jdbcType="VARCHAR"
+			property="propertyValues" />
+		<result column="item_attribute_property_md5" jdbcType="CHAR"
+			property="propertyMd5" />
+		<result column="item_attribute_addtime" jdbcType="TIMESTAMP"
+			property="addtime" />
+		<result column="item_attribute_updatetime" jdbcType="TIMESTAMP"
+			property="updatetime" />
+	</resultMap>
+
+	<resultMap id="ItemCdtResultMap" type="com.baidu.jinbao.mall.item.bo.ItemCdt">
+		<id column="item_cdt_id" jdbcType="BIGINT" property="id" />
+		<result column="item_cdt_itemid" jdbcType="BIGINT" property="itemid" />
+		<result column="item_cdt_leafcategoryid" jdbcType="BIGINT"
+			property="leafcategoryid" />
+		<result column="item_cdt_classificationtype" jdbcType="TINYINT"
+			property="classificationtype" />
+		<result column="item_cdt_operator" jdbcType="BIGINT" property="operator" />
+		<result column="item_cdt_confidence" jdbcType="INTEGER"
+			property="confidence" />
+		<result column="item_cdt_addtime" jdbcType="TIMESTAMP"
+			property="addtime" />
+		<result column="item_cdt_updatetime" jdbcType="TIMESTAMP"
+			property="updatetime" />
+		<result column="item_cdt_cdt_md5" jdbcType="CHAR" property="cdtMd5" />
+	</resultMap>
+
+	<resultMap id="PageItemTotalInfoVoResultMap"
+		type="com.baidu.jinbao.mall.item.vo.PageItemTotalInfoVo">
+		<association property="itemInfo"
+			javaType="com.baidu.jinbao.mall.item.bo.ItemInfo" resultMap="BaseResultMap" />
+		<association property="itemAttribute"
+			javaType="com.baidu.jinbao.mall.item.bo.ItemAttribute" resultMap="ItemAttributeResultMap" />
+		<association property="itemCdt"
+			javaType="com.baidu.jinbao.mall.item.bo.ItemCdt" resultMap="ItemCdtResultMap" />
+	</resultMap>
+
+	<!-- ===========================Select Page ItemTotalInfo======================== -->
+	<select id="selectPageItemTotalInfo" resultMap="PageItemTotalInfoVoResultMap">
+		SELECT
+		item_info.itemid as itemid,item_info.merchantid as
+		merchantid,item_info.ucid as
+		ucid,item_info.shopid as shopid,
+		item_info.outerid as outerid,item_info.item_info_hashcode as
+		item_info_hashcode,item_info.title as title,
+		item_info.subtitle as
+		subtitle,item_info.url as url,item_info.starttime as
+		starttime,item_info.endtime as endtime,
+		item_info.merchant_status as
+		merchant_status,item_info.manual_status as
+		manual_status,item_info.shopcategory as shopcategory,
+		item_info.dataversion as dataversion,item_info.addtime as
+		addtime,item_info.updatetime as updatetime,
+		item_info.ware_big_small_model as
+		ware_big_small_model,item_info.ware_pack_type as ware_pack_type,
+		item_info.deleted as deleted,item_info.category_ori as
+		category_ori,item_info.brand_ori as brand_ori,
+
+		item_attribute.id as
+		item_attribute_id,item_attribute.itemid as
+		item_attribute_itemid,item_attribute.property_id as
+		item_attribute_property_id,
+		item_attribute.property_values as
+		item_attribute_property_values,
+		item_attribute.property_md5 as
+		item_attribute_property_md5,
+		item_attribute.addtime as
+		item_attribute_addtime,item_attribute.updatetime as
+		item_attribute_updatetime,
+
+		item_cdt.id as item_cdt_id,item_cdt.itemid
+		as item_cdt_itemid,item_cdt.leafcategoryid as item_cdt_leafcategoryid,
+		item_cdt.classificationtype as
+		item_cdt_classificationtype,item_cdt.operator as item_cdt_operator,
+		item_cdt.confidence as item_cdt_confidence,item_cdt.addtime as
+		item_cdt_addtime,item_cdt.updatetime as item_cdt_updatetime,
+		item_cdt.cdt_md5 as item_cdt_cdt_md5
+
+		FROM
+		item_info
+		LEFT JOIN
+		item_attribute on item_info.itemid =
+		item_attribute.itemid
+		LEFT JOIN
+		item_cdt on item_info.itemid =
+		item_cdt.itemid
+
+		WHERE 1=1 and
+		item_info.deleted=0 and
+		item_info.shopid
+		in
+		<foreach collection="condition.shopIdList" item="item" index="index"
+			open="(" close=")" separator=",">
+			#{item,jdbcType=BIGINT}
+		</foreach>
+		<if test="condition.manualStatus != null">
+			And item_info.manual_status = #{condition.manualStatus,
+			jdbcType=TINYINT}
+		</if>
+		<if test="condition.merchantStatus != null">
+			And item_info.merchant_status =
+			#{condition.merchantStatus,
+			jdbcType=TINYINT}
+		</if>
+		<if
+			test="condition.leafcategoryidList != null and condition.leafcategoryidList.size() > 0">
+			And item_cdt.leafcategoryid
+			in
+			<foreach collection="condition.leafcategoryidList" item="item"
+				index="index" open="(" close=")" separator=",">
+				#{item,jdbcType=BIGINT}
+			</foreach>
+		</if>
+		<if test="condition.rank == 0">
+			ORDER BY item_info.starttime
+		</if>
+		<if test="condition.rank == 1">
+			ORDER BY item_info.starttime DESC
+		</if>
+	</select>
+
+	<update id="update" parameterType="com.baidu.jinbao.mall.item.bo.ItemInfo">
+		update item_info
+		<set>
+			<if test="merchantid != null">
+				merchantid = #{merchantid,jdbcType=INTEGER},
+			</if>
+			<if test="ucid != null">
+				ucid = #{ucid,jdbcType=BIGINT},
+			</if>
+			<if test="shopid != null">
+				shopid = #{shopid,jdbcType=INTEGER},
+			</if>
+			<if test="outerid != null">
+				outerid = #{outerid,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="subtitle != null">
+				subtitle = #{subtitle,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				url = #{url,jdbcType=VARCHAR},
+			</if>
+			<if test="starttime != null">
+				starttime = #{starttime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="endtime != null">
+				endtime = #{endtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="merchantStatus != null">
+				merchant_status = #{merchantStatus,jdbcType=TINYINT},
+			</if>
+			<if test="manualStatus != null">
+				manual_status = #{manualStatus,jdbcType=TINYINT},
+			</if>
+			<if test="shopcategory != null">
+				shopcategory = #{shopcategory,jdbcType=VARCHAR},
+			</if>
+			<if test="dataversion != null">
+				dataversion = #{dataversion,jdbcType=BIGINT},
+			</if>
+			<if test="addtime != null">
+				addtime = #{addtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="wareBigSmallModel != null">
+				ware_big_small_model =
+				#{wareBigSmallModel,jdbcType=INTEGER},
+			</if>
+			<if test="warePackType != null">
+				ware_pack_type = #{warePackType,jdbcType=INTEGER},
+			</if>
+			<if test="deleted != null">
+				deleted = #{deleted,jdbcType=TINYINT},
+			</if>
+			<if test="categoryOri != null">
+				category_ori = #{categoryOri,jdbcType=VARCHAR},
+			</if>
+			<if test="brandOri != null">
+				brand_ori = #{brandOri,jdbcType=CHAR},
+			</if>
+		</set>
+		where 1=1 and itemid = #{itemid,jdbcType=BIGINT}
+	</update>
+
+	<update id="delete" parameterType="java.lang.Long">
+		update item_info
+		set deleted =
+		1
+		where 1=1
+		and itemid = #{itemd,jdbcType=BIGINT}
+	</update>
+	<select id="select" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from item_info
+		where 1=1 and deleted=0 and itemid =
+		#{itemid,jdbcType=BIGINT}
+	</select>
+
+	<select id="selectByHashCode" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from item_info
+		where 1=1 and deleted=0 and item_info_hashcode =
+		#{itemInfoHashcode,jdbcType=INTEGER}
+	</select>
+	<update id="batchUpdate">
+		UPDATE
+		item_info
+		<trim prefix="SET" suffixOverrides=",">
+			<trim prefix="merchantid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.merchantid!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.merchantid,jdbcType=INTEGER}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="ucid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.ucid!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.ucid,jdbcType=INTEGER}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="shopid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.shopid!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.shopid,jdbcType=INTEGER}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="outerid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.outerid!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.outerid,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="title=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.title!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.title,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="subtitle=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.subtitle!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.subtitle,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="url=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.url!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.url,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="starttime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.starttime!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.starttime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="endtime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.endtime!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.endtime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="merchant_status=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.merchantStatus!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.merchantStatus,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="manual_status=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.manualStatus!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.manualStatus,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="shopcategory=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.shopcategory!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.shopcategory,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="dataversion=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.dataversion!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.dataversion,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="addtime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.addtime!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.addtime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="updatetime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.updatetime!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.updatetime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="ware_big_small_model=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.wareBigSmallModel!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.wareBigSmallModel,jdbcType=INTEGER}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="ware_pack_type=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.warePackType!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.warePackType,jdbcType=INTEGER}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="deleted=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.deleted!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.deleted,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="category_ori=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.categoryOri!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.categoryOri,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="brand_ori=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.brandOri!=null">
+						WHEN itemid = #{item.itemid,jdbcType=BIGINT}
+						THEN
+						#{item.brandOri,jdbcType=CHAR}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+		WHERE itemid IN
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item.itemid,jdbcType=BIGINT}
+		</foreach>
+	</update>
+
+	<insert id="insertOne" parameterType="com.baidu.jinbao.mall.item.bo.ItemInfo"
+		useGeneratedKeys="true" keyProperty="itemid">
+		insert into item_info
+		(
+		merchantid,
+		ucid, shopid, outerid, item_info_hashcode, title,
+		subtitle, url,
+		starttime, endtime, merchant_status, manual_status,
+		shopcategory,
+		dataversion, addtime, updatetime, ware_big_small_model,
+		ware_pack_type, deleted, category_ori, brand_ori)
+		values
+		(
+		#{merchantid,jdbcType=INTEGER},#{ucid,jdbcType=BIGINT},#{shopid,jdbcType=INTEGER},#{outerid,jdbcType=VARCHAR},#{itemInfoHashcode,jdbcType=INTEGER},#{title,jdbcType=VARCHAR},#{subtitle,jdbcType=VARCHAR},#{url,jdbcType=VARCHAR},#{starttime,jdbcType=TIMESTAMP},#{endtime,jdbcType=TIMESTAMP},#{merchantStatus,jdbcType=TINYINT},#{manualStatus,jdbcType=TINYINT},#{shopcategory,jdbcType=VARCHAR},#{dataversion,jdbcType=BIGINT},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP},#{wareBigSmallModel,jdbcType=INTEGER},#{warePackType,jdbcType=INTEGER},#{deleted,jdbcType=TINYINT},#{categoryOri,jdbcType=VARCHAR},#{brandOri,jdbcType=CHAR})
+	</insert>
+
+	<select id="batchSelectByItemIdList" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM item_info
+		WHERE deleted=0 and itemid IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+</mapper>

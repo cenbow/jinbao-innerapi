@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baidu.jinbao.innerapi.jinbaocommon.dao.mapper.MerchantRouterMapper" >
+   <insert id="batchInsert">
+		INSERT INTO merchant_router
+		(
+		merchant_id, used_shards, merchant_amount_type, merchant_router_stat, addtime, updatetime
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.merchantId,jdbcType=BIGINT},#{item.usedShards,jdbcType=VARCHAR},
+			#{item.merchantAmountType,jdbcType=TINYINT},#{item.merchantRouterStat,jdbcType=TINYINT},
+			#{item.addtime, jdbcType=TIMESTAMP},#{item.updatetime,
+			jdbcType=TIMESTAMP})
+		</foreach>
+	</insert>
+
+	<update id="batchUpdate">
+		UPDATE merchant_router
+		<trim prefix="SET" suffixOverrides=",">
+			<trim prefix="merchant_id = CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.merchantId!=null">
+						WHEN id= #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.merchantId,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="used_shards = CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.usedShards!=null">
+						WHEN id= #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.usedShards,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="merchant_amount_type = CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.merchantAmountType!=null">
+						WHEN id= #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.merchantAmountType,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="merchant_router_stat = CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.merchantRouterStat!=null">
+						WHEN id= #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.merchantRouterStat,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="updatetime = CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.updatetime!=null">
+						WHEN id= #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.updatetime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+		WHERE id IN
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item.id,jdbcType=BIGINT}
+		</foreach>
+	</update>
+
+	<delete id="batchDelete">
+		DELETE
+		FROM merchant_router
+		WHERE id IN
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
+
+	<select id="batchSelect" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM merchant_router
+		WHERE id IN
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item}
+		</foreach>
+	</select>
+ <select id="selectByMerchantid" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM merchant_router
+        WHERE merchant_id = ${merchantid}
+        ORDER BY used_shards
+    </select>
+</mapper>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baidu.jinbao.innerapi.spu.dao.mapper.SpuInfoMapper">
+	<!-- ===========================SELECT======================== -->
+	<select id="batchSelect" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM spu_info
+		WHERE spuid IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")"> #{item}</foreach>
+	</select>
+	<!-- =============================DELETE===================== -->
+	<delete id="batchDelete">
+		DELETE FROM spu_info
+		WHERE spuid IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">#{item}</foreach>
+	</delete>
+	<!-- =========================INSERT========================= -->
+	<insert id="batchInsert">
+		INSERT INTO spu_info
+		(
+		cid,
+		name,
+		brand,
+		product_model,
+		deleted,
+		active,
+		addtime,
+		updatetime
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.cid,jdbcType=BIGINT},
+			#{item.name,jdbcType=VARCHAR},
+			#{item.brand,jdbcType=BIGINT},
+			#{item.productModel,jdbcType=VARCHAR},
+			#{item.deleted,jdbcType=TINYINT},
+			#{item.active,jdbcType=TINYINT},
+			#{item.addtime,jdbcType=TIMESTAMP},
+			#{item.updatetime,jdbcType=TIMESTAMP}
+			)
+		</foreach>
+	</insert>
+	<!-- =========================UPDATE========================= -->
+	<update id="batchUpdate">
+		UPDATE
+		spu_info
+		<trim prefix="SET" suffixOverrides=",">
+			<trim prefix="cid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.cid!=null">
+						WHEN spuid = #{item.spuid,jdbcType=BIGINT}
+						THEN
+						#{item.cid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="name=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.name!=null">
+						WHEN spuid = #{item.spuid,jdbcType=BIGINT}
+						THEN
+						#{item.name,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="brand=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.brand!=null">
+						WHEN spuid = #{item.spuid,jdbcType=BIGINT}
+						THEN
+						#{item.brand,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="product_model=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.productModel!=null">
+						WHEN spuid = #{item.spuid,jdbcType=BIGINT}
+						THEN
+						#{item.productModel,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="deleted=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.deleted!=null">
+						WHEN spuid = #{item.spuid,jdbcType=BIGINT}
+						THEN
+						#{item.deleted,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="active=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.active!=null">
+						WHEN spuid = #{item.spuid,jdbcType=BIGINT}
+						THEN
+						#{item.active,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="addtime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.addtime!=null">
+						WHEN spuid = #{item.spuid,jdbcType=BIGINT}
+						THEN
+						#{item.addtime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="updatetime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.updatetime!=null">
+						WHEN spuid = #{item.spuid,jdbcType=BIGINT}
+						THEN
+						#{item.updatetime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+		WHERE spuid IN
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item.spuid,jdbcType=BIGINT}
+		</foreach>
+	</update>
+</mapper>

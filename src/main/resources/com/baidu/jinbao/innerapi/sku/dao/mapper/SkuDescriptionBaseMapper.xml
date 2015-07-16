@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.innerapi.sku.dao.mapper.SkuDescriptionMapper">
+
+  <resultMap id="BaseResultMap" type="com.baidu.jinbao.innerapi.sku.bo.SkuDescription">
+			<id     column="id"		jdbcType="BIGINT"		property="id" />
+	 		<result column="merchantid"		jdbcType="BIGINT"		property="merchantid" />
+			<result column="sku_innerid"		jdbcType="BIGINT"		property="skuInnerid" />
+			<result column="skuid"		jdbcType="VARCHAR"		property="skuid" />
+			<result column="sku_desc_ori"		jdbcType="LONGVARBINARY"		property="skuDescOri" />
+			<result column="pd_hash"		jdbcType="CHAR"		property="pdHash" />
+			<result column="sku_desc"		jdbcType="LONGVARBINARY"		property="skuDesc" />
+			<result column="pd_status"		jdbcType="TINYINT"		property="pdStatus" />
+			<result column="area"		jdbcType="INTEGER"		property="area" />
+			<result column="Word_count"		jdbcType="INTEGER"		property="wordCount" />
+			<result column="addtime"		jdbcType="TIMESTAMP"		property="addtime" />
+			<result column="updatetime"		jdbcType="TIMESTAMP"		property="updatetime" />
+	  </resultMap>
+  
+  <sql id="Base_Column_List">
+	id,merchantid,sku_innerid,skuid,sku_desc_ori,pd_hash,sku_desc,pd_status,area,Word_count,addtime,updatetime  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sku_description
+    where 1=1  and id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sku_description
+    where 1=1 and id = #{id,jdbcType=BIGINT}  </delete>
+  
+  <insert id="insert" parameterType="com.baidu.jinbao.innerapi.sku.bo.SkuDescription" useGeneratedKeys="true" keyProperty="id">
+    insert into sku_description 
+	(id, merchantid, sku_innerid, skuid, sku_desc_ori, pd_hash, sku_desc, pd_status, area, Word_count, addtime, updatetime)
+    values 
+	( #{id,jdbcType=BIGINT},#{merchantid,jdbcType=BIGINT},#{skuInnerid,jdbcType=BIGINT},#{skuid,jdbcType=VARCHAR},#{skuDescOri,jdbcType=LONGVARBINARY},#{pdHash,jdbcType=CHAR},#{skuDesc,jdbcType=LONGVARBINARY},#{pdStatus,jdbcType=TINYINT},#{area,jdbcType=INTEGER},#{wordCount,jdbcType=INTEGER},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.baidu.jinbao.innerapi.sku.bo.SkuDescription" useGeneratedKeys="true" keyProperty="id">
+    insert into sku_description
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		
+	  <if test="id != null">
+        id,
+      </if>
+				
+	  <if test="merchantid != null">
+        merchantid,
+      </if>
+			
+	  <if test="skuInnerid != null">
+        sku_innerid,
+      </if>
+			
+	  <if test="skuid != null">
+        skuid,
+      </if>
+			
+	  <if test="skuDescOri != null">
+        sku_desc_ori,
+      </if>
+			
+	  <if test="pdHash != null">
+        pd_hash,
+      </if>
+			
+	  <if test="skuDesc != null">
+        sku_desc,
+      </if>
+			
+	  <if test="pdStatus != null">
+        pd_status,
+      </if>
+			
+	  <if test="area != null">
+        area,
+      </if>
+			
+	  <if test="wordCount != null">
+        Word_count,
+      </if>
+			
+	  <if test="addtime != null">
+        addtime,
+      </if>
+			
+	  <if test="updatetime != null">
+        updatetime,
+      </if>
+	    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+			
+	  <if test="id != null">
+         #{id,jdbcType=BIGINT},
+      </if>
+				
+	  <if test="merchantid != null">
+         #{merchantid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="skuInnerid != null">
+         #{skuInnerid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="skuid != null">
+         #{skuid,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="skuDescOri != null">
+         #{skuDescOri,jdbcType=LONGVARBINARY},
+      </if>
+			
+	  <if test="pdHash != null">
+         #{pdHash,jdbcType=CHAR},
+      </if>
+			
+	  <if test="skuDesc != null">
+         #{skuDesc,jdbcType=LONGVARBINARY},
+      </if>
+			
+	  <if test="pdStatus != null">
+         #{pdStatus,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="area != null">
+         #{area,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="wordCount != null">
+         #{wordCount,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="addtime != null">
+         #{addtime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="updatetime != null">
+         #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.innerapi.sku.bo.SkuDescription">
+    update sku_description
+    <set>      <if test="merchantid != null">
+        merchantid = #{merchantid,jdbcType=BIGINT},
+      </if>
+	        <if test="skuInnerid != null">
+        sku_innerid = #{skuInnerid,jdbcType=BIGINT},
+      </if>
+	        <if test="skuid != null">
+        skuid = #{skuid,jdbcType=VARCHAR},
+      </if>
+	        <if test="skuDescOri != null">
+        sku_desc_ori = #{skuDescOri,jdbcType=LONGVARBINARY},
+      </if>
+	        <if test="pdHash != null">
+        pd_hash = #{pdHash,jdbcType=CHAR},
+      </if>
+	        <if test="skuDesc != null">
+        sku_desc = #{skuDesc,jdbcType=LONGVARBINARY},
+      </if>
+	        <if test="pdStatus != null">
+        pd_status = #{pdStatus,jdbcType=TINYINT},
+      </if>
+	        <if test="area != null">
+        area = #{area,jdbcType=INTEGER},
+      </if>
+	        <if test="wordCount != null">
+        Word_count = #{wordCount,jdbcType=INTEGER},
+      </if>
+	        <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	      </set>
+    where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.innerapi.sku.bo.SkuDescription">
+    update sku_description
+    set 
+     	merchantid = #{merchantid,jdbcType=BIGINT},
+    	sku_innerid = #{skuInnerid,jdbcType=BIGINT},
+    	skuid = #{skuid,jdbcType=VARCHAR},
+    	sku_desc_ori = #{skuDescOri,jdbcType=LONGVARBINARY},
+    	pd_hash = #{pdHash,jdbcType=CHAR},
+    	sku_desc = #{skuDesc,jdbcType=LONGVARBINARY},
+    	pd_status = #{pdStatus,jdbcType=TINYINT},
+    	area = #{area,jdbcType=INTEGER},
+    	Word_count = #{wordCount,jdbcType=INTEGER},
+    	addtime = #{addtime,jdbcType=TIMESTAMP},
+    	updatetime = #{updatetime,jdbcType=TIMESTAMP}
+        where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+
+</mapper>

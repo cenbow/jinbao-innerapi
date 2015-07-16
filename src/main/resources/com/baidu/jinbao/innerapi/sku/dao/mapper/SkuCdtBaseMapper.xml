@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.innerapi.sku.dao.mapper.SkuCdtMapper">
+
+  <resultMap id="BaseResultMap" type="com.baidu.jinbao.innerapi.sku.bo.SkuCdt">
+			<id     column="id"		jdbcType="BIGINT"		property="id" />
+	 		<result column="sku_innerid"		jdbcType="BIGINT"		property="skuInnerid" />
+			<result column="skuid"		jdbcType="VARCHAR"		property="skuid" />
+			<result column="leafcategoryid"		jdbcType="BIGINT"		property="leafcategoryid" />
+			<result column="classificationtype"		jdbcType="TINYINT"		property="classificationtype" />
+			<result column="confidence"		jdbcType="REAL"		property="confidence" />
+			<result column="addtime"		jdbcType="TIMESTAMP"		property="addtime" />
+			<result column="updatetime"		jdbcType="TIMESTAMP"		property="updatetime" />
+	  </resultMap>
+  
+  <sql id="Base_Column_List">
+	id,sku_innerid,skuid,leafcategoryid,classificationtype,confidence,addtime,updatetime  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sku_cdt
+    where 1=1  and id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sku_cdt
+    where 1=1 and id = #{id,jdbcType=BIGINT}  </delete>
+  
+  <insert id="insert" parameterType="com.baidu.jinbao.innerapi.sku.bo.SkuCdt" useGeneratedKeys="true" keyProperty="id">
+    insert into sku_cdt 
+	(id, sku_innerid, skuid, leafcategoryid, classificationtype, confidence, addtime, updatetime)
+    values 
+	( #{id,jdbcType=BIGINT},#{skuInnerid,jdbcType=BIGINT},#{skuid,jdbcType=VARCHAR},#{leafcategoryid,jdbcType=BIGINT},#{classificationtype,jdbcType=TINYINT},#{confidence,jdbcType=REAL},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.baidu.jinbao.innerapi.sku.bo.SkuCdt" useGeneratedKeys="true" keyProperty="id">
+    insert into sku_cdt
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		
+	  <if test="id != null">
+        id,
+      </if>
+				
+	  <if test="skuInnerid != null">
+        sku_innerid,
+      </if>
+			
+	  <if test="skuid != null">
+        skuid,
+      </if>
+			
+	  <if test="leafcategoryid != null">
+        leafcategoryid,
+      </if>
+			
+	  <if test="classificationtype != null">
+        classificationtype,
+      </if>
+			
+	  <if test="confidence != null">
+        confidence,
+      </if>
+			
+	  <if test="addtime != null">
+        addtime,
+      </if>
+			
+	  <if test="updatetime != null">
+        updatetime,
+      </if>
+	    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+			
+	  <if test="id != null">
+         #{id,jdbcType=BIGINT},
+      </if>
+				
+	  <if test="skuInnerid != null">
+         #{skuInnerid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="skuid != null">
+         #{skuid,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="leafcategoryid != null">
+         #{leafcategoryid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="classificationtype != null">
+         #{classificationtype,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="confidence != null">
+         #{confidence,jdbcType=REAL},
+      </if>
+			
+	  <if test="addtime != null">
+         #{addtime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="updatetime != null">
+         #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.innerapi.sku.bo.SkuCdt">
+    update sku_cdt
+    <set>      <if test="skuInnerid != null">
+        sku_innerid = #{skuInnerid,jdbcType=BIGINT},
+      </if>
+	        <if test="skuid != null">
+        skuid = #{skuid,jdbcType=VARCHAR},
+      </if>
+	        <if test="leafcategoryid != null">
+        leafcategoryid = #{leafcategoryid,jdbcType=BIGINT},
+      </if>
+	        <if test="classificationtype != null">
+        classificationtype = #{classificationtype,jdbcType=TINYINT},
+      </if>
+	        <if test="confidence != null">
+        confidence = #{confidence,jdbcType=REAL},
+      </if>
+	        <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	      </set>
+    where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.innerapi.sku.bo.SkuCdt">
+    update sku_cdt
+    set 
+     	sku_innerid = #{skuInnerid,jdbcType=BIGINT},
+    	skuid = #{skuid,jdbcType=VARCHAR},
+    	leafcategoryid = #{leafcategoryid,jdbcType=BIGINT},
+    	classificationtype = #{classificationtype,jdbcType=TINYINT},
+    	confidence = #{confidence,jdbcType=REAL},
+    	addtime = #{addtime,jdbcType=TIMESTAMP},
+    	updatetime = #{updatetime,jdbcType=TIMESTAMP}
+        where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+
+</mapper>

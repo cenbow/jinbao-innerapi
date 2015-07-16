@@ -1,0 +1,236 @@
+package com.baidu.jinbao.innerapi.rpc;
+
+option java_outer_classname = "SpuRpc";  
+option java_generic_services = true;
+
+import "common.proto";
+
+message SpuCondition {  
+		repeated int64 idList=1;
+		repeated int64 spuIdList=2;
+		repeated int64 cspuidList=3;
+}
+
+//  ------------- spu_info 表 --------------------------
+message SpuInfoDto {  
+		optional int64 spuid=1;
+		optional int64 cid=2;
+		optional string name=3;
+		optional int64 brand=4;
+		optional string productModel=5;
+		optional int32 deleted=6;
+		optional int32 active=7;
+		optional string addtime=8;
+		optional string updatetime=9;
+}
+
+message SpuInfoDtoList
+{
+		repeated SpuInfoDto dto = 1;
+}
+
+
+message SpuInfoSearchResponse
+{
+		required int32 status = 1;				// 标志位 0:成功，1：失败
+		required string message = 2; 			//  描述信息
+		optional SpuInfoDtoList voList = 3; 	// 类目表记录List
+}
+
+service spuInfoRpcService
+{
+        rpc insertRecords(SpuInfoDtoList) returns (ModifyResponse);
+		rpc updateRecords(SpuInfoDtoList) returns (ModifyResponse);
+		rpc deleteRecords(SpuCondition) returns (ModifyResponse);
+		rpc getRecords(SpuCondition) returns (SpuInfoSearchResponse);
+};
+
+//  ------------- spu_comment 表 --------------------------
+message SpuCommentDto {  
+		optional int64 id=1;
+		optional int64 spuid=2;
+		optional int32 reviewcount=3;
+		optional int32 goodcount=4;
+		optional int32 medcount=5;
+		optional int32 badcount=6;
+		optional string tags=7;
+		optional double score=8;
+		optional string addtime=9;
+		optional string updatetime=10;
+}
+
+message SpuCommentDtoList
+{
+		repeated SpuCommentDto dto = 1;
+}
+
+
+message SpuCommentSearchResponse
+{
+		required int32 status = 1;				// 标志位 0:成功，1：失败
+		required string message = 2; 			//  描述信息
+		optional SpuCommentDtoList voList = 3; 	// 类目表记录List
+}
+
+service spuCommentRpcService
+{
+        rpc insertRecords(SpuCommentDtoList) returns (ModifyResponse);
+		rpc updateRecords(SpuCommentDtoList) returns (ModifyResponse);
+		rpc deleteRecords(SpuCondition) returns (ModifyResponse);
+		rpc getRecords(SpuCondition) returns (SpuInfoSearchResponse);
+};
+
+
+//  ------------- cspu_info 表 --------------------------
+message CspuInfoDto {  
+		optional int64 cspuid=1;
+		required int64 cid=2;
+		optional int64 spuid=3;
+		required string name=4;
+		optional string alias=5;
+		optional int64 brand=6;
+		optional string productModel=7;
+		optional string productUpc=8;
+		optional string saleAttribute=9;
+		optional string attribute=10;
+		optional string saleAttributeOrig=11;
+		optional string attributeOrig=12;
+		optional string extendAttribute=13;
+		optional string packList=14;
+		optional float price=15;
+		optional string url=16;
+		optional bytes bigField=17;
+		optional int32 deleted=18;
+		optional int32 active=19;
+		optional int64 level=20;
+		optional int32 cspuFrom=21;
+		optional string addtime=22;
+		optional string updatetime=23;
+}
+
+message CspuInfoDtoList
+{
+		repeated CspuInfoDto dto = 1;
+}
+
+
+message CspuInfoSearchResponse
+{
+		required int32 status = 1;				// 标志位 0:成功，1：失败
+		required string message = 2; 			//  描述信息
+		optional CspuInfoDtoList voList = 3; 	// 类目表记录List
+}
+
+service cspuInfoRpcService
+{
+        rpc insertRecords(CspuInfoDtoList) returns (ModifyResponse);
+		rpc updateRecords(CspuInfoDtoList) returns (ModifyResponse);
+		rpc deleteRecords(SpuCondition) returns (ModifyResponse);
+		rpc getRecords(SpuCondition) returns (CspuInfoSearchResponse);
+};
+
+
+//  ------------- cspu_comment 表 --------------------------
+message CspuCommentDto {  
+		optional int64 id=1;
+		optional int64 cspuid=2;
+		optional int32 reviewcount=3;
+		optional int32 goodcount=4;
+		optional int32 medcount=5;
+		optional int32 badcount=6;
+		optional string tags=7;
+		optional double score=8;
+		optional string addtime=9;
+		optional string updatetime=10;
+}
+
+message CspuCommentDtoList
+{
+		repeated CspuCommentDto dto = 1;
+}
+
+
+message CspuCommentSearchResponse
+{
+		required int32 status = 1;				// 标志位 0:成功，1：失败
+		required string message = 2; 			//  描述信息
+		optional CspuCommentDtoList voList = 3; 	// 类目表记录List
+}
+
+service cspuCommentRpcService
+{
+        rpc insertRecords(CspuCommentDtoList) returns (ModifyResponse);
+		rpc updateRecords(CspuCommentDtoList) returns (ModifyResponse);
+		rpc deleteRecords(SpuCondition) returns (ModifyResponse);
+		rpc getRecords(SpuCondition) returns (CspuCommentSearchResponse);
+};
+
+//  ------------- cspu_level 表 --------------------------
+message CspuLevelDto {  
+		optional int64 id = 1;
+		optional int64 cspuid = 2;
+		optional int64 level = 3;
+		optional string addtime = 4;
+		optional string updatetime = 5;
+}
+
+message CspuLevelDtoList
+{
+		repeated CspuLevelDto dto = 1;
+}
+
+
+message CspuLevelSearchResponse
+{
+		required int32 status = 1;				// 标志位 0:成功，1：失败
+		required string message = 2; 			//  描述信息
+		optional CspuLevelDtoList voList = 3; 	// 类目表记录List
+}
+
+service cspuLevelRpcService
+{
+        rpc insertRecords(CspuLevelDtoList) returns (ModifyResponse);
+		rpc updateRecords(CspuLevelDtoList) returns (ModifyResponse);
+		rpc deleteRecords(SpuCondition) returns (ModifyResponse);
+		rpc getRecords(SpuCondition) returns (CspuLevelSearchResponse);
+};
+
+//  ------------- bcs_cspu_image 表 --------------------------
+message BcsCspuImageDto
+{  
+optional int64 id=1;
+optional int64 cspuid=2;
+optional string imageUrl=3;
+optional string imageBcsUrl=4;
+optional int32 status=5;
+optional string addtime=6;
+optional string updatetime=7;
+optional string errormessage=8;
+optional int32 width=9;
+optional int32 height=10;
+optional string contentMd5=11;
+optional int32 sequence=12;
+optional string gipsImage=13;
+optional int32 imageType=14;
+}
+
+message BcsCspuImageDtoList
+{
+		repeated BcsCspuImageDto dto = 1;
+}
+
+
+message BcsCspuImageSearchResponse
+{
+		required int32 status = 1;				// 标志位 0:成功，1：失败
+		required string message = 2; 			//  描述信息
+		optional BcsCspuImageDtoList voList = 3; 	// 类目表记录List
+}
+
+service bcsCspuImageRpcService
+{
+        rpc insertRecords(BcsCspuImageDtoList) returns (ModifyResponse);
+		rpc updateRecords(BcsCspuImageDtoList) returns (ModifyResponse);
+		rpc deleteRecords(SpuCondition) returns (ModifyResponse);
+		rpc getRecords(SpuCondition) returns (BcsCspuImageSearchResponse);
+};

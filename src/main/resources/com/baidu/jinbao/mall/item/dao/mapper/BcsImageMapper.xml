@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baidu.jinbao.mall.item.dao.mapper.BcsImageMapper">
+	<select id="select" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from bcs_image
+		where 1=1 and id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="delete" parameterType="java.lang.Long">
+		delete from bcs_image
+		where 1=1
+		and id = #{id,jdbcType=BIGINT}
+	</delete>
+	<!-- Batch Delete by IdList -->
+	<delete id="batchDelete">
+		delete from bcs_image
+		where id in
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item,jdbcType=BIGINT}
+		</foreach>
+	</delete>
+
+	<update id="update" parameterType="com.baidu.jinbao.mall.item.bo.BcsImage">
+		update bcs_image
+		<set>
+			<if test="itemid != null">
+				itemid = #{itemid,jdbcType=BIGINT},
+			</if>
+			<if test="skuid != null">
+				skuid = #{skuid,jdbcType=BIGINT},
+			</if>
+			<if test="imageurl != null">
+				imageUrl = #{imageurl,jdbcType=VARCHAR},
+			</if>
+			<if test="imagebcsurl != null">
+				imageBCSUrl = #{imagebcsurl,jdbcType=VARCHAR},
+			</if>
+			<if test="bcsStatus != null">
+				bcs_status = #{bcsStatus,jdbcType=TINYINT},
+			</if>
+			<if test="addtime != null">
+				addtime = #{addtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="errormessage != null">
+				errormessage = #{errormessage,jdbcType=VARCHAR},
+			</if>
+			<if test="width != null">
+				width = #{width,jdbcType=INTEGER},
+			</if>
+			<if test="height != null">
+				height = #{height,jdbcType=INTEGER},
+			</if>
+			<if test="contentMd5 != null">
+				content_md5 = #{contentMd5,jdbcType=CHAR},
+			</if>
+			<if test="sequence != null">
+				sequence = #{sequence,jdbcType=INTEGER},
+			</if>
+			<if test="gipsImage != null">
+				gips_image = #{gipsImage,jdbcType=VARCHAR},
+			</if>
+			<if test="picType != null">
+				pic_type = #{picType,jdbcType=TINYINT},
+			</if>
+		</set>
+		where 1=1 and id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<insert id="insertRecords" parameterType="java.util.List">
+		insert into bcs_image
+		(itemid, skuid, imageUrl, imageBCSUrl,
+		bcs_status, addtime, updatetime,
+		errormessage, width, height,
+		content_md5, sequence, gips_image,
+		pic_type)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.itemid,jdbcType=BIGINT},
+			#{item.skuid,jdbcType=BIGINT},
+			#{item.imageurl,jdbcType=VARCHAR},
+			#{item.imagebcsurl,jdbcType=VARCHAR},
+			#{item.bcsStatus,jdbcType=TINYINT},
+			#{item.addtime,jdbcType=TIMESTAMP},
+			#{item.updatetime,jdbcType=TIMESTAMP},
+			#{item.errormessage,jdbcType=VARCHAR},
+			#{item.width,jdbcType=INTEGER},
+			#{item.height,jdbcType=INTEGER},
+			#{item.contentMd5,jdbcType=CHAR},
+			#{item.sequence,jdbcType=INTEGER},
+			#{item.gipsImage,jdbcType=VARCHAR},
+			#{item.picType,jdbcType=TINYINT})
+		</foreach>
+
+	</insert>
+
+	<update id="updateRecords" parameterType="java.util.List">
+		UPDATE
+		bcs_image
+		<trim prefix="SET" suffixOverrides=",">
+			<trim prefix="itemid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.itemid!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.itemid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="skuid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.skuid!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.skuid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="imageUrl=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.imageurl!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.imageurl,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="imageBCSUrl=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.imagebcsurl!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.imagebcsurl,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="bcs_status=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.bcsStatus!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.bcsStatus,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="addtime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.addtime!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.addtime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="updatetime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.updatetime!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.updatetime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="errormessage=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.errormessage!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.errormessage,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="width=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.width!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.width,jdbcType=INTEGER}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="height=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.height!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.height,jdbcType=INTEGER}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="content_md5=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.contentMd5!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.contentMd5,jdbcType=CHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="sequence=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.sequence!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.sequence,jdbcType=INTEGER}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="gips_image=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.gipsImage!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.gipsImage,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="pic_type=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.picType!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.picType,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+
+		WHERE id IN
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item.id,jdbcType=BIGINT}
+		</foreach>
+	</update>
+
+	<insert id="insertOne" parameterType="com.baidu.jinbao.mall.item.bo.BcsImage"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into bcs_image
+		(itemid,
+		skuid, imageUrl, imageBCSUrl, bcs_status, addtime,
+		updatetime,
+		errormessage, width, height, content_md5, sequence,
+		gips_image,
+		pic_type)
+		values
+		(
+		#{itemid,jdbcType=BIGINT},#{skuid,jdbcType=BIGINT},#{imageurl,jdbcType=VARCHAR},#{imagebcsurl,jdbcType=VARCHAR},#{bcsStatus,jdbcType=TINYINT},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP},#{errormessage,jdbcType=VARCHAR},#{width,jdbcType=INTEGER},#{height,jdbcType=INTEGER},#{contentMd5,jdbcType=CHAR},#{sequence,jdbcType=INTEGER},#{gipsImage,jdbcType=VARCHAR},#{picType,jdbcType=TINYINT})
+	</insert>
+
+	<select id="getRecordsBySkuIdOrItemId" parameterType="java.util.Map"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from bcs_image
+		where 1=1 and (
+		<if test="map.itemid !=null and map.itemid.size()>0">
+			itemid in
+			<foreach collection="map.itemid" item="item" index="index"
+				open="(" close=")" separator=",">
+				#{item,jdbcType=BIGINT}
+			</foreach>
+		</if>
+		<if test="map.skuid !=null and map.skuid.size()>0">
+			<if test="map.itemid !=null and map.itemid.size()>0">
+				or
+			</if>
+			skuid in
+			<foreach collection="map.skuid" item="item" index="index"
+				open="(" close=")" separator=",">
+				#{item,jdbcType=BIGINT}
+			</foreach>
+		</if>
+		)
+	</select>
+</mapper>

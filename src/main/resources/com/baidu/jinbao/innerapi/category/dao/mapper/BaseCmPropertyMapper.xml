@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.baidu.jinbao.innerapi.category.dao.mapper.BaseCmPropertyMapper">
+	<!-- ===========================SELECT======================== -->
+	<select id="batchSelect" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM base_cm_property
+		WHERE id IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	<!-- =============================DELETE===================== -->
+	<delete id="batchDelete">
+		DELETE
+		FROM base_cm_property
+		WHERE id IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+
+	<!-- =========================INSERT========================= -->
+	<insert id="batchInsert">
+		INSERT INTO base_cm_property (name)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.name, jdbcType=VARCHAR})
+		</foreach>
+	</insert>
+
+	<!-- =========================UPDATE========================= -->
+	<update id="batchUpdate">
+		UPDATE base_cm_property
+		SET
+		name = CASE id
+		<foreach collection="list" item="item" index="index"
+			separator=" ">
+			<if test="item.name!=null">
+				WHEN #{item.id,jdbcType=BIGINT}
+				THEN
+				#{item.name,jdbcType=VARCHAR}
+			</if>
+		</foreach>
+		END
+		WHERE id IN
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item.id,jdbcType=BIGINT}
+		</foreach>
+	</update>
+</mapper>

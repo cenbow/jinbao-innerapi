@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.mall.item.dao.mapper.MallSkuPpsMapper">
+
+  <resultMap id="BaseResultMap" type="com.baidu.jinbao.mall.item.bo.MallSkuPps">
+			<id     column="id"		jdbcType="BIGINT"		property="id" />
+	 		<result column="shopid"		jdbcType="INTEGER"		property="shopid" />
+			<result column="merchantid"		jdbcType="BIGINT"		property="merchantid" />
+			<result column="skuid"		jdbcType="BIGINT"		property="skuid" />
+			<result column="regionid"		jdbcType="INTEGER"		property="regionid" />
+			<result column="pc_mobile"		jdbcType="TINYINT"		property="pcMobile" />
+			<result column="price"		jdbcType="DECIMAL"		property="price" />
+			<result column="discount_price"		jdbcType="DECIMAL"		property="discountPrice" />
+			<result column="flash_price"		jdbcType="DECIMAL"		property="flashPrice" />
+			<result column="ticket_price"		jdbcType="DECIMAL"		property="ticketPrice" />
+			<result column="promotion_type"		jdbcType="TINYINT"		property="promotionType" />
+			<result column="stock"		jdbcType="INTEGER"		property="stock" />
+			<result column="post_pay"		jdbcType="TINYINT"		property="postPay" />
+			<result column="m_update_time"		jdbcType="TIMESTAMP"		property="mUpdateTime" />
+			<result column="inventory_warning"		jdbcType="INTEGER"		property="inventoryWarning" />
+			<result column="addtime"		jdbcType="TIMESTAMP"		property="addtime" />
+			<result column="updatetime"		jdbcType="TIMESTAMP"		property="updatetime" />
+			<result column="pps_md5"		jdbcType="CHAR"		property="ppsMd5" />
+	  </resultMap>
+  
+  <sql id="Base_Column_List">
+	id,shopid,merchantid,skuid,regionid,pc_mobile,price,discount_price,flash_price,ticket_price,promotion_type,stock,post_pay,m_update_time,inventory_warning,addtime,updatetime,pps_md5  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sku_pps
+    where 1=1  and id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sku_pps
+    where 1=1 and id = #{id,jdbcType=BIGINT}  </delete>
+  
+  <insert id="insert" parameterType="com.baidu.jinbao.mall.item.bo.MallSkuPps" useGeneratedKeys="true" keyProperty="id">
+    insert into sku_pps 
+	(id, shopid, merchantid, skuid, regionid, pc_mobile, price, discount_price, flash_price, ticket_price, promotion_type, stock, post_pay, m_update_time, inventory_warning, addtime, updatetime, pps_md5)
+    values 
+	( #{id,jdbcType=BIGINT},#{shopid,jdbcType=INTEGER},#{merchantid,jdbcType=BIGINT},#{skuid,jdbcType=BIGINT},#{regionid,jdbcType=INTEGER},#{pcMobile,jdbcType=TINYINT},#{price,jdbcType=DECIMAL},#{discountPrice,jdbcType=DECIMAL},#{flashPrice,jdbcType=DECIMAL},#{ticketPrice,jdbcType=DECIMAL},#{promotionType,jdbcType=TINYINT},#{stock,jdbcType=INTEGER},#{postPay,jdbcType=TINYINT},#{mUpdateTime,jdbcType=TIMESTAMP},#{inventoryWarning,jdbcType=INTEGER},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP},#{ppsMd5,jdbcType=CHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.baidu.jinbao.mall.item.bo.MallSkuPps" useGeneratedKeys="true" keyProperty="id">
+    insert into sku_pps
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		
+	  <if test="id != null">
+        id,
+      </if>
+				
+	  <if test="shopid != null">
+        shopid,
+      </if>
+			
+	  <if test="merchantid != null">
+        merchantid,
+      </if>
+			
+	  <if test="skuid != null">
+        skuid,
+      </if>
+			
+	  <if test="regionid != null">
+        regionid,
+      </if>
+			
+	  <if test="pcMobile != null">
+        pc_mobile,
+      </if>
+			
+	  <if test="price != null">
+        price,
+      </if>
+			
+	  <if test="discountPrice != null">
+        discount_price,
+      </if>
+			
+	  <if test="flashPrice != null">
+        flash_price,
+      </if>
+			
+	  <if test="ticketPrice != null">
+        ticket_price,
+      </if>
+			
+	  <if test="promotionType != null">
+        promotion_type,
+      </if>
+			
+	  <if test="stock != null">
+        stock,
+      </if>
+			
+	  <if test="postPay != null">
+        post_pay,
+      </if>
+			
+	  <if test="mUpdateTime != null">
+        m_update_time,
+      </if>
+			
+	  <if test="inventoryWarning != null">
+        inventory_warning,
+      </if>
+			
+	  <if test="addtime != null">
+        addtime,
+      </if>
+			
+	  <if test="updatetime != null">
+        updatetime,
+      </if>
+			
+	  <if test="ppsMd5 != null">
+        pps_md5,
+      </if>
+	    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+			
+	  <if test="id != null">
+         #{id,jdbcType=BIGINT},
+      </if>
+				
+	  <if test="shopid != null">
+         #{shopid,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="merchantid != null">
+         #{merchantid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="skuid != null">
+         #{skuid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="regionid != null">
+         #{regionid,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="pcMobile != null">
+         #{pcMobile,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="price != null">
+         #{price,jdbcType=DECIMAL},
+      </if>
+			
+	  <if test="discountPrice != null">
+         #{discountPrice,jdbcType=DECIMAL},
+      </if>
+			
+	  <if test="flashPrice != null">
+         #{flashPrice,jdbcType=DECIMAL},
+      </if>
+			
+	  <if test="ticketPrice != null">
+         #{ticketPrice,jdbcType=DECIMAL},
+      </if>
+			
+	  <if test="promotionType != null">
+         #{promotionType,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="stock != null">
+         #{stock,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="postPay != null">
+         #{postPay,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="mUpdateTime != null">
+         #{mUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="inventoryWarning != null">
+         #{inventoryWarning,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="addtime != null">
+         #{addtime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="updatetime != null">
+         #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="ppsMd5 != null">
+         #{ppsMd5,jdbcType=CHAR},
+      </if>
+	    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.mall.item.bo.MallSkuPps">
+    update sku_pps
+    <set>      <if test="shopid != null">
+        shopid = #{shopid,jdbcType=INTEGER},
+      </if>
+	        <if test="merchantid != null">
+        merchantid = #{merchantid,jdbcType=BIGINT},
+      </if>
+	        <if test="skuid != null">
+        skuid = #{skuid,jdbcType=BIGINT},
+      </if>
+	        <if test="regionid != null">
+        regionid = #{regionid,jdbcType=INTEGER},
+      </if>
+	        <if test="pcMobile != null">
+        pc_mobile = #{pcMobile,jdbcType=TINYINT},
+      </if>
+	        <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+	        <if test="discountPrice != null">
+        discount_price = #{discountPrice,jdbcType=DECIMAL},
+      </if>
+	        <if test="flashPrice != null">
+        flash_price = #{flashPrice,jdbcType=DECIMAL},
+      </if>
+	        <if test="ticketPrice != null">
+        ticket_price = #{ticketPrice,jdbcType=DECIMAL},
+      </if>
+	        <if test="promotionType != null">
+        promotion_type = #{promotionType,jdbcType=TINYINT},
+      </if>
+	        <if test="stock != null">
+        stock = #{stock,jdbcType=INTEGER},
+      </if>
+	        <if test="postPay != null">
+        post_pay = #{postPay,jdbcType=TINYINT},
+      </if>
+	        <if test="mUpdateTime != null">
+        m_update_time = #{mUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="inventoryWarning != null">
+        inventory_warning = #{inventoryWarning,jdbcType=INTEGER},
+      </if>
+	        <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="ppsMd5 != null">
+        pps_md5 = #{ppsMd5,jdbcType=CHAR},
+      </if>
+	      </set>
+    where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.mall.item.bo.MallSkuPps">
+    update sku_pps
+    set 
+     	shopid = #{shopid,jdbcType=INTEGER},
+    	merchantid = #{merchantid,jdbcType=BIGINT},
+    	skuid = #{skuid,jdbcType=BIGINT},
+    	regionid = #{regionid,jdbcType=INTEGER},
+    	pc_mobile = #{pcMobile,jdbcType=TINYINT},
+    	price = #{price,jdbcType=DECIMAL},
+    	discount_price = #{discountPrice,jdbcType=DECIMAL},
+    	flash_price = #{flashPrice,jdbcType=DECIMAL},
+    	ticket_price = #{ticketPrice,jdbcType=DECIMAL},
+    	promotion_type = #{promotionType,jdbcType=TINYINT},
+    	stock = #{stock,jdbcType=INTEGER},
+    	post_pay = #{postPay,jdbcType=TINYINT},
+    	m_update_time = #{mUpdateTime,jdbcType=TIMESTAMP},
+    	inventory_warning = #{inventoryWarning,jdbcType=INTEGER},
+    	addtime = #{addtime,jdbcType=TIMESTAMP},
+    	updatetime = #{updatetime,jdbcType=TIMESTAMP},
+    	pps_md5 = #{ppsMd5,jdbcType=CHAR}
+        where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+
+</mapper>

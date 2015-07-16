@@ -1,0 +1,296 @@
+package com.baidu.jinbao.mall.rpc;
+
+option java_outer_classname = "MallItemRpc";  
+option java_generic_services = true;
+
+message ModifyResponse {  
+	optional int32 status=1;
+	optional string message=2;
+	optional int32 successNum=3;
+	optional int32 failedNum=4;
+}
+
+//  ------------- bcs_image表 --------------------------
+message BcsImageDto {  
+	optional int64 id=1;
+	optional int64 itemid=2;
+	optional int64 skuid=3;
+	optional string imageurl=4;
+	optional string imagebcsurl=5;
+	optional int32 bcsStatus=6;
+	optional string addtime=7;
+	optional string updatetime=8;
+	optional string errormessage=9;
+	optional int32 width=10;
+	optional int32 height=11;
+	optional string contentMd5=12;
+	optional int32 sequence=13;
+	optional string gipsImage=14;
+	optional int32 picType=15;
+}
+
+message BcsImageDtoList {  
+    repeated BcsImageDto dtoList=1;
+}
+
+message BcsImageDtoListResponse {
+	optional int32 status=1;
+	optional string message=2;
+	repeated BcsImageDto dtoList=3;
+}
+
+message BcsImageCondition {  
+    repeated int64 idList=1;
+    repeated int64 itemIdList=2;
+    repeated int64 skuIdList=3;
+}
+
+message BcsImageInsertResponse {  
+	optional int32 status=1;
+	optional string message=2;
+	optional int64 bcsImageId=3;
+}
+
+service bcsImageRpcService
+{
+        rpc updateBcsImageInfoList(BcsImageDtoList) returns (ModifyResponse);
+		rpc insertBcsImageInfo(BcsImageDto) returns (BcsImageInsertResponse);
+		rpc deleteBcsImageInfoList(BcsImageCondition) returns (ModifyResponse);
+		rpc getBcsImageRecords(BcsImageCondition) returns (BcsImageDtoListResponse);
+		
+};
+
+//  ------------- sku表 --------------------------
+message MallSkuPpsDto {  
+	optional int64 id=1;
+	optional int32 shopid=2;
+	optional int64 merchantid=3;
+	optional int64 skuid=4;
+	optional int32 regionid=5;
+	optional int32 pcMobile=6;
+	optional float price=7;
+	optional float discountPrice=8;
+	optional float flashPrice=9;
+	optional float ticketPrice=10;
+	optional int32 promotionType=11;
+	optional int32 stock=12;
+	optional int32 postPay=13;
+	optional string mUpdateTime=14;
+	optional int32 inventoryWarning=15;
+	optional string addtime=16;
+	optional string updatetime=17;
+	optional string ppsMd5=18;
+}
+
+message MallSkuInfoDto {  
+	optional int64 skuid=1;
+	optional int32 skuType=2;
+	optional string sellAttribute=3;
+	optional string propertyValues=4;
+	optional string upc=5;
+	optional int64 itemid=6;
+	optional int32 deleted=7;
+	optional float weight=8;
+	optional float volume=9;
+	optional string addtime=10;
+	optional string updatetime=11;
+	optional string outerid=12;
+}
+
+message MallSkuInfoDtoList {  
+	repeated MallSkuInfoDto dtoList=1;
+}
+message MallSkuTotalInfoDto {  
+	optional MallSkuInfoDto mallSkuInfoDto=1;
+	repeated MallSkuPpsDto mallSkuPpsDtoList=2;
+}
+
+message MallSkuTotalInfoListResponse {  
+	optional int32 status=1;
+	optional string message=2;
+	repeated MallSkuTotalInfoDto dtoList=3;
+}
+
+message SkuTotalInsertResponse {  
+	optional int32 status=1;
+	optional string message=2;
+	optional int32 successNum=3;
+	optional int32 failedNum=4;
+	optional int64 skuId=5;
+}
+
+service mallSkuInfoRpcService
+{
+        rpc updateSkuTotalInfo(MallSkuTotalInfoDto) returns (ModifyResponse);
+		rpc insertSkuTotalInfo(MallSkuTotalInfoDto) returns (SkuTotalInsertResponse);
+		rpc getSkuTotalInfoList(ItemConditionList) returns (MallSkuTotalInfoListResponse);
+		rpc updateSkuInfoRecords(MallSkuInfoDtoList) returns (ModifyResponse);
+};
+
+
+//  ------------- sku_pps表 --------------------------
+message MallSkuPpsDtoList {  
+	repeated MallSkuPpsDto mallSkuPpsDtoList=1;
+}
+
+message SkuPpsConditionList {  
+	repeated SkuPpsCondition conditionList=1;
+}
+message SkuPpsCondition {  
+	optional int64 skuId=1;
+	optional int32 regionId=2;
+	optional int32 pcMobile=3;
+}
+
+message MallSkuPpsDtoListResponse {  
+    optional int32 status=1;
+    optional string message=2;
+    repeated MallSkuPpsDto dtoList=3;
+}
+
+service mallSkuPpsRpcService
+{
+		rpc updateSkuPpsInfoList(MallSkuPpsDtoList) returns (ModifyResponse);
+		rpc getSkuPpsInfoList(SkuPpsConditionList) returns (MallSkuPpsDtoListResponse);
+};
+
+
+//  ------------- item 相关表 --------------------------
+message ItemCdtDto {  
+	optional int64 id=1;
+	optional int64 itemid=2;
+	optional int64 leafcategoryid=3;
+	optional int32 classificationtype=4;
+	optional int64 operator=5;
+	optional int32 confidence=6;
+	optional string addtime=7;
+	optional string updatetime=8;
+	optional string cdtMd5=9;
+}
+message ItemInfoDto {  
+	optional int64 itemid=1;
+	optional int32 merchantid=2;
+	optional int64 ucid=3;
+	optional int32 shopid=4;
+	optional string outerid=5;
+	optional string title=6;
+	optional string subtitle=7;
+	optional string url=8;
+	optional string starttime=9;
+	optional string endtime=10;
+	optional int32 merchantStatus=11;
+	optional int32 manualStatus=12;
+	optional string shopcategory=13;
+	optional int64 dataversion=14;
+	optional string addtime=15;
+	optional string updatetime=16;
+	optional int32 wareBigSmallModel=17;
+	optional int32 warePackType=18;
+	optional int32 deleted=19;
+	optional string categoryOri=20;
+	optional string brandOri=21;
+}
+
+message ItemInfoDtoList {
+	repeated ItemInfoDto dtoList=1;
+}
+
+message ItemDescriptionDto {  
+	optional int64 id=1;
+	optional int32 merchantid=2;
+	optional int32 shopid=3;
+	optional int64 itemid=4;
+	optional bytes itemDescOri=5;
+	optional string pdMd5=6;
+	optional bytes itemDesc=7;
+	optional string addtime=8;
+	optional string updatetime=9;
+}
+message ItemAttributeDto {  
+	optional int64 id=1;
+	optional int64 itemid=2;
+	optional string propertyId=3;
+	optional string propertyValues=4;
+	optional string propertyMd5=5;
+	optional string addtime=6;
+	optional string updatetime=7;
+}
+
+message ItemTotalInfoDto {  
+	optional ItemInfoDto itemInfoDto=1;
+	optional ItemAttributeDto itemAttributeDto=2;
+	optional ItemDescriptionDto itemDescriptionDto=3;
+	repeated ItemCdtDto itemCdtDtoList=4;
+	repeated MallSkuTotalInfoDto skuTotalInfoDtoList=5;
+	repeated BcsImageDto bcsImageDtoList=6;
+}
+
+message ItemCondition {  
+	optional int64 itemId=1;
+	optional int32 mechantStatus=2;
+	repeated string fieldList=3;
+}
+
+message ItemConditionList {  
+	repeated int64 itemIdList=1;
+	repeated string fieldList=2;
+}
+
+message ItemTotalInfoResponse {  
+	optional int32 status=1;
+	optional string message=2;
+	optional ItemTotalInfoDto dto=3;
+}
+
+message ItemTotalInfoListResponse {  
+	optional int32 status=1;
+	optional string message=2;
+	repeated ItemTotalInfoDto dtoList=3;
+}
+message ItemTotalInsertResponse {  
+	optional int32 status=1;
+	optional string message=2;
+	optional int32 successNum=3;
+	optional int32 failedNum=4;
+	optional int64 itemId=5;
+	repeated int64 skuIdList=6;
+	repeated int64 imageIdList=7;
+}
+
+message PageItemCondition {  
+    repeated int64 shopIdList=1;
+    repeated int64 leafcategoryidList=2;
+    optional int32 manualStatus=3;
+    optional int32 merchantStatus=4;
+    required int32 pageSize=5;
+    required int32 pageNumber=6;
+    required int32 rank=7;
+    repeated string fieldList=8;
+}
+
+message PageItemTotalInfoListResponse {  
+    optional int32 status=1;
+    optional string message=2;
+    optional int64 totalNum=3;
+    optional int32 pageSize=4;
+    optional int32 pageNumber=5;
+    optional int32 pages=6;
+    repeated PageItemTotalInfoDto dtoList=7;
+}
+
+message PageItemTotalInfoDto {  
+	optional ItemInfoDto itemInfoDto=1;
+	optional ItemAttributeDto itemAttributeDto=2;
+	optional ItemCdtDto itemCdtDto=3;
+}
+
+service mallItemInfoRpcService
+{
+        rpc updateItemTotalInfo(ItemTotalInfoDto) returns (ModifyResponse);
+		rpc insertItemTotalInfo(ItemTotalInfoDto) returns (ItemTotalInsertResponse);
+		rpc updateItemInfoList(ItemInfoDtoList) returns (ModifyResponse);
+		rpc getPageItemTotalInfo(PageItemCondition) returns (PageItemTotalInfoListResponse);
+		rpc getItemTotalInfo(ItemCondition) returns (ItemTotalInfoResponse);
+		rpc getItemTotalInfoList(ItemConditionList) returns (ItemTotalInfoListResponse);
+};
+

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baidu.jinbao.innerapi.spu.dao.mapper.CspuLevelMapper">
+	<!-- ===========================SELECT======================== -->
+	<select id="batchSelect" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM cspu_level
+		WHERE id IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")"> #{item}</foreach>
+	</select>
+	<!-- =============================DELETE===================== -->
+	<delete id="batchDelete">
+		DELETE FROM cspu_level
+		WHERE id IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">#{item}</foreach>
+	</delete>
+	<!-- =========================INSERT========================= -->
+	<insert id="batchInsert">
+		INSERT INTO cspu_level
+		(
+		cspuid,
+		level,
+		addtime,
+		updatetime
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.cspuid,jdbcType=BIGINT},
+			#{item.level,jdbcType=BIGINT},
+			#{item.addtime,jdbcType=TIMESTAMP},
+			#{item.updatetime,jdbcType=TIMESTAMP}
+			)
+		</foreach>
+	</insert>
+	<!-- =========================UPDATE========================= -->
+	<update id="batchUpdate">
+		UPDATE
+		cspu_level
+		<trim prefix="SET" suffixOverrides=",">
+			<trim prefix="cspuid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.cspuid!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.cspuid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="level=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.level!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.level,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="addtime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.addtime!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.addtime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="updatetime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.updatetime!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.updatetime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+		WHERE id IN
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item.id,jdbcType=BIGINT}
+		</foreach>
+	</update>
+</mapper>

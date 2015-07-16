@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baidu.jinbao.mall.item.dao.mapper.MallSkuInfoMapper">
+	<update id="update" parameterType="com.baidu.jinbao.mall.item.bo.MallSkuInfo">
+		update sku_info
+		<set>
+			<if test="skuType != null">
+				sku_type = #{skuType,jdbcType=TINYINT},
+			</if>
+			<if test="sellAttribute != null">
+				sell_attribute = #{sellAttribute,jdbcType=VARCHAR},
+			</if>
+			<if test="propertyValues != null">
+				property_values = #{propertyValues,jdbcType=VARCHAR},
+			</if>
+			<if test="upc != null">
+				upc = #{upc,jdbcType=VARCHAR},
+			</if>
+			<if test="itemid != null">
+				itemid = #{itemid,jdbcType=BIGINT},
+			</if>
+			<if test="deleted != null">
+				deleted = #{deleted,jdbcType=TINYINT},
+			</if>
+			<if test="weight != null">
+				weight = #{weight,jdbcType=DECIMAL},
+			</if>
+			<if test="volume != null">
+				volume = #{volume,jdbcType=DECIMAL},
+			</if>
+			<if test="addtime != null">
+				addtime = #{addtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="outerid != null">
+				outerid = #{outerid,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where 1=1 and skuid = #{skuid,jdbcType=BIGINT}
+	</update>
+
+	<select id="select" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sku_info
+		where 1=1 and deleted=0 and skuid =
+		#{skuid,jdbcType=BIGINT}
+	</select>
+
+	<update id="delete" parameterType="java.lang.Long">
+		update sku_info
+		set deleted=1
+		where 1=1 and skuid = #{skuid,jdbcType=BIGINT}
+	</update>
+
+	<select id="selectByItemId" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sku_info
+		where 1=1 and deleted=0 and itemid=
+		#{itemid,jdbcType=BIGINT}
+	</select>
+
+	<insert id="insertOne" parameterType="com.baidu.jinbao.mall.item.bo.MallSkuInfo"
+		useGeneratedKeys="true" keyProperty="skuid">
+		insert into sku_info
+		(
+		sku_type, sell_attribute, property_values, upc, itemid, deleted,
+		weight, volume, addtime, updatetime,outerid)
+		values
+		(
+		#{skuType,jdbcType=TINYINT},#{sellAttribute,jdbcType=VARCHAR},#{propertyValues,jdbcType=VARCHAR},#{upc,jdbcType=VARCHAR},#{itemid,jdbcType=BIGINT},#{deleted,jdbcType=TINYINT},#{weight,jdbcType=DECIMAL},#{volume,jdbcType=DECIMAL},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP},#{outerid,jdbcType=VARCHAR})
+	</insert>
+
+	<select id="batchSelectByItemIdList" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM sku_info
+		WHERE 1=1 and deleted=0 and itemid IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+	<update id="updateRecords">
+		UPDATE
+		sku_info
+		<trim prefix="SET" suffixOverrides=",">
+			<trim prefix="sku_type=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.skuType!=null">
+						WHEN skuid = #{item.skuid,jdbcType=BIGINT}
+						THEN
+						#{item.skuType,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="sell_attribute=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.sellAttribute!=null">
+						WHEN skuid = #{item.skuid,jdbcType=BIGINT}
+						THEN
+						#{item.sellAttribute,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="property_values=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.propertyValues!=null">
+						WHEN skuid = #{item.skuid,jdbcType=BIGINT}
+						THEN
+						#{item.propertyValues,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="upc=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.upc!=null">
+						WHEN skuid = #{item.skuid,jdbcType=BIGINT}
+						THEN
+						#{item.upc,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="itemid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.itemid!=null">
+						WHEN skuid = #{item.skuid,jdbcType=BIGINT}
+						THEN
+						#{item.itemid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="deleted=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.deleted!=null">
+						WHEN skuid = #{item.skuid,jdbcType=BIGINT}
+						THEN
+						#{item.deleted,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="weight=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.weight!=null">
+						WHEN skuid = #{item.skuid,jdbcType=BIGINT}
+						THEN
+						#{item.weight,jdbcType=DECIMAL}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="volume=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.volume!=null">
+						WHEN skuid = #{item.skuid,jdbcType=BIGINT}
+						THEN
+						#{item.volume,jdbcType=DECIMAL}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="addtime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.addtime!=null">
+						WHEN skuid = #{item.skuid,jdbcType=BIGINT}
+						THEN
+						#{item.addtime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="updatetime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.updatetime!=null">
+						WHEN skuid = #{item.skuid,jdbcType=BIGINT}
+						THEN
+						#{item.updatetime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="outerid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.outerid!=null">
+						WHEN skuid = #{item.skuid,jdbcType=BIGINT}
+						THEN
+						#{item.outerid,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			
+		</trim>
+		WHERE skuid IN
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item.skuid,jdbcType=BIGINT}
+		</foreach>
+	</update>
+
+</mapper>

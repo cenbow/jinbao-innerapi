@@ -1,0 +1,385 @@
+package com.baidu.jinbao.innerapi.rpc;
+
+option java_outer_classname = "CategoryRpc";  
+option java_generic_services = true;
+
+import "common.proto";
+
+message CategoryCondition {  
+		repeated int64 idList=1;
+		repeated int64 categoryIdList=2;
+}
+
+//  ------------- category 表 --------------------------
+message CategoryDto {  
+	optional int64 categoryid=1;
+	optional int64 parentid=2;
+	optional string name=3;
+	optional int32 isleaf=4;
+	optional int32 pos=5;
+	optional string addtime=6;
+	optional string updatetime=7;
+	optional int32 deleted=8;
+};
+
+message CategoryDtoList
+{
+		repeated CategoryDto dto = 1;
+}
+
+
+message CategorySearchResponse
+{
+		optional int32 status = 1;				// 标志位 0:成功，1：失败
+		optional string message = 2; 			//  描述信息
+		optional CategoryDtoList dtoList = 3; 	// 类目表记录List
+}
+
+service categoryRpcService
+{
+        rpc insertRecords(CategoryDtoList) returns (ModifyResponse);
+		rpc updateRecords(CategoryDtoList) returns (ModifyResponse);
+		rpc deleteRecords(CategoryCondition) returns (ModifyResponse);
+		rpc getRecords(CategoryCondition) returns (CategorySearchResponse);
+};
+
+// -------------------- category_property 表 ---------------
+message CategoryPropertyDto {  
+		optional int64 id=1;
+		optional int32 cId=2;
+		optional int32 isleaf=3;
+		optional string name=4;
+		optional int64 pid=5;
+		optional int32 isRequired=6;
+		optional int32 isSelfdefine=7;
+		optional string type=8;
+		optional string valueRange=9;
+		optional string propType=10;
+		optional int32 sequence=11;
+		optional int32 active=12;
+		optional string addtime=13;
+		optional string updatetime=14;
+};
+
+message CategoryPropertyDtoList
+{
+		repeated CategoryPropertyDto dto = 1;
+}
+
+
+message CategoryPropertySearchResponse
+{
+		optional int32 status = 1;				// 标志位 0:成功，1：失败
+		optional string message = 2; 			//  描述信息
+		optional CategoryPropertyDtoList dtoList = 3; 	// 记录List
+}
+
+service categoryPropertyRpcService
+{
+        rpc insertRecords(CategoryPropertyDtoList) returns (ModifyResponse);
+		rpc updateRecords(CategoryPropertyDtoList) returns (ModifyResponse);
+		rpc deleteRecords(CategoryCondition) returns (ModifyResponse);
+		rpc getRecords(CategoryCondition) returns (CategoryPropertySearchResponse);
+};
+
+// -------------------- category_property_value 表 ---------------
+message CategoryPropertyValueDto {  
+		optional int64 id=1;
+		optional int32 cId=2;
+		optional int32 isleaf=3;
+		optional int64 pid=4;
+		optional int64 vid=5;
+		optional string alias=6;
+		optional string imageUrl=7;
+		optional int32 active=8;
+		optional string addtime=9;
+		optional string updatetime=10;
+}
+
+message CategoryPropertyValueDtoList
+{
+		repeated CategoryPropertyValueDto dto = 1;
+}
+
+
+message CategoryPropertyValueSearchResponse
+{
+		optional int32 status = 1;					// 标志位 0:成功，1：失败
+		optional string message = 2; 				//  描述信息
+		optional CategoryPropertyValueDtoList dtoList = 3; 	// 类目表记录List
+}
+
+service categoryPropertyValueRpcService
+{
+        rpc insertRecords(CategoryPropertyValueDtoList) returns (ModifyResponse);
+		rpc updateRecords(CategoryPropertyValueDtoList) returns (ModifyResponse);
+		rpc deleteRecords(CategoryCondition) returns (ModifyResponse);
+		rpc getRecords(CategoryCondition) returns (CategoryPropertyValueSearchResponse);
+};
+
+// -------------------- base_property 表 ---------------
+message BasePropertyDto {  
+		optional int64 id=1;
+		optional string propertyName=2;
+		optional string enName=3;
+};
+
+message BasePropertyDtoList
+{
+		repeated BasePropertyDto dto = 1;
+}
+
+
+message BasePropertySearchResponse
+{
+		optional int32 status = 1;					// 标志位 0:成功，1：失败
+		optional string message = 2; 				//  描述信息
+		optional BasePropertyDtoList dtoList = 3; 	// 记录List
+}
+
+service basePropertyRpcService
+{
+        rpc insertRecords(BasePropertyDtoList) returns (ModifyResponse);
+		rpc updateRecords(BasePropertyDtoList) returns (ModifyResponse);
+		rpc deleteRecords(CategoryCondition) returns (ModifyResponse);
+		rpc getRecords(CategoryCondition) returns (BasePropertySearchResponse);	
+};
+// -------------------- base_val 表 ---------------
+message BaseValDto {  
+		optional int64 id=1;
+		optional string value=2;
+}
+
+message BaseValDtoList
+{
+		repeated BaseValDto dto = 1;
+}
+
+
+message BaseValSearchResponse
+{
+		optional int32 status = 1;				// 标志位 0:成功，1：失败
+		optional string message = 2; 			//  描述信息
+		optional BaseValDtoList dtoList = 3; 		// 记录List
+}
+
+service baseValRpcService
+{
+        rpc insertRecords(BaseValDtoList) returns (ModifyResponse);
+		rpc updateRecords(BaseValDtoList) returns (ModifyResponse);
+		rpc deleteRecords(CategoryCondition) returns (ModifyResponse);
+		rpc getRecords(CategoryCondition) returns (BaseValSearchResponse);	
+};
+
+
+// -------------------- cm_category 表 ---------------
+message CmCategoryDto {  
+		optional int64 id=1;
+		optional string name=2;
+		optional int32 parentid=3;
+		optional int32 isleaf=4;
+		optional int32 pos=5;
+		optional int32 active=6;
+		optional string updatetime=7;
+}
+
+message CmCategoryDtoList
+{
+		repeated CmCategoryDto dto = 1;
+}
+
+
+message CmCategorySearchResponse
+{
+		optional int32 status = 1;				// 标志位 0:成功，1：失败
+		optional string message = 2; 			//  描述信息
+		optional CmCategoryDtoList dtoList = 3; 		// 记录List
+}
+
+service cmCategoryRpcService
+{
+        rpc insertRecords(CmCategoryDtoList) returns (ModifyResponse);
+		rpc updateRecords(CmCategoryDtoList) returns (ModifyResponse);
+		rpc deleteRecords(CategoryCondition) returns (ModifyResponse);
+		rpc getRecords(CategoryCondition) returns (CmCategorySearchResponse);	
+};
+
+// -------------------- category_map 表 ---------------
+message CategoryMapDto {  
+		optional int64 id=1;
+		optional int32 cmCid=2;
+		optional int32 baseCid=3;
+		optional int32 active=4;
+		optional string updatetime=5;
+}
+
+message CategoryMapDtoList
+{
+		repeated CategoryMapDto dto = 1;
+}
+
+
+message CategoryMapSearchResponse
+{
+		optional int32 status = 1;				// 标志位 0:成功，1：失败
+		optional string message = 2; 			//  描述信息
+		optional CategoryMapDtoList dtoList = 3; 		// 记录List
+}
+
+service categoryMapRpcService
+{
+        rpc insertRecords(CategoryMapDtoList) returns (ModifyResponse);
+		rpc updateRecords(CategoryMapDtoList) returns (ModifyResponse);
+		rpc deleteRecords(CategoryCondition) returns (ModifyResponse);
+		rpc getRecords(CategoryCondition) returns (CategoryMapSearchResponse);	
+};
+
+// -------------------- cm_property_value 表 ---------------
+message CmPropertyValueDto {  
+		optional int64 id=1;
+		optional int32 cid=2;
+		optional int32 cmPid=3;
+		optional int32 dicVid=4;
+		optional int32 pos=5;
+		optional int32 active=6;
+		optional string updatetime=7;
+}
+
+message CmPropertyValueDtoList
+{
+		repeated CmPropertyValueDto dto = 1;
+}
+
+
+message CmPropertyValueSearchResponse
+{
+		optional int32 status = 1;				// 标志位 0:成功，1：失败
+		optional string message = 2; 			//  描述信息
+		optional CmPropertyValueDtoList dtoList = 3; 		// 记录List
+}
+
+service cmPropertyValueRpcService
+{
+        rpc insertRecords(CmPropertyValueDtoList) returns (ModifyResponse);
+		rpc updateRecords(CmPropertyValueDtoList) returns (ModifyResponse);
+		rpc deleteRecords(CategoryCondition) returns (ModifyResponse);
+		rpc getRecords(CategoryCondition) returns (CmPropertyValueSearchResponse);	
+};
+
+// -------------------- cm_property 表 ---------------
+message CmPropertyDto {  
+		optional int64 id=1;
+		optional int32 cmCid=2;
+		optional int32 dicPid=3;
+		optional int32 basePid=4;
+		optional int32 pos=5;
+		optional int32 active=6;
+		optional string updatetime=7;
+}
+
+message CmPropertyDtoList
+{
+		repeated CmPropertyDto dto = 1;
+}
+
+
+message CmPropertySearchResponse
+{
+		optional int32 status = 1;				// 标志位 0:成功，1：失败
+		optional string message = 2; 			//  描述信息
+		optional CmPropertyDtoList dtoList = 3; 		// 记录List
+}
+
+service cmPropertyRpcService
+{
+        rpc insertRecords(CmPropertyDtoList) returns (ModifyResponse);
+		rpc updateRecords(CmPropertyDtoList) returns (ModifyResponse);
+		rpc deleteRecords(CategoryCondition) returns (ModifyResponse);
+		rpc getRecords(CategoryCondition) returns (CmPropertySearchResponse);	
+};
+
+// -------------------- propety_value_map 表 ---------------
+message PropertyValueMapDto {  
+		optional int64 id=1;
+		optional int32 cmVid=2;
+		optional int32 baseVid=3;
+		optional int32 active=4;
+		optional string updatetime=5;
+}
+
+
+message PropertyValueMapDtoList
+{
+		repeated PropertyValueMapDto dto = 1;
+}
+
+
+message PropertyValueMapSearchResponse
+{
+		optional int32 status = 1;				// 标志位 0:成功，1：失败
+		optional string message = 2; 			//  描述信息
+		optional PropertyValueMapDtoList dtoList = 3; 		// 记录List
+}
+
+service propertyValueMapRpcService
+{
+        rpc insertRecords(PropertyValueMapDtoList) returns (ModifyResponse);
+		rpc updateRecords(PropertyValueMapDtoList) returns (ModifyResponse);
+		rpc deleteRecords(CategoryCondition) returns (ModifyResponse);
+		rpc getRecords(CategoryCondition) returns (PropertyValueMapSearchResponse);	
+};
+
+// -------------------- base_cm_value 表 ---------------
+message BaseCmValueDto 
+{  
+		optional int64 id=1;
+		optional string value=2;
+}
+
+message BaseCmValueDtoList
+{
+		repeated BaseCmValueDto dto = 1;
+}
+
+
+message BaseCmValueSearchResponse
+{
+		optional int32 status = 1;				// 标志位 0:成功，1：失败
+		optional string message = 2; 			//  描述信息
+		optional BaseCmValueDtoList dtoList = 3; 		// 记录List
+}
+
+service baseCmValueRpcService
+{
+        rpc insertRecords(BaseCmValueDtoList) returns (ModifyResponse);
+		rpc updateRecords(BaseCmValueDtoList) returns (ModifyResponse);
+		rpc deleteRecords(CategoryCondition) returns (ModifyResponse);
+		rpc getRecords(CategoryCondition) returns (BaseCmValueSearchResponse);	
+};
+
+// -------------------- base_cm_propery 表 ---------------
+message BaseCmPropertyDto
+{
+        optional int64 id = 1;
+		optional string name = 2;
+};
+
+message BaseCmPropertyDtoList
+{
+        repeated BaseCmPropertyDto dtoList = 1;
+};
+
+message BaseCmPropertySearchResponse
+{
+		optional int32 status = 1;				// 标志位 0:成功，1：失败
+		optional string message = 2; 			//  描述信息
+		optional BaseCmPropertyDtoList dtoList = 3; 		// 记录List
+}
+
+service baseCmPropertyRpcService
+{
+		rpc insertRecords(BaseCmPropertyDtoList) returns (ModifyResponse);
+		rpc updateRecords(BaseCmPropertyDtoList) returns (ModifyResponse);
+		rpc deleteRecords(CategoryCondition) returns (ModifyResponse);
+		rpc getRecords(CategoryCondition) returns (BaseCmPropertySearchResponse);			
+};

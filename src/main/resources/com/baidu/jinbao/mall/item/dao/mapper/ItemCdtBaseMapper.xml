@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.mall.item.dao.mapper.ItemCdtMapper">
+
+	<resultMap id="BaseResultMap" type="com.baidu.jinbao.mall.item.bo.ItemCdt">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="itemid" jdbcType="BIGINT" property="itemid" />
+		<result column="leafcategoryid" jdbcType="BIGINT" property="leafcategoryid" />
+		<result column="classificationtype" jdbcType="TINYINT"
+			property="classificationtype" />
+		<result column="operator" jdbcType="BIGINT" property="operator" />
+		<result column="confidence" jdbcType="INTEGER" property="confidence" />
+		<result column="addtime" jdbcType="TIMESTAMP" property="addtime" />
+		<result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+		<result column="cdt_md5" jdbcType="CHAR" property="cdtMd5" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,itemid,leafcategoryid,classificationtype,operator,confidence,addtime,updatetime,cdt_md5
+	</sql>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from item_cdt
+		where 1=1 and id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from item_cdt
+		where 1=1 and id = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<insert id="insert" parameterType="com.baidu.jinbao.mall.item.bo.ItemCdt"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into item_cdt
+		(id, itemid, leafcategoryid, classificationtype, operator, confidence,
+		addtime, updatetime, cdt_md5)
+		values
+		(
+		#{id,jdbcType=BIGINT},#{itemid,jdbcType=BIGINT},#{leafcategoryid,jdbcType=BIGINT},#{classificationtype,jdbcType=TINYINT},#{operator,jdbcType=BIGINT},#{confidence,jdbcType=INTEGER},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP},#{cdtMd5,jdbcType=CHAR})
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.baidu.jinbao.mall.item.bo.ItemCdt"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into item_cdt
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+
+			<if test="id != null">
+				id,
+			</if>
+
+			<if test="itemid != null">
+				itemid,
+			</if>
+
+			<if test="leafcategoryid != null">
+				leafcategoryid,
+			</if>
+
+			<if test="classificationtype != null">
+				classificationtype,
+			</if>
+
+			<if test="operator != null">
+				operator,
+			</if>
+
+			<if test="confidence != null">
+				confidence,
+			</if>
+
+			<if test="addtime != null">
+				addtime,
+			</if>
+
+			<if test="updatetime != null">
+				updatetime,
+			</if>
+
+			<if test="cdtMd5 != null">
+				cdt_md5,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+
+			<if test="itemid != null">
+				#{itemid,jdbcType=BIGINT},
+			</if>
+
+			<if test="leafcategoryid != null">
+				#{leafcategoryid,jdbcType=BIGINT},
+			</if>
+
+			<if test="classificationtype != null">
+				#{classificationtype,jdbcType=TINYINT},
+			</if>
+
+			<if test="operator != null">
+				#{operator,jdbcType=BIGINT},
+			</if>
+
+			<if test="confidence != null">
+				#{confidence,jdbcType=INTEGER},
+			</if>
+
+			<if test="addtime != null">
+				#{addtime,jdbcType=TIMESTAMP},
+			</if>
+
+			<if test="updatetime != null">
+				#{updatetime,jdbcType=TIMESTAMP},
+			</if>
+
+			<if test="cdtMd5 != null">
+				#{cdtMd5,jdbcType=CHAR},
+			</if>
+		</trim>
+	</insert>
+
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.mall.item.bo.ItemCdt">
+		update item_cdt
+		<set>
+			<if test="itemid != null">
+				itemid = #{itemid,jdbcType=BIGINT},
+			</if>
+			<if test="leafcategoryid != null">
+				leafcategoryid = #{leafcategoryid,jdbcType=BIGINT},
+			</if>
+			<if test="classificationtype != null">
+				classificationtype = #{classificationtype,jdbcType=TINYINT},
+			</if>
+			<if test="operator != null">
+				operator = #{operator,jdbcType=BIGINT},
+			</if>
+			<if test="confidence != null">
+				confidence = #{confidence,jdbcType=INTEGER},
+			</if>
+			<if test="addtime != null">
+				addtime = #{addtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="cdtMd5 != null">
+				cdt_md5 = #{cdtMd5,jdbcType=CHAR},
+			</if>
+		</set>
+		where 1=1 and id = #{id,jdbcType=BIGINT}
+	</update>
+
+
+
+	<update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.mall.item.bo.ItemCdt">
+		update item_cdt
+		set
+		itemid = #{itemid,jdbcType=BIGINT},
+		leafcategoryid = #{leafcategoryid,jdbcType=BIGINT},
+		classificationtype = #{classificationtype,jdbcType=TINYINT},
+		operator = #{operator,jdbcType=BIGINT},
+		confidence = #{confidence,jdbcType=INTEGER},
+		addtime = #{addtime,jdbcType=TIMESTAMP},
+		updatetime = #{updatetime,jdbcType=TIMESTAMP},
+		cdt_md5 = #{cdtMd5,jdbcType=CHAR}
+		where 1=1 and id = #{id,jdbcType=BIGINT}
+	</update>
+
+</mapper>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.mall.item.dao.mapper.ItemAttributeMapper">
+
+  <resultMap id="BaseResultMap" type="com.baidu.jinbao.mall.item.bo.ItemAttribute">
+			<id     column="id"		jdbcType="BIGINT"		property="id" />
+	 		<result column="itemid"		jdbcType="BIGINT"		property="itemid" />
+			<result column="property_id"		jdbcType="VARCHAR"		property="propertyId" />
+			<result column="property_values"		jdbcType="VARCHAR"		property="propertyValues" />
+			<result column="property_md5"		jdbcType="CHAR"		property="propertyMd5" />
+			<result column="addtime"		jdbcType="TIMESTAMP"		property="addtime" />
+			<result column="updatetime"		jdbcType="TIMESTAMP"		property="updatetime" />
+	  </resultMap>
+  
+  <sql id="Base_Column_List">
+	id,itemid,property_id,property_values,property_md5,addtime,updatetime  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from item_attribute
+    where 1=1  and id = #{id,jdbcType=BIGINT}
+  </select>
+  
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from item_attribute
+    where 1=1 and id = #{id,jdbcType=BIGINT}  </delete>
+  
+  <insert id="insert" parameterType="com.baidu.jinbao.mall.item.bo.ItemAttribute" useGeneratedKeys="true" keyProperty="id">
+    insert into item_attribute 
+	(id, itemid, property_id, property_values, property_md5, addtime, updatetime)
+    values 
+	( #{id,jdbcType=BIGINT},#{itemid,jdbcType=BIGINT},#{propertyId,jdbcType=VARCHAR},#{propertyValues,jdbcType=VARCHAR},#{propertyMd5,jdbcType=CHAR},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.baidu.jinbao.mall.item.bo.ItemAttribute" useGeneratedKeys="true" keyProperty="id">
+    insert into item_attribute
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		
+	  <if test="id != null">
+        id,
+      </if>
+				
+	  <if test="itemid != null">
+        itemid,
+      </if>
+			
+	  <if test="propertyId != null">
+        property_id,
+      </if>
+			
+	  <if test="propertyValues != null">
+        property_values,
+      </if>
+			
+	  <if test="propertyMd5 != null">
+        property_md5,
+      </if>
+			
+	  <if test="addtime != null">
+        addtime,
+      </if>
+			
+	  <if test="updatetime != null">
+        updatetime,
+      </if>
+	    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+			
+	  <if test="id != null">
+         #{id,jdbcType=BIGINT},
+      </if>
+				
+	  <if test="itemid != null">
+         #{itemid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="propertyId != null">
+         #{propertyId,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="propertyValues != null">
+         #{propertyValues,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="propertyMd5 != null">
+         #{propertyMd5,jdbcType=CHAR},
+      </if>
+			
+	  <if test="addtime != null">
+         #{addtime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="updatetime != null">
+         #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.mall.item.bo.ItemAttribute">
+    update item_attribute
+    <set>      <if test="itemid != null">
+        itemid = #{itemid,jdbcType=BIGINT},
+      </if>
+	        <if test="propertyId != null">
+        property_id = #{propertyId,jdbcType=VARCHAR},
+      </if>
+	        <if test="propertyValues != null">
+        property_values = #{propertyValues,jdbcType=VARCHAR},
+      </if>
+	        <if test="propertyMd5 != null">
+        property_md5 = #{propertyMd5,jdbcType=CHAR},
+      </if>
+	        <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	      </set>
+    where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.mall.item.bo.ItemAttribute">
+    update item_attribute
+    set 
+     	itemid = #{itemid,jdbcType=BIGINT},
+    	property_id = #{propertyId,jdbcType=VARCHAR},
+    	property_values = #{propertyValues,jdbcType=VARCHAR},
+    	property_md5 = #{propertyMd5,jdbcType=CHAR},
+    	addtime = #{addtime,jdbcType=TIMESTAMP},
+    	updatetime = #{updatetime,jdbcType=TIMESTAMP}
+        where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+
+</mapper>

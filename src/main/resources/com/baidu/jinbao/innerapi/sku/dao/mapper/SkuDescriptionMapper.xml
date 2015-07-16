@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baidu.jinbao.innerapi.sku.dao.mapper.SkuDescriptionMapper">
+	<!-- ===========================SELECT======================== -->
+	<select id="batchSelect" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM sku_description_${splitNumber}
+		<where>
+			<if test="condition.idList != null and condition.idList.size() > 0">
+				id IN
+				<foreach item="item" index="index" collection="condition.idList"
+					open="(" separator="," close=")"> #{item}</foreach>
+			</if>
+			<if
+				test="condition.skuInnerIdList != null and condition.skuInnerIdList.size() > 0">
+				AND sku_innerid IN
+				<foreach item="item" index="index" collection="condition.skuInnerIdList"
+					open="(" separator="," close=")"> #{item}</foreach>
+			</if>
+			<if test="condition.skuIdList != null and condition.skuIdList.size() > 0">
+				AND skuid IN
+				<foreach item="item" index="index" collection="condition.skuIdList"
+					open="(" separator="," close=")"> #{item}</foreach>
+			</if>
+		</where>
+	</select>
+	<!-- =============================DELETE===================== -->
+	<delete id="batchDelete">
+		DELETE FROM sku_description_${splitNumber}
+		<where>
+			<if test="condition.idList != null and condition.idList.size() > 0">
+				id IN
+				<foreach item="item" index="index" collection="condition.idList"
+					open="(" separator="," close=")"> #{item}</foreach>
+			</if>
+			<if
+				test="condition.skuInnerIdList != null and condition.skuInnerIdList.size() > 0">
+				AND sku_innerid IN
+				<foreach item="item" index="index" collection="condition.skuInnerIdList"
+					open="(" separator="," close=")"> #{item}</foreach>
+			</if>
+			<if test="condition.skuIdList != null and condition.skuIdList.size() > 0">
+				AND skuid IN
+				<foreach item="item" index="index" collection="condition.skuIdList"
+					open="(" separator="," close=")"> #{item}</foreach>
+			</if>
+		</where>
+	</delete>
+	<!-- =========================INSERT========================= -->
+	<insert id="batchInsert">
+		INSERT INTO sku_description_${splitNumber}
+		(
+		merchantid,
+		sku_innerid,
+		skuid,
+		sku_desc_ori,
+		pd_hash,
+		sku_desc,
+		pd_status,
+		area,
+		Word_count,
+		addtime,
+		updatetime
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.merchantid,jdbcType=BIGINT},
+			#{item.skuInnerid,jdbcType=BIGINT},
+			#{item.skuid,jdbcType=VARCHAR},
+			#{item.skuDescOri,jdbcType=LONGVARBINARY},
+			#{item.pdHash,jdbcType=CHAR},
+			#{item.skuDesc,jdbcType=LONGVARBINARY},
+			#{item.pdStatus,jdbcType=TINYINT},
+			#{item.area,jdbcType=INTEGER},
+			#{item.wordCount,jdbcType=INTEGER},
+			#{item.addtime,jdbcType=TIMESTAMP},
+			#{item.updatetime,jdbcType=TIMESTAMP}
+			)
+		</foreach>
+	</insert>
+	<!-- =========================UPDATE========================= -->
+	<update id="batchUpdate">
+		UPDATE
+		sku_description_${splitNumber}
+		<trim prefix="SET" suffixOverrides=",">
+			<trim prefix="merchantid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.merchantid!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.merchantid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="sku_innerid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.skuInnerid!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.skuInnerid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="skuid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.skuid!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.skuid,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="sku_desc_ori=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.skuDescOri!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.skuDescOri,jdbcType=LONGVARBINARY}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="pd_hash=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.pdHash!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.pdHash,jdbcType=CHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="sku_desc=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.skuDesc!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.skuDesc,jdbcType=LONGVARBINARY}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="pd_status=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.pdStatus!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.pdStatus,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="area=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.area!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.area,jdbcType=INTEGER}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="Word_count=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.wordCount!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.wordCount,jdbcType=INTEGER}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="addtime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.addtime!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.addtime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="updatetime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.updatetime!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.updatetime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+		WHERE id IN
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item.id,jdbcType=BIGINT}
+		</foreach>
+	</update>
+	<!-- =========================UPDATE BY SKUID========================= -->
+    <update id="updateBySkuId">
+        update sku_description_${splitNumber}
+        <set>
+            <if test="item.merchantid !=null ">
+                merchantid = #{item.merchantid,jdbcType=BIGINT},
+            </if>
+            <if test="item.skuInnerid != null">
+                sku_innerid = #{item.skuInnerid,jdbcType=BIGINT},
+            </if>
+            <if test="item.skuDescOri != null">
+                sku_desc_ori = #{item.skuDescOri,jdbcType=LONGVARBINARY},
+            </if>
+            <if test="item.pdHash != null">
+                pd_hash = #{item.pdHash,jdbcType=CHAR},
+            </if>
+            <if test="item.skuDesc != null">
+                sku_desc = #{item.skuDesc,jdbcType=LONGVARBINARY},
+            </if>
+            <if test="item.pdStatus != null">
+                pd_status = #{item.pdStatus,jdbcType=TINYINT},
+            </if>
+            <if test="item.area != null">
+                area = #{item.area,jdbcType=INTEGER},
+            </if>
+            <if test="item.wordCount != null">
+                Word_count = #{item.wordCount,jdbcType=INTEGER},
+            </if>
+            <if test="item.addtime != null">
+                addtime = #{item.addtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="item.updatetime != null">
+                updatetime = #{item.updatetime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where 1=1 and skuid = #{item.skuid,jdbcType=VARCHAR}
+    </update>
+</mapper>

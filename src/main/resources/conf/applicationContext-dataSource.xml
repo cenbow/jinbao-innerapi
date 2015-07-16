@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop   
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd   
+        http://www.springframework.org/schema/beans   
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   
+        http://www.springframework.org/schema/context   
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd   
+        http://www.springframework.org/schema/mvc   
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd   
+        http://www.springframework.org/schema/tx   
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+        http://www.springframework.org/schema/task     
+    	http://www.springframework.org/schema/task/spring-task-3.0.xsd
+    	http://www.springframework.org/schema/util
+    	http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<!-- db connection config -->
+	<import resource="applicationContext-dataSource-connection.xml" />
+
+	<!-- splitDataSourceRouter config -->
+	<bean id="splitDataSourceRouter"
+		class="com.baidu.jinbao.innerapi.common.datasource.JinbaoSplitDataSourceRouter">
+		<property name="defaultDataSourceKey">
+			<value>${baidu.jinbao.default.datasouce.key}</value>
+		</property>
+	</bean>
+
+	<!-- 动态数据源配置 -->
+	<bean id="dataSource"
+		class="com.baidu.jinbao.innerapi.common.datasource.SplitDataSource">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry key="category_dataSource_key" value-ref="category_dataSource_dbproxy" />
+				<entry key="common_dataSource_key" value-ref="common_dataSource_dbproxy" />
+				<entry key="spu_dataSource_key" value-ref="spu_dataSource_dbproxy" />
+				<entry key="sku_dataSource_key_db1" value-ref="sku_dataSource_dbproxy_db1" />
+				<entry key="mall_item_dataSource_key" value-ref="mall_item_dataSource_dbproxy" />
+				<entry key="mall_category_dataSource_key" value-ref="mall_category_dataSource_dbproxy" />
+			</map>
+		</property>
+		<property name="splitDataSourceRouter" ref="splitDataSourceRouter" />
+	</bean>
+
+	<!-- Transaction config -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 申明式事务 ，下面那种事务会失效 -->
+	<!-- <tx:annotation-driven transaction-manager="transactionManager" /> -->
+
+</beans>

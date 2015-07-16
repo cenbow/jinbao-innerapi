@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.innerapi.sku.dao.mapper.SkuAttributeMapper">
+
+  <resultMap id="BaseResultMap" type="com.baidu.jinbao.innerapi.sku.bo.SkuAttribute">
+			<id     column="id"		jdbcType="BIGINT"		property="id" />
+	 		<result column="sku_innerid"		jdbcType="BIGINT"		property="skuInnerid" />
+			<result column="skuid"		jdbcType="VARCHAR"		property="skuid" />
+			<result column="merchantid"		jdbcType="BIGINT"		property="merchantid" />
+			<result column="property_id"		jdbcType="VARCHAR"		property="propertyId" />
+			<result column="property_values"		jdbcType="VARCHAR"		property="propertyValues" />
+			<result column="property_hash"		jdbcType="CHAR"		property="propertyHash" />
+			<result column="addtime"		jdbcType="TIMESTAMP"		property="addtime" />
+			<result column="updatetime"		jdbcType="TIMESTAMP"		property="updatetime" />
+	  </resultMap>
+  
+  <sql id="Base_Column_List">
+	id,sku_innerid,skuid,merchantid,property_id,property_values,property_hash,addtime,updatetime  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sku_attribute
+    where 1=1  and id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sku_attribute
+    where 1=1 and id = #{id,jdbcType=BIGINT}  </delete>
+  
+  <insert id="insert" parameterType="com.baidu.jinbao.innerapi.sku.bo.SkuAttribute" useGeneratedKeys="true" keyProperty="id">
+    insert into sku_attribute 
+	(id, sku_innerid, skuid, merchantid, property_id, property_values, property_hash, addtime, updatetime)
+    values 
+	( #{id,jdbcType=BIGINT},#{skuInnerid,jdbcType=BIGINT},#{skuid,jdbcType=VARCHAR},#{merchantid,jdbcType=BIGINT},#{propertyId,jdbcType=VARCHAR},#{propertyValues,jdbcType=VARCHAR},#{propertyHash,jdbcType=CHAR},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.baidu.jinbao.innerapi.sku.bo.SkuAttribute" useGeneratedKeys="true" keyProperty="id">
+    insert into sku_attribute
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		
+	  <if test="id != null">
+        id,
+      </if>
+				
+	  <if test="skuInnerid != null">
+        sku_innerid,
+      </if>
+			
+	  <if test="skuid != null">
+        skuid,
+      </if>
+			
+	  <if test="merchantid != null">
+        merchantid,
+      </if>
+			
+	  <if test="propertyId != null">
+        property_id,
+      </if>
+			
+	  <if test="propertyValues != null">
+        property_values,
+      </if>
+			
+	  <if test="propertyHash != null">
+        property_hash,
+      </if>
+			
+	  <if test="addtime != null">
+        addtime,
+      </if>
+			
+	  <if test="updatetime != null">
+        updatetime,
+      </if>
+	    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+			
+	  <if test="id != null">
+         #{id,jdbcType=BIGINT},
+      </if>
+				
+	  <if test="skuInnerid != null">
+         #{skuInnerid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="skuid != null">
+         #{skuid,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="merchantid != null">
+         #{merchantid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="propertyId != null">
+         #{propertyId,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="propertyValues != null">
+         #{propertyValues,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="propertyHash != null">
+         #{propertyHash,jdbcType=CHAR},
+      </if>
+			
+	  <if test="addtime != null">
+         #{addtime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="updatetime != null">
+         #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.innerapi.sku.bo.SkuAttribute">
+    update sku_attribute
+    <set>      <if test="skuInnerid != null">
+        sku_innerid = #{skuInnerid,jdbcType=BIGINT},
+      </if>
+	        <if test="skuid != null">
+        skuid = #{skuid,jdbcType=VARCHAR},
+      </if>
+	        <if test="merchantid != null">
+        merchantid = #{merchantid,jdbcType=BIGINT},
+      </if>
+	        <if test="propertyId != null">
+        property_id = #{propertyId,jdbcType=VARCHAR},
+      </if>
+	        <if test="propertyValues != null">
+        property_values = #{propertyValues,jdbcType=VARCHAR},
+      </if>
+	        <if test="propertyHash != null">
+        property_hash = #{propertyHash,jdbcType=CHAR},
+      </if>
+	        <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	      </set>
+    where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.innerapi.sku.bo.SkuAttribute">
+    update sku_attribute
+    set 
+     	sku_innerid = #{skuInnerid,jdbcType=BIGINT},
+    	skuid = #{skuid,jdbcType=VARCHAR},
+    	merchantid = #{merchantid,jdbcType=BIGINT},
+    	property_id = #{propertyId,jdbcType=VARCHAR},
+    	property_values = #{propertyValues,jdbcType=VARCHAR},
+    	property_hash = #{propertyHash,jdbcType=CHAR},
+    	addtime = #{addtime,jdbcType=TIMESTAMP},
+    	updatetime = #{updatetime,jdbcType=TIMESTAMP}
+        where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+
+</mapper>

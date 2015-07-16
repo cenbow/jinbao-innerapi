@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baidu.jinbao.innerapi.spu.dao.mapper.BcsCspuImageMapper">
+	<!-- ===========================SELECT======================== -->
+	<select id="batchSelect" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM bcs_cspu_image
+		WHERE id IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")"> #{item}</foreach>
+	</select>
+	<!-- =============================DELETE===================== -->
+	<delete id="batchDelete">
+		DELETE FROM bcs_cspu_image
+		WHERE id IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">#{item}</foreach>
+	</delete>
+	<!-- =========================INSERT========================= -->
+	<insert id="batchInsert">
+		INSERT INTO bcs_cspu_image
+		(
+		cspuid,
+		image_url,
+		image_bcs_url,
+		status,
+		addtime,
+		updatetime,
+		errormessage,
+		width,
+		height,
+		content_md5,
+		sequence,
+		gips_image,
+		type
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.cspuid,jdbcType=BIGINT},
+			#{item.imageUrl,jdbcType=VARCHAR},
+			#{item.imageBcsUrl,jdbcType=VARCHAR},
+			#{item.status,jdbcType=TINYINT},
+			#{item.addtime,jdbcType=TIMESTAMP},
+			#{item.updatetime,jdbcType=TIMESTAMP},
+			#{item.errormessage,jdbcType=VARCHAR},
+			#{item.width,jdbcType=INTEGER},
+			#{item.height,jdbcType=INTEGER},
+			#{item.contentMd5,jdbcType=CHAR},
+			#{item.sequence,jdbcType=INTEGER},
+			#{item.gipsImage,jdbcType=VARCHAR},
+			#{item.type,jdbcType=TINYINT}
+			)
+		</foreach>
+	</insert>
+	<!-- =========================UPDATE========================= -->
+	<update id="batchUpdate">
+		UPDATE
+		bcs_cspu_image
+		<trim prefix="SET" suffixOverrides=",">
+			<trim prefix="cspuid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.cspuid!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.cspuid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="image_url=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.imageUrl!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.imageUrl,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="image_bcs_url=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.imageBcsUrl!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.imageBcsUrl,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="status=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.status!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.status,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="addtime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.addtime!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.addtime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="updatetime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.updatetime!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.updatetime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="errormessage=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.errormessage!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.errormessage,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="width=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.width!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.width,jdbcType=INTEGER}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="height=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.height!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.height,jdbcType=INTEGER}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="content_md5=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.contentMd5!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.contentMd5,jdbcType=CHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="sequence=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.sequence!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.sequence,jdbcType=INTEGER}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="gips_image=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.gipsImage!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.gipsImage,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="type=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.type!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.type,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+		WHERE id IN
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item.id,jdbcType=BIGINT}
+		</foreach>
+	</update>
+</mapper>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.mall.item.dao.mapper.MallSkuInfoMapper">
+
+  <resultMap id="BaseResultMap" type="com.baidu.jinbao.mall.item.bo.MallSkuInfo">
+			<id     column="skuid"		jdbcType="BIGINT"		property="skuid" />
+	 		<result column="sku_type"		jdbcType="TINYINT"		property="skuType" />
+			<result column="sell_attribute"		jdbcType="VARCHAR"		property="sellAttribute" />
+			<result column="property_values"		jdbcType="VARCHAR"		property="propertyValues" />
+			<result column="upc"		jdbcType="VARCHAR"		property="upc" />
+			<result column="itemid"		jdbcType="BIGINT"		property="itemid" />
+			<result column="deleted"		jdbcType="TINYINT"		property="deleted" />
+			<result column="weight"		jdbcType="DECIMAL"		property="weight" />
+			<result column="volume"		jdbcType="DECIMAL"		property="volume" />
+			<result column="addtime"		jdbcType="TIMESTAMP"		property="addtime" />
+			<result column="updatetime"		jdbcType="TIMESTAMP"		property="updatetime" />
+			<result column="outerid"		jdbcType="VARCHAR"		property="outerid" />
+	  </resultMap>
+  
+  <sql id="Base_Column_List">
+	skuid,sku_type,sell_attribute,property_values,upc,itemid,deleted,weight,volume,addtime,updatetime,outerid  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sku_info
+    where 1=1  and skuid = #{skuid,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sku_info
+    where 1=1 and skuid = #{skuid,jdbcType=BIGINT}  </delete>
+  
+  <insert id="insert" parameterType="com.baidu.jinbao.mall.item.bo.MallSkuInfo" useGeneratedKeys="true" keyProperty="skuid">
+    insert into sku_info 
+	(skuid, sku_type, sell_attribute, property_values, upc, itemid, deleted, weight, volume, addtime, updatetime, outerid)
+    values 
+	( #{skuid,jdbcType=BIGINT},#{skuType,jdbcType=TINYINT},#{sellAttribute,jdbcType=VARCHAR},#{propertyValues,jdbcType=VARCHAR},#{upc,jdbcType=VARCHAR},#{itemid,jdbcType=BIGINT},#{deleted,jdbcType=TINYINT},#{weight,jdbcType=DECIMAL},#{volume,jdbcType=DECIMAL},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP},#{outerid,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.baidu.jinbao.mall.item.bo.MallSkuInfo" useGeneratedKeys="true" keyProperty="skuid">
+    insert into sku_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		
+	  <if test="skuid != null">
+        skuid,
+      </if>
+				
+	  <if test="skuType != null">
+        sku_type,
+      </if>
+			
+	  <if test="sellAttribute != null">
+        sell_attribute,
+      </if>
+			
+	  <if test="propertyValues != null">
+        property_values,
+      </if>
+			
+	  <if test="upc != null">
+        upc,
+      </if>
+			
+	  <if test="itemid != null">
+        itemid,
+      </if>
+			
+	  <if test="deleted != null">
+        deleted,
+      </if>
+			
+	  <if test="weight != null">
+        weight,
+      </if>
+			
+	  <if test="volume != null">
+        volume,
+      </if>
+			
+	  <if test="addtime != null">
+        addtime,
+      </if>
+			
+	  <if test="updatetime != null">
+        updatetime,
+      </if>
+			
+	  <if test="outerid != null">
+        outerid,
+      </if>
+	    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+			
+	  <if test="skuid != null">
+         #{skuid,jdbcType=BIGINT},
+      </if>
+				
+	  <if test="skuType != null">
+         #{skuType,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="sellAttribute != null">
+         #{sellAttribute,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="propertyValues != null">
+         #{propertyValues,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="upc != null">
+         #{upc,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="itemid != null">
+         #{itemid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="deleted != null">
+         #{deleted,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="weight != null">
+         #{weight,jdbcType=DECIMAL},
+      </if>
+			
+	  <if test="volume != null">
+         #{volume,jdbcType=DECIMAL},
+      </if>
+			
+	  <if test="addtime != null">
+         #{addtime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="updatetime != null">
+         #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="outerid != null">
+         #{outerid,jdbcType=VARCHAR},
+      </if>
+	    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.mall.item.bo.MallSkuInfo">
+    update sku_info
+    <set>      <if test="skuType != null">
+        sku_type = #{skuType,jdbcType=TINYINT},
+      </if>
+	        <if test="sellAttribute != null">
+        sell_attribute = #{sellAttribute,jdbcType=VARCHAR},
+      </if>
+	        <if test="propertyValues != null">
+        property_values = #{propertyValues,jdbcType=VARCHAR},
+      </if>
+	        <if test="upc != null">
+        upc = #{upc,jdbcType=VARCHAR},
+      </if>
+	        <if test="itemid != null">
+        itemid = #{itemid,jdbcType=BIGINT},
+      </if>
+	        <if test="deleted != null">
+        deleted = #{deleted,jdbcType=TINYINT},
+      </if>
+	        <if test="weight != null">
+        weight = #{weight,jdbcType=DECIMAL},
+      </if>
+	        <if test="volume != null">
+        volume = #{volume,jdbcType=DECIMAL},
+      </if>
+	        <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="outerid != null">
+        outerid = #{outerid,jdbcType=VARCHAR},
+      </if>
+	      </set>
+    where 1=1 and skuid = #{skuid,jdbcType=BIGINT}  
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.mall.item.bo.MallSkuInfo">
+    update sku_info
+    set 
+     	sku_type = #{skuType,jdbcType=TINYINT},
+    	sell_attribute = #{sellAttribute,jdbcType=VARCHAR},
+    	property_values = #{propertyValues,jdbcType=VARCHAR},
+    	upc = #{upc,jdbcType=VARCHAR},
+    	itemid = #{itemid,jdbcType=BIGINT},
+    	deleted = #{deleted,jdbcType=TINYINT},
+    	weight = #{weight,jdbcType=DECIMAL},
+    	volume = #{volume,jdbcType=DECIMAL},
+    	addtime = #{addtime,jdbcType=TIMESTAMP},
+    	updatetime = #{updatetime,jdbcType=TIMESTAMP},
+    	outerid = #{outerid,jdbcType=VARCHAR}
+        where 1=1 and skuid = #{skuid,jdbcType=BIGINT}  
+  </update>
+
+</mapper>

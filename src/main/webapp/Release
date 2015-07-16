@@ -1,0 +1,5 @@
+ports: 
+  tcp:
+    port: 8999
+    http: false
+    bns: true

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.baidu.jinbao.innerapi.category.dao.mapper.CategoryPropertyMapper">
+	<resultMap id="BasePropertyResultMap"
+		type="com.baidu.jinbao.innerapi.category.bo.BaseProperty">
+		<id column="base_id" jdbcType="BIGINT" property="id" />
+		<result column="base_property_name" jdbcType="VARCHAR"
+			property="propertyName" />
+		<result column="base_en_name" jdbcType="VARCHAR" property="enName" />
+	</resultMap>
+	<resultMap id="PropertyInfoResultMap"
+		type="com.baidu.jinbao.mall.category.vo.PropertyInfo">
+		<association property="categoryProperty"
+			javaType="com.baidu.jinbao.innerapi.category.bo.CategoryProperty"
+			resultMap="BaseResultMap" />
+		<association property="baseProperty"
+			javaType="com.baidu.jinbao.innerapi.category.bo.BaseProperty"
+			resultMap="BasePropertyResultMap" />
+	</resultMap>
+	<!-- ===========================Batch SELECT PropertyInfo======================== -->
+	<select id="batchSelectPropertyInfo" resultMap="PropertyInfoResultMap">
+		SELECT
+		a.id as id
+		,a.c_id as c_id,a.isleaf as isleaf,a.name as name
+		,a.pid as pid
+		,a.is_required as is_required,a.is_selfdefine as
+		selfdefine,a.type as
+		type,
+		a.value_range as value_range,a.prop_type as
+		prop_type ,a.sequence
+		as
+		sequence,a.active as active,a.addtime as
+		addtime,a.updatetime as
+		updatetime,
+		b.id as base_id,b.property_name as
+		base_property_name,b.en_name as
+		base_en_name
+		FROM
+		category_property a
+		INNER
+		JOIN base_property b on a.pid=b.id
+		WHERE a.c_id IN
+        <foreach item="item" index="index" collection="list" open="("
+            separator="," close=")"> #{item.cid, jdbcType=BIGINT}</foreach>
+
+	</select>
+	<!-- ===========================SELECT======================== -->
+	<select id="batchSelect" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM category_property
+		WHERE id IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")"> #{item}</foreach>
+	</select>
+	<!-- =============================DELETE===================== -->
+	<delete id="batchDelete">
+		DELETE FROM category_property
+		WHERE id IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">#{item}</foreach>
+	</delete>
+	<!-- =========================INSERT========================= -->
+	<insert id="batchInsert">
+		INSERT INTO category_property
+		(
+		c_id,
+		isleaf,
+		name,
+		pid,
+		is_required,
+		is_selfdefine,
+		type,
+		value_range,
+		prop_type,
+		sequence,
+		active,
+		addtime,
+		updatetime
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.cId,jdbcType=INTEGER},
+			#{item.isleaf,jdbcType=TINYINT},
+			#{item.name,jdbcType=VARCHAR},
+			#{item.pid,jdbcType=BIGINT},
+			#{item.isRequired,jdbcType=TINYINT},
+			#{item.isSelfdefine,jdbcType=TINYINT},
+			#{item.type,jdbcType=TINYINT},
+			#{item.valueRange,jdbcType=VARCHAR},
+			#{item.propType,jdbcType=TINYINT},
+			#{item.sequence,jdbcType=INTEGER},
+			#{item.active,jdbcType=TINYINT},
+			#{item.addtime,jdbcType=TIMESTAMP},
+			#{item.updatetime,jdbcType=TIMESTAMP}
+			)
+		</foreach>
+	</insert>
+	<!-- =========================UPDATE========================= -->
+	<update id="batchUpdate">
+		UPDATE
+		category_property
+		<trim prefix="SET" suffixOverrides=",">
+			<trim prefix="c_id=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.cId!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.cId,jdbcType=INTEGER}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="isleaf=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.isleaf!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.isleaf,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="name=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.name!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.name,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="pid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.pid!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.pid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="is_required=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.isRequired!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.isRequired,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="is_selfdefine=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.isSelfdefine!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.isSelfdefine,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="type=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.type!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.type,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="value_range=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.valueRange!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.valueRange,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="prop_type=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.propType!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.propType,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="sequence=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.sequence!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.sequence,jdbcType=INTEGER}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="active=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.active!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.active,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="addtime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.addtime!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.addtime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="updatetime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.updatetime!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.updatetime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+		WHERE id IN
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item.id,jdbcType=BIGINT}
+		</foreach>
+	</update>
+</mapper>

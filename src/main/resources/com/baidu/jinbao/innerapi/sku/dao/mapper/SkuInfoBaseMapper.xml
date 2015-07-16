@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.innerapi.sku.dao.mapper.SkuInfoMapper">
+
+  <resultMap id="BaseResultMap" type="com.baidu.jinbao.innerapi.sku.bo.SkuInfo">
+			<id     column="sku_innerid"		jdbcType="BIGINT"		property="skuInnerid" />
+	 		<result column="sku_hashkey"		jdbcType="BIGINT"		property="skuHashkey" />
+			<result column="skuid"		jdbcType="VARCHAR"		property="skuid" />
+			<result column="merchantid"		jdbcType="BIGINT"		property="merchantid" />
+			<result column="unique_key"		jdbcType="CHAR"		property="uniqueKey" />
+			<result column="feedid"		jdbcType="BIGINT"		property="feedid" />
+			<result column="ucid"		jdbcType="BIGINT"		property="ucid" />
+			<result column="title"		jdbcType="VARCHAR"		property="title" />
+			<result column="subtitle"		jdbcType="VARCHAR"		property="subtitle" />
+			<result column="url"		jdbcType="VARCHAR"		property="url" />
+			<result column="mobileurl"		jdbcType="VARCHAR"		property="mobileurl" />
+			<result column="outerid"		jdbcType="VARCHAR"		property="outerid" />
+			<result column="category_ori"		jdbcType="VARCHAR"		property="categoryOri" />
+			<result column="brand_ori"		jdbcType="VARCHAR"		property="brandOri" />
+			<result column="starttime"		jdbcType="TIMESTAMP"		property="starttime" />
+			<result column="endtime"		jdbcType="TIMESTAMP"		property="endtime" />
+			<result column="merchant_status"		jdbcType="TINYINT"		property="merchantStatus" />
+			<result column="manual_status"		jdbcType="TINYINT"		property="manualStatus" />
+			<result column="signature"		jdbcType="VARCHAR"		property="signature" />
+			<result column="isselfopen"		jdbcType="TINYINT"		property="isselfopen" />
+			<result column="dataversion"		jdbcType="BIGINT"		property="dataversion" />
+			<result column="inactivetime"		jdbcType="TIMESTAMP"		property="inactivetime" />
+			<result column="addtime"		jdbcType="TIMESTAMP"		property="addtime" />
+			<result column="updatetime"		jdbcType="TIMESTAMP"		property="updatetime" />
+			<result column="deleted"		jdbcType="TINYINT"		property="deleted" />
+			<result column="seller_name"		jdbcType="VARCHAR"		property="sellerName" />
+			<result column="upc"		jdbcType="BIGINT"		property="upc" />
+	  </resultMap>
+  
+  <sql id="Base_Column_List">
+	sku_innerid,sku_hashkey,skuid,merchantid,unique_key,feedid,ucid,title,subtitle,url,mobileurl,outerid,category_ori,brand_ori,starttime,endtime,merchant_status,manual_status,signature,isselfopen,dataversion,inactivetime,addtime,updatetime,deleted,seller_name,upc  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sku_info
+    where 1=1  and sku_innerid = #{skuInnerid,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sku_info
+    where 1=1 and sku_innerid = #{skuInnerid,jdbcType=BIGINT}  </delete>
+  
+  <insert id="insert" parameterType="com.baidu.jinbao.innerapi.sku.bo.SkuInfo" useGeneratedKeys="true" keyProperty="sku_innerid">
+    insert into sku_info 
+	(sku_innerid, sku_hashkey, skuid, merchantid, unique_key, feedid, ucid, title, subtitle, url, mobileurl, outerid, category_ori, brand_ori, starttime, endtime, merchant_status, manual_status, signature, isselfopen, dataversion, inactivetime, addtime, updatetime, deleted, seller_name, upc)
+    values 
+	( #{skuInnerid,jdbcType=BIGINT},#{skuHashkey,jdbcType=BIGINT},#{skuid,jdbcType=VARCHAR},#{merchantid,jdbcType=BIGINT},#{uniqueKey,jdbcType=CHAR},#{feedid,jdbcType=BIGINT},#{ucid,jdbcType=BIGINT},#{title,jdbcType=VARCHAR},#{subtitle,jdbcType=VARCHAR},#{url,jdbcType=VARCHAR},#{mobileurl,jdbcType=VARCHAR},#{outerid,jdbcType=VARCHAR},#{categoryOri,jdbcType=VARCHAR},#{brandOri,jdbcType=VARCHAR},#{starttime,jdbcType=TIMESTAMP},#{endtime,jdbcType=TIMESTAMP},#{merchantStatus,jdbcType=TINYINT},#{manualStatus,jdbcType=TINYINT},#{signature,jdbcType=VARCHAR},#{isselfopen,jdbcType=TINYINT},#{dataversion,jdbcType=BIGINT},#{inactivetime,jdbcType=TIMESTAMP},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP},#{deleted,jdbcType=TINYINT},#{sellerName,jdbcType=VARCHAR},#{upc,jdbcType=BIGINT})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.baidu.jinbao.innerapi.sku.bo.SkuInfo" useGeneratedKeys="true" keyProperty="sku_innerid">
+    insert into sku_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		
+	  <if test="skuInnerid != null">
+        sku_innerid,
+      </if>
+				
+	  <if test="skuHashkey != null">
+        sku_hashkey,
+      </if>
+			
+	  <if test="skuid != null">
+        skuid,
+      </if>
+			
+	  <if test="merchantid != null">
+        merchantid,
+      </if>
+			
+	  <if test="uniqueKey != null">
+        unique_key,
+      </if>
+			
+	  <if test="feedid != null">
+        feedid,
+      </if>
+			
+	  <if test="ucid != null">
+        ucid,
+      </if>
+			
+	  <if test="title != null">
+        title,
+      </if>
+			
+	  <if test="subtitle != null">
+        subtitle,
+      </if>
+			
+	  <if test="url != null">
+        url,
+      </if>
+			
+	  <if test="mobileurl != null">
+        mobileurl,
+      </if>
+			
+	  <if test="outerid != null">
+        outerid,
+      </if>
+			
+	  <if test="categoryOri != null">
+        category_ori,
+      </if>
+			
+	  <if test="brandOri != null">
+        brand_ori,
+      </if>
+			
+	  <if test="starttime != null">
+        starttime,
+      </if>
+			
+	  <if test="endtime != null">
+        endtime,
+      </if>
+			
+	  <if test="merchantStatus != null">
+        merchant_status,
+      </if>
+			
+	  <if test="manualStatus != null">
+        manual_status,
+      </if>
+			
+	  <if test="signature != null">
+        signature,
+      </if>
+			
+	  <if test="isselfopen != null">
+        isselfopen,
+      </if>
+			
+	  <if test="dataversion != null">
+        dataversion,
+      </if>
+			
+	  <if test="inactivetime != null">
+        inactivetime,
+      </if>
+			
+	  <if test="addtime != null">
+        addtime,
+      </if>
+			
+	  <if test="updatetime != null">
+        updatetime,
+      </if>
+			
+	  <if test="deleted != null">
+        deleted,
+      </if>
+			
+	  <if test="sellerName != null">
+        seller_name,
+      </if>
+			
+	  <if test="upc != null">
+        upc,
+      </if>
+	    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+			
+	  <if test="skuInnerid != null">
+         #{skuInnerid,jdbcType=BIGINT},
+      </if>
+				
+	  <if test="skuHashkey != null">
+         #{skuHashkey,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="skuid != null">
+         #{skuid,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="merchantid != null">
+         #{merchantid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="uniqueKey != null">
+         #{uniqueKey,jdbcType=CHAR},
+      </if>
+			
+	  <if test="feedid != null">
+         #{feedid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="ucid != null">
+         #{ucid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="title != null">
+         #{title,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="subtitle != null">
+         #{subtitle,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="url != null">
+         #{url,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="mobileurl != null">
+         #{mobileurl,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="outerid != null">
+         #{outerid,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="categoryOri != null">
+         #{categoryOri,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="brandOri != null">
+         #{brandOri,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="starttime != null">
+         #{starttime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="endtime != null">
+         #{endtime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="merchantStatus != null">
+         #{merchantStatus,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="manualStatus != null">
+         #{manualStatus,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="signature != null">
+         #{signature,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="isselfopen != null">
+         #{isselfopen,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="dataversion != null">
+         #{dataversion,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="inactivetime != null">
+         #{inactivetime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="addtime != null">
+         #{addtime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="updatetime != null">
+         #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="deleted != null">
+         #{deleted,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="sellerName != null">
+         #{sellerName,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="upc != null">
+         #{upc,jdbcType=BIGINT},
+      </if>
+	    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.innerapi.sku.bo.SkuInfo">
+    update sku_info
+    <set>      <if test="skuHashkey != null">
+        sku_hashkey = #{skuHashkey,jdbcType=BIGINT},
+      </if>
+	        <if test="skuid != null">
+        skuid = #{skuid,jdbcType=VARCHAR},
+      </if>
+	        <if test="merchantid != null">
+        merchantid = #{merchantid,jdbcType=BIGINT},
+      </if>
+	        <if test="uniqueKey != null">
+        unique_key = #{uniqueKey,jdbcType=CHAR},
+      </if>
+	        <if test="feedid != null">
+        feedid = #{feedid,jdbcType=BIGINT},
+      </if>
+	        <if test="ucid != null">
+        ucid = #{ucid,jdbcType=BIGINT},
+      </if>
+	        <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+	        <if test="subtitle != null">
+        subtitle = #{subtitle,jdbcType=VARCHAR},
+      </if>
+	        <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+	        <if test="mobileurl != null">
+        mobileurl = #{mobileurl,jdbcType=VARCHAR},
+      </if>
+	        <if test="outerid != null">
+        outerid = #{outerid,jdbcType=VARCHAR},
+      </if>
+	        <if test="categoryOri != null">
+        category_ori = #{categoryOri,jdbcType=VARCHAR},
+      </if>
+	        <if test="brandOri != null">
+        brand_ori = #{brandOri,jdbcType=VARCHAR},
+      </if>
+	        <if test="starttime != null">
+        starttime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="endtime != null">
+        endtime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="merchantStatus != null">
+        merchant_status = #{merchantStatus,jdbcType=TINYINT},
+      </if>
+	        <if test="manualStatus != null">
+        manual_status = #{manualStatus,jdbcType=TINYINT},
+      </if>
+	        <if test="signature != null">
+        signature = #{signature,jdbcType=VARCHAR},
+      </if>
+	        <if test="isselfopen != null">
+        isselfopen = #{isselfopen,jdbcType=TINYINT},
+      </if>
+	        <if test="dataversion != null">
+        dataversion = #{dataversion,jdbcType=BIGINT},
+      </if>
+	        <if test="inactivetime != null">
+        inactivetime = #{inactivetime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="deleted != null">
+        deleted = #{deleted,jdbcType=TINYINT},
+      </if>
+	        <if test="sellerName != null">
+        seller_name = #{sellerName,jdbcType=VARCHAR},
+      </if>
+	        <if test="upc != null">
+        upc = #{upc,jdbcType=BIGINT},
+      </if>
+	      </set>
+    where 1=1 and sku_innerid = #{skuInnerid,jdbcType=BIGINT}  
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.innerapi.sku.bo.SkuInfo">
+    update sku_info
+    set 
+     	sku_hashkey = #{skuHashkey,jdbcType=BIGINT},
+    	skuid = #{skuid,jdbcType=VARCHAR},
+    	merchantid = #{merchantid,jdbcType=BIGINT},
+    	unique_key = #{uniqueKey,jdbcType=CHAR},
+    	feedid = #{feedid,jdbcType=BIGINT},
+    	ucid = #{ucid,jdbcType=BIGINT},
+    	title = #{title,jdbcType=VARCHAR},
+    	subtitle = #{subtitle,jdbcType=VARCHAR},
+    	url = #{url,jdbcType=VARCHAR},
+    	mobileurl = #{mobileurl,jdbcType=VARCHAR},
+    	outerid = #{outerid,jdbcType=VARCHAR},
+    	category_ori = #{categoryOri,jdbcType=VARCHAR},
+    	brand_ori = #{brandOri,jdbcType=VARCHAR},
+    	starttime = #{starttime,jdbcType=TIMESTAMP},
+    	endtime = #{endtime,jdbcType=TIMESTAMP},
+    	merchant_status = #{merchantStatus,jdbcType=TINYINT},
+    	manual_status = #{manualStatus,jdbcType=TINYINT},
+    	signature = #{signature,jdbcType=VARCHAR},
+    	isselfopen = #{isselfopen,jdbcType=TINYINT},
+    	dataversion = #{dataversion,jdbcType=BIGINT},
+    	inactivetime = #{inactivetime,jdbcType=TIMESTAMP},
+    	addtime = #{addtime,jdbcType=TIMESTAMP},
+    	updatetime = #{updatetime,jdbcType=TIMESTAMP},
+    	deleted = #{deleted,jdbcType=TINYINT},
+    	seller_name = #{sellerName,jdbcType=VARCHAR},
+    	upc = #{upc,jdbcType=BIGINT}
+        where 1=1 and sku_innerid = #{skuInnerid,jdbcType=BIGINT}  
+  </update>
+
+</mapper>

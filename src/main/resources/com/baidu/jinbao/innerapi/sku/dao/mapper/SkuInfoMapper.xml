@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baidu.jinbao.innerapi.sku.dao.mapper.SkuInfoMapper">
+	<!-- ========================insert================== -->
+	<insert id="insertWithSplitNumber" parameterType="com.baidu.jinbao.innerapi.sku.bo.SkuInfo"
+		useGeneratedKeys="true" keyProperty="skuInfo.skuInnerid" keyColumn="sku_innerid">
+		insert into sku_info_${splitNumber}
+		(sku_hashkey, skuid,
+		merchantid,
+		unique_key, feedid, ucid, title,
+		subtitle, url, mobileurl,
+		outerid,
+		category_ori, brand_ori, starttime,
+		endtime, merchant_status,
+		manual_status, signature, isselfopen,
+		dataversion, inactivetime,
+		addtime, updatetime, deleted, seller_name,
+		upc)
+		values
+		(
+		#{skuInfo.skuHashkey,jdbcType=BIGINT},#{skuInfo.skuid,jdbcType=VARCHAR},#{skuInfo.merchantid,jdbcType=BIGINT},#{skuInfo.uniqueKey,jdbcType=CHAR},#{skuInfo.feedid,jdbcType=BIGINT},#{skuInfo.ucid,jdbcType=BIGINT},#{skuInfo.title,jdbcType=LONGVARCHAR},#{skuInfo.subtitle,jdbcType=LONGVARCHAR},#{skuInfo.url,jdbcType=VARCHAR},#{skuInfo.mobileurl,jdbcType=VARCHAR},#{skuInfo.outerid,jdbcType=VARCHAR},#{skuInfo.categoryOri,jdbcType=VARCHAR},#{skuInfo.brandOri,jdbcType=VARCHAR},#{skuInfo.starttime,jdbcType=TIMESTAMP},#{skuInfo.endtime,jdbcType=TIMESTAMP},#{skuInfo.merchantStatus,jdbcType=TINYINT},#{skuInfo.manualStatus,jdbcType=TINYINT},#{skuInfo.signature,jdbcType=VARCHAR},#{skuInfo.isselfopen,jdbcType=TINYINT},#{skuInfo.dataversion,jdbcType=BIGINT},#{skuInfo.inactivetime,jdbcType=TIMESTAMP},#{skuInfo.addtime,jdbcType=TIMESTAMP},#{skuInfo.updatetime,jdbcType=TIMESTAMP},#{skuInfo.deleted,jdbcType=TINYINT},#{skuInfo.sellerName,jdbcType=VARCHAR},#{skuInfo.upc,jdbcType=BIGINT})
+	</insert>
+	<!-- ===========================SELECT======================== -->
+	<select id="batchSelect" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM sku_info_${splitNumber}
+		WHERE 1=1 and deleted=0
+		<if
+			test="condition.skuInnerIdList != null and condition.skuInnerIdList.size() > 0">
+			AND sku_innerid IN
+			<foreach item="item" index="index" collection="condition.skuInnerIdList"
+				open="(" separator="," close=")"> #{item}</foreach>
+		</if>
+		<if test="condition.skuIdList != null and condition.skuIdList.size() > 0">
+			AND skuid IN
+			<foreach item="item" index="index" collection="condition.skuIdList"
+				open="(" separator="," close=")"> #{item}</foreach>
+		</if>
+	</select>
+	<!-- ===========================SELECT By SkuHashkey======================== -->
+	<select id="batchSelectBySkuHashkey" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM sku_info_${splitNumber}
+		<where>
+			sku_hashkey IN
+			<foreach item="item" index="index" collection="list" open="("
+				separator="," close=")"> #{item}</foreach>
+		</where>
+	</select>
+	<!-- =============================DELETE===================== -->
+	<update id="batchDelete">
+		update sku_info_${splitNumber}
+		set deleted=1
+		<where>
+			<if
+				test="condition.skuInnerIdList != null and condition.skuInnerIdList.size() > 0">
+				AND sku_innerid IN
+				<foreach item="item" index="index" collection="condition.skuInnerIdList"
+					open="(" separator="," close=")"> #{item}</foreach>
+			</if>
+			<if test="condition.skuIdList != null and condition.skuIdList.size() > 0">
+				AND skuid IN
+				<foreach item="item" index="index" collection="condition.skuIdList"
+					open="(" separator="," close=")"> #{item}</foreach>
+			</if>
+		</where>
+	</update>
+
+	<!-- =========================INSERT========================= -->
+	<insert id="batchInsert">
+		INSERT INTO sku_info_${splitNumber}
+		(
+		sku_hashkey,
+		skuid,
+		merchantid,
+		unique_key,
+		feedid,
+		ucid,
+		title,
+		subtitle,
+		url,
+		mobileurl,
+		outerid,
+		category_ori,
+		brand_ori,
+		starttime,
+		endtime,
+		merchant_status,
+		manual_status,
+		signature,
+		isselfopen,
+		dataversion,
+		inactivetime,
+		addtime,
+		updatetime,
+		deleted,
+		seller_name,
+		upc
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.skuHashkey,jdbcType=BIGINT},
+			#{item.skuid,jdbcType=VARCHAR},
+			#{item.merchantid,jdbcType=BIGINT},
+			#{item.uniqueKey,jdbcType=CHAR},
+			#{item.feedid,jdbcType=BIGINT},
+			#{item.ucid,jdbcType=BIGINT},
+			#{item.title,jdbcType=VARCHAR},
+			#{item.subtitle,jdbcType=VARCHAR},
+			#{item.url,jdbcType=VARCHAR},
+			#{item.mobileurl,jdbcType=VARCHAR},
+			#{item.outerid,jdbcType=VARCHAR},
+			#{item.categoryOri,jdbcType=VARCHAR},
+			#{item.brandOri,jdbcType=VARCHAR},
+			#{item.starttime,jdbcType=TIMESTAMP},
+			#{item.endtime,jdbcType=TIMESTAMP},
+			#{item.merchantStatus,jdbcType=TINYINT},
+			#{item.manualStatus,jdbcType=TINYINT},
+			#{item.signature,jdbcType=VARCHAR},
+			#{item.isselfopen,jdbcType=TINYINT},
+			#{item.dataversion,jdbcType=BIGINT},
+			#{item.inactivetime,jdbcType=TIMESTAMP},
+			#{item.addtime,jdbcType=TIMESTAMP},
+			#{item.updatetime,jdbcType=TIMESTAMP},
+			#{item.deleted,jdbcType=TINYINT},
+			#{item.sellerName,jdbcType=VARCHAR},
+			#{item.upc,jdbcType=BIGINT}
+			)
+		</foreach>
+	</insert>
+	<!-- =========================UPDATE========================= -->
+	<update id="batchUpdate">
+		UPDATE
+		sku_info_${splitNumber}
+		<trim prefix="SET" suffixOverrides=",">
+			<trim prefix="sku_hashkey=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.skuHashkey!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.skuHashkey,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="skuid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.skuid!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.skuid,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="merchantid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.merchantid!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.merchantid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="unique_key=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.uniqueKey!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.uniqueKey,jdbcType=CHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="feedid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.feedid!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.feedid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="ucid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.ucid!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.ucid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="title=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.title!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.title,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="subtitle=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.subtitle!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.subtitle,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="url=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.url!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.url,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="mobileurl=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.mobileurl!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.mobileurl,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="outerid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.outerid!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.outerid,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="category_ori=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.categoryOri!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.categoryOri,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="brand_ori=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.brandOri!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.brandOri,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="starttime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.starttime!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.starttime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="endtime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.endtime!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.endtime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="merchant_status=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.merchantStatus!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.merchantStatus,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="manual_status=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.manualStatus!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.manualStatus,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="signature=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.signature!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.signature,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="isselfopen=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.isselfopen!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.isselfopen,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="dataversion=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.dataversion!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.dataversion,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="inactivetime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.inactivetime!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.inactivetime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="addtime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.addtime!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.addtime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="updatetime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.updatetime!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.updatetime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="deleted=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.deleted!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.deleted,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="seller_name=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.sellerName!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.sellerName,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="upc=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.upc!=null">
+						WHEN sku_innerid = #{item.skuInnerid,jdbcType=BIGINT}
+						THEN
+						#{item.upc,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+		WHERE sku_innerid IN
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item.skuInnerid,jdbcType=BIGINT}
+		</foreach>
+	</update>
+	<!-- =========================UPDATE BY SKUID========================= -->
+	<update id="updateBySkuId">
+		update sku_info_${splitNumber}
+		<set>
+			<if test="item.skuHashkey != null">
+				sku_hashkey = #{item.skuHashkey,jdbcType=BIGINT},
+			</if>
+			<if test="item.merchantid != null">
+				merchantid = #{item.merchantid,jdbcType=BIGINT},
+			</if>
+			<if test="item.uniqueKey != null">
+				unique_key = #{item.uniqueKey,jdbcType=CHAR},
+			</if>
+			<if test="item.feedid != null">
+				feedid = #{item.feedid,jdbcType=BIGINT},
+			</if>
+			<if test="item.ucid != null">
+				ucid = #{item.ucid,jdbcType=BIGINT},
+			</if>
+			<if test="item.title != null">
+				title = #{item.title,jdbcType=VARCHAR},
+			</if>
+			<if test="item.subtitle != null">
+				subtitle = #{item.subtitle,jdbcType=VARCHAR},
+			</if>
+			<if test="item.url != null">
+				url = #{item.url,jdbcType=VARCHAR},
+			</if>
+			<if test="item.mobileurl != null">
+				mobileurl = #{item.mobileurl,jdbcType=VARCHAR},
+			</if>
+			<if test="item.outerid != null">
+				outerid = #{item.outerid,jdbcType=VARCHAR},
+			</if>
+			<if test="item.categoryOri != null">
+				category_ori = #{item.categoryOri,jdbcType=VARCHAR},
+			</if>
+			<if test="item.brandOri != null">
+				brand_ori = #{item.brandOri,jdbcType=VARCHAR},
+			</if>
+			<if test="item.starttime != null">
+				starttime = #{item.starttime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="item.endtime != null">
+				endtime = #{item.endtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="item.merchantStatus != null">
+				merchant_status =
+				#{item.merchantStatus,jdbcType=TINYINT},
+			</if>
+			<if test="item.manualStatus != null">
+				manual_status = #{item.manualStatus,jdbcType=TINYINT},
+			</if>
+			<if test="item.signature != null">
+				signature = #{item.signature,jdbcType=VARCHAR},
+			</if>
+			<if test="item.isselfopen != null">
+				isselfopen = #{item.isselfopen,jdbcType=TINYINT},
+			</if>
+			<if test="item.dataversion != null">
+				dataversion = #{item.dataversion,jdbcType=BIGINT},
+			</if>
+			<if test="item.inactivetime != null">
+				inactivetime = #{item.inactivetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="item.addtime != null">
+				addtime = #{item.addtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="item.updatetime != null">
+				updatetime = #{item.updatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="item.deleted != null">
+				deleted = #{item.deleted,jdbcType=TINYINT},
+			</if>
+			<if test="item.sellerName != null">
+				seller_name = #{item.sellerName,jdbcType=VARCHAR},
+			</if>
+			<if test="item.upc != null">
+				upc = #{item.upc,jdbcType=BIGINT},
+			</if>
+		</set>
+		where 1=1 and skuid = #{item.skuid,jdbcType=VARCHAR}
+	</update>
+</mapper>

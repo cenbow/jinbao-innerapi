@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baidu.jinbao.innerapi.sku.dao.mapper.SkuPpsMapper">
+	<!-- ===========================Batch SELECT By Key======================== -->
+	<select id="batchSelectByKey" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM sku_pps_${splitNumber}
+		<where>
+			(skuid, regionid, terminal)IN
+			(<foreach collection="list" item="item" index="index"
+				separator=",">
+				(
+				#{item.skuid,jdbcType=VARCHAR},
+				#{item.regionid,jdbcType=INTEGER},
+				#{item.terminal,jdbcType=TINYINT}
+				)
+			</foreach>)
+		</where>
+	</select>
+	<!-- ===========================SELECT======================== -->
+	<select id="batchSelect" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM sku_pps_${splitNumber}
+		<where>
+			<if test="condition.idList != null and condition.idList.size() > 0">
+				id IN
+				<foreach item="item" index="index" collection="condition.idList"
+					open="(" separator="," close=")"> #{item}</foreach>
+			</if>
+			<if
+				test="condition.skuInnerIdList != null and condition.skuInnerIdList.size() > 0">
+				AND sku_innerid IN
+				<foreach item="item" index="index" collection="condition.skuInnerIdList"
+					open="(" separator="," close=")"> #{item}</foreach>
+			</if>
+			<if test="condition.skuIdList != null and condition.skuIdList.size() > 0">
+				AND skuid IN
+				<foreach item="item" index="index" collection="condition.skuIdList"
+					open="(" separator="," close=")"> #{item}</foreach>
+			</if>
+		</where>
+	</select>
+	<!-- =============================DELETE===================== -->
+	<delete id="batchDelete">
+		DELETE FROM sku_pps_${splitNumber}
+		<where>
+			<if test="condition.idList != null and condition.idList.size() > 0">
+				id IN
+				<foreach item="item" index="index" collection="condition.idList"
+					open="(" separator="," close=")"> #{item}</foreach>
+			</if>
+			<if
+				test="condition.skuInnerIdList != null and condition.skuInnerIdList.size() > 0">
+				AND sku_innerid IN
+				<foreach item="item" index="index" collection="condition.skuInnerIdList"
+					open="(" separator="," close=")"> #{item}</foreach>
+			</if>
+			<if test="condition.skuIdList != null and condition.skuIdList.size() > 0">
+				AND skuid IN
+				<foreach item="item" index="index" collection="condition.skuIdList"
+					open="(" separator="," close=")"> #{item}</foreach>
+			</if>
+		</where>
+	</delete>
+	<!-- =========================INSERT========================= -->
+	<insert id="batchInsert">
+		INSERT INTO sku_pps_${splitNumber}
+		(
+		merchantid,
+		sku_innerid,
+		skuid,
+		regionid,
+		terminal,
+		promotion_info,
+		promotion_price_machine,
+		promotion_price_manual,
+		originalprice,
+		discountprice,
+		stock,
+		post_pay,
+		m_update_time,
+		addtime,
+		updatetime
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.merchantid,jdbcType=BIGINT},
+			#{item.skuInnerid,jdbcType=BIGINT},
+			#{item.skuid,jdbcType=VARCHAR},
+			#{item.regionid,jdbcType=INTEGER},
+			#{item.terminal,jdbcType=TINYINT},
+			#{item.promotionInfo,jdbcType=VARCHAR},
+			#{item.promotionPriceMachine,jdbcType=DECIMAL},
+			#{item.promotionPriceManual,jdbcType=DECIMAL},
+			#{item.originalprice,jdbcType=DECIMAL},
+			#{item.discountprice,jdbcType=DECIMAL},
+			#{item.stock,jdbcType=TINYINT},
+			#{item.postPay,jdbcType=TINYINT},
+			#{item.mUpdateTime,jdbcType=TIMESTAMP},
+			#{item.addtime,jdbcType=TIMESTAMP},
+			#{item.updatetime,jdbcType=TIMESTAMP}
+			)
+		</foreach>
+	</insert>
+	<!-- =========================UPDATE========================= -->
+	<update id="batchUpdate">
+		UPDATE
+		sku_pps_${splitNumber}
+		<trim prefix="SET" suffixOverrides=",">
+			<trim prefix="merchantid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.merchantid!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.merchantid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="sku_innerid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.skuInnerid!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.skuInnerid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="skuid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.skuid!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.skuid,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="regionid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.regionid!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.regionid,jdbcType=INTEGER}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="terminal=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.terminal!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.terminal,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="promotion_info=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.promotionInfo!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.promotionInfo,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="promotion_price_machine=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.promotionPriceMachine!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.promotionPriceMachine,jdbcType=DECIMAL}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="promotion_price_manual=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.promotionPriceManual!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.promotionPriceManual,jdbcType=DECIMAL}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="originalprice=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.originalprice!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.originalprice,jdbcType=DECIMAL}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="discountprice=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.discountprice!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.discountprice,jdbcType=DECIMAL}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="stock=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.stock!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.stock,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="post_pay=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.postPay!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.postPay,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="m_update_time=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.mUpdateTime!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.mUpdateTime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="addtime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.addtime!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.addtime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="updatetime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.updatetime!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.updatetime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+		WHERE id IN
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item.id,jdbcType=BIGINT}
+		</foreach>
+	</update>
+	<!-- =========================Batch UPDATE By Key========================= -->
+	<update id="batchUpdateByKey">
+		UPDATE
+		sku_pps_${splitNumber}
+		<trim prefix="SET" suffixOverrides=",">
+			<trim prefix="merchantid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.merchantid!=null">
+						WHEN skuid = #{item.skuid,jdbcType=VARCHAR} AND regionid =
+						#{item.regionid,jdbcType=INTEGER} AND terminal =
+						#{item.terminal,jdbcType=TINYINT}
+						THEN
+						#{item.merchantid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="sku_innerid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.skuInnerid!=null">
+						WHEN skuid = #{item.skuid,jdbcType=VARCHAR} AND regionid =
+						#{item.regionid,jdbcType=INTEGER} AND terminal =
+						#{item.terminal,jdbcType=TINYINT}
+						THEN
+						#{item.skuInnerid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="promotion_info=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.promotionInfo!=null">
+						WHEN skuid = #{item.skuid,jdbcType=VARCHAR} AND regionid =
+						#{item.regionid,jdbcType=INTEGER} AND terminal =
+						#{item.terminal,jdbcType=TINYINT}
+						THEN
+						#{item.promotionInfo,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="promotion_price_machine=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.promotionPriceMachine!=null">
+						WHEN skuid = #{item.skuid,jdbcType=VARCHAR} AND regionid =
+						#{item.regionid,jdbcType=INTEGER} AND terminal =
+						#{item.terminal,jdbcType=TINYINT}
+						THEN
+						#{item.promotionPriceMachine,jdbcType=DECIMAL}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="promotion_price_manual=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.promotionPriceManual!=null">
+						WHEN skuid = #{item.skuid,jdbcType=VARCHAR} AND regionid =
+						#{item.regionid,jdbcType=INTEGER} AND terminal =
+						#{item.terminal,jdbcType=TINYINT}
+						THEN
+						#{item.promotionPriceManual,jdbcType=DECIMAL}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="originalprice=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.originalprice!=null">
+						WHEN skuid = #{item.skuid,jdbcType=VARCHAR} AND regionid =
+						#{item.regionid,jdbcType=INTEGER} AND terminal =
+						#{item.terminal,jdbcType=TINYINT}
+						THEN
+						#{item.originalprice,jdbcType=DECIMAL}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="discountprice=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.discountprice!=null">
+						WHEN skuid = #{item.skuid,jdbcType=VARCHAR} AND regionid =
+						#{item.regionid,jdbcType=INTEGER} AND terminal =
+						#{item.terminal,jdbcType=TINYINT}
+						THEN
+						#{item.discountprice,jdbcType=DECIMAL}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="stock=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.stock!=null">
+						WHEN skuid = #{item.skuid,jdbcType=VARCHAR} AND regionid =
+						#{item.regionid,jdbcType=INTEGER} AND terminal =
+						#{item.terminal,jdbcType=TINYINT}
+						THEN
+						#{item.stock,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="post_pay=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.postPay!=null">
+						WHEN skuid = #{item.skuid,jdbcType=VARCHAR} AND regionid =
+						#{item.regionid,jdbcType=INTEGER} AND terminal =
+						#{item.terminal,jdbcType=TINYINT}
+						THEN
+						#{item.postPay,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="m_update_time=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.mUpdateTime!=null">
+						WHEN skuid = #{item.skuid,jdbcType=VARCHAR} AND regionid =
+						#{item.regionid,jdbcType=INTEGER} AND terminal =
+						#{item.terminal,jdbcType=TINYINT}
+						THEN
+						#{item.mUpdateTime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="addtime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.addtime!=null">
+						WHEN skuid = #{item.skuid,jdbcType=VARCHAR} AND regionid =
+						#{item.regionid,jdbcType=INTEGER} AND terminal =
+						#{item.terminal,jdbcType=TINYINT}
+						THEN
+						#{item.addtime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="updatetime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.updatetime!=null">
+						WHEN skuid = #{item.skuid,jdbcType=VARCHAR} AND regionid =
+						#{item.regionid,jdbcType=INTEGER} AND terminal =
+						#{item.terminal,jdbcType=TINYINT}
+						THEN
+						#{item.updatetime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+		<where>
+			(skuid, regionid, terminal)IN
+			(<foreach collection="list" item="item" index="index"
+				separator=",">
+				(
+				#{item.skuid,jdbcType=VARCHAR},
+				#{item.regionid,jdbcType=INTEGER},
+				#{item.terminal,jdbcType=TINYINT}
+				)
+			</foreach>)
+		</where>
+	</update>
+</mapper>

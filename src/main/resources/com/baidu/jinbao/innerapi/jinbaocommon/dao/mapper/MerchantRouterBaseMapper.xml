@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.innerapi.jinbaocommon.dao.mapper.MerchantRouterMapper">
+
+  <resultMap id="BaseResultMap" type="com.baidu.jinbao.innerapi.jinbaocommon.bo.MerchantRouter">
+			<id     column="id"		jdbcType="BIGINT"		property="id" />
+	 		<result column="merchant_id"		jdbcType="BIGINT"		property="merchantId" />
+			<result column="used_shards"		jdbcType="VARCHAR"		property="usedShards" />
+			<result column="merchant_amount_type"		jdbcType="TINYINT"		property="merchantAmountType" />
+			<result column="merchant_router_stat"		jdbcType="TINYINT"		property="merchantRouterStat" />
+			<result column="addtime"		jdbcType="TIMESTAMP"		property="addtime" />
+			<result column="updatetime"		jdbcType="TIMESTAMP"		property="updatetime" />
+	  </resultMap>
+  
+  <sql id="Base_Column_List">
+	id,merchant_id,used_shards,merchant_amount_type,merchant_router_stat,addtime,updatetime  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from merchant_router
+    where 1=1  and id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from merchant_router
+    where 1=1 and id = #{id,jdbcType=BIGINT}  </delete>
+  
+  <insert id="insert" parameterType="com.baidu.jinbao.innerapi.jinbaocommon.bo.MerchantRouter" useGeneratedKeys="true" keyProperty="id">
+    insert into merchant_router 
+	(id, merchant_id, used_shards, merchant_amount_type, merchant_router_stat, addtime, updatetime)
+    values 
+	( #{id,jdbcType=BIGINT},#{merchantId,jdbcType=BIGINT},#{usedShards,jdbcType=VARCHAR},#{merchantAmountType,jdbcType=TINYINT},#{merchantRouterStat,jdbcType=TINYINT},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.baidu.jinbao.innerapi.jinbaocommon.bo.MerchantRouter" useGeneratedKeys="true" keyProperty="id">
+    insert into merchant_router
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		
+	  <if test="id != null">
+        id,
+      </if>
+				
+	  <if test="merchantId != null">
+        merchant_id,
+      </if>
+			
+	  <if test="usedShards != null">
+        used_shards,
+      </if>
+			
+	  <if test="merchantAmountType != null">
+        merchant_amount_type,
+      </if>
+			
+	  <if test="merchantRouterStat != null">
+        merchant_router_stat,
+      </if>
+			
+	  <if test="addtime != null">
+        addtime,
+      </if>
+			
+	  <if test="updatetime != null">
+        updatetime,
+      </if>
+	    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+			
+	  <if test="id != null">
+         #{id,jdbcType=BIGINT},
+      </if>
+				
+	  <if test="merchantId != null">
+         #{merchantId,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="usedShards != null">
+         #{usedShards,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="merchantAmountType != null">
+         #{merchantAmountType,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="merchantRouterStat != null">
+         #{merchantRouterStat,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="addtime != null">
+         #{addtime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="updatetime != null">
+         #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.innerapi.jinbaocommon.bo.MerchantRouter">
+    update merchant_router
+    <set>      <if test="merchantId != null">
+        merchant_id = #{merchantId,jdbcType=BIGINT},
+      </if>
+	        <if test="usedShards != null">
+        used_shards = #{usedShards,jdbcType=VARCHAR},
+      </if>
+	        <if test="merchantAmountType != null">
+        merchant_amount_type = #{merchantAmountType,jdbcType=TINYINT},
+      </if>
+	        <if test="merchantRouterStat != null">
+        merchant_router_stat = #{merchantRouterStat,jdbcType=TINYINT},
+      </if>
+	        <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	      </set>
+    where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.innerapi.jinbaocommon.bo.MerchantRouter">
+    update merchant_router
+    set 
+     	merchant_id = #{merchantId,jdbcType=BIGINT},
+    	used_shards = #{usedShards,jdbcType=VARCHAR},
+    	merchant_amount_type = #{merchantAmountType,jdbcType=TINYINT},
+    	merchant_router_stat = #{merchantRouterStat,jdbcType=TINYINT},
+    	addtime = #{addtime,jdbcType=TIMESTAMP},
+    	updatetime = #{updatetime,jdbcType=TIMESTAMP}
+        where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+
+</mapper>

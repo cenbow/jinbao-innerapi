@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.mall.item.dao.mapper.ItemInfoMapper">
+
+  <resultMap id="BaseResultMap" type="com.baidu.jinbao.mall.item.bo.ItemInfo">
+			<id     column="itemid"		jdbcType="BIGINT"		property="itemid" />
+	 		<result column="merchantid"		jdbcType="INTEGER"		property="merchantid" />
+			<result column="ucid"		jdbcType="BIGINT"		property="ucid" />
+			<result column="shopid"		jdbcType="INTEGER"		property="shopid" />
+			<result column="outerid"		jdbcType="VARCHAR"		property="outerid" />
+			<result column="item_info_hashcode"		jdbcType="INTEGER"		property="itemInfoHashcode" />
+			<result column="title"		jdbcType="VARCHAR"		property="title" />
+			<result column="subtitle"		jdbcType="VARCHAR"		property="subtitle" />
+			<result column="url"		jdbcType="VARCHAR"		property="url" />
+			<result column="starttime"		jdbcType="TIMESTAMP"		property="starttime" />
+			<result column="endtime"		jdbcType="TIMESTAMP"		property="endtime" />
+			<result column="merchant_status"		jdbcType="TINYINT"		property="merchantStatus" />
+			<result column="manual_status"		jdbcType="TINYINT"		property="manualStatus" />
+			<result column="shopcategory"		jdbcType="VARCHAR"		property="shopcategory" />
+			<result column="dataversion"		jdbcType="BIGINT"		property="dataversion" />
+			<result column="addtime"		jdbcType="TIMESTAMP"		property="addtime" />
+			<result column="updatetime"		jdbcType="TIMESTAMP"		property="updatetime" />
+			<result column="ware_big_small_model"		jdbcType="INTEGER"		property="wareBigSmallModel" />
+			<result column="ware_pack_type"		jdbcType="INTEGER"		property="warePackType" />
+			<result column="deleted"		jdbcType="TINYINT"		property="deleted" />
+			<result column="category_ori"		jdbcType="VARCHAR"		property="categoryOri" />
+			<result column="brand_ori"		jdbcType="CHAR"		property="brandOri" />
+	  </resultMap>
+  
+  <sql id="Base_Column_List">
+	itemid,merchantid,ucid,shopid,outerid,item_info_hashcode,title,subtitle,url,starttime,endtime,merchant_status,manual_status,shopcategory,dataversion,addtime,updatetime,ware_big_small_model,ware_pack_type,deleted,category_ori,brand_ori  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from item_info
+    where 1=1  and itemid = #{itemid,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from item_info
+    where 1=1 and itemid = #{itemid,jdbcType=BIGINT}  </delete>
+  
+  <insert id="insert" parameterType="com.baidu.jinbao.mall.item.bo.ItemInfo" useGeneratedKeys="true" keyProperty="itemid">
+    insert into item_info 
+	(itemid, merchantid, ucid, shopid, outerid, item_info_hashcode, title, subtitle, url, starttime, endtime, merchant_status, manual_status, shopcategory, dataversion, addtime, updatetime, ware_big_small_model, ware_pack_type, deleted, category_ori, brand_ori)
+    values 
+	( #{itemid,jdbcType=BIGINT},#{merchantid,jdbcType=INTEGER},#{ucid,jdbcType=BIGINT},#{shopid,jdbcType=INTEGER},#{outerid,jdbcType=VARCHAR},#{itemInfoHashcode,jdbcType=INTEGER},#{title,jdbcType=VARCHAR},#{subtitle,jdbcType=VARCHAR},#{url,jdbcType=VARCHAR},#{starttime,jdbcType=TIMESTAMP},#{endtime,jdbcType=TIMESTAMP},#{merchantStatus,jdbcType=TINYINT},#{manualStatus,jdbcType=TINYINT},#{shopcategory,jdbcType=VARCHAR},#{dataversion,jdbcType=BIGINT},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP},#{wareBigSmallModel,jdbcType=INTEGER},#{warePackType,jdbcType=INTEGER},#{deleted,jdbcType=TINYINT},#{categoryOri,jdbcType=VARCHAR},#{brandOri,jdbcType=CHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.baidu.jinbao.mall.item.bo.ItemInfo" useGeneratedKeys="true" keyProperty="itemid">
+    insert into item_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		
+	  <if test="itemid != null">
+        itemid,
+      </if>
+				
+	  <if test="merchantid != null">
+        merchantid,
+      </if>
+			
+	  <if test="ucid != null">
+        ucid,
+      </if>
+			
+	  <if test="shopid != null">
+        shopid,
+      </if>
+			
+	  <if test="outerid != null">
+        outerid,
+      </if>
+			
+	  <if test="itemInfoHashcode != null">
+        item_info_hashcode,
+      </if>
+			
+	  <if test="title != null">
+        title,
+      </if>
+			
+	  <if test="subtitle != null">
+        subtitle,
+      </if>
+			
+	  <if test="url != null">
+        url,
+      </if>
+			
+	  <if test="starttime != null">
+        starttime,
+      </if>
+			
+	  <if test="endtime != null">
+        endtime,
+      </if>
+			
+	  <if test="merchantStatus != null">
+        merchant_status,
+      </if>
+			
+	  <if test="manualStatus != null">
+        manual_status,
+      </if>
+			
+	  <if test="shopcategory != null">
+        shopcategory,
+      </if>
+			
+	  <if test="dataversion != null">
+        dataversion,
+      </if>
+			
+	  <if test="addtime != null">
+        addtime,
+      </if>
+			
+	  <if test="updatetime != null">
+        updatetime,
+      </if>
+			
+	  <if test="wareBigSmallModel != null">
+        ware_big_small_model,
+      </if>
+			
+	  <if test="warePackType != null">
+        ware_pack_type,
+      </if>
+			
+	  <if test="deleted != null">
+        deleted,
+      </if>
+			
+	  <if test="categoryOri != null">
+        category_ori,
+      </if>
+			
+	  <if test="brandOri != null">
+        brand_ori,
+      </if>
+	    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+			
+	  <if test="itemid != null">
+         #{itemid,jdbcType=BIGINT},
+      </if>
+				
+	  <if test="merchantid != null">
+         #{merchantid,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="ucid != null">
+         #{ucid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="shopid != null">
+         #{shopid,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="outerid != null">
+         #{outerid,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="itemInfoHashcode != null">
+         #{itemInfoHashcode,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="title != null">
+         #{title,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="subtitle != null">
+         #{subtitle,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="url != null">
+         #{url,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="starttime != null">
+         #{starttime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="endtime != null">
+         #{endtime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="merchantStatus != null">
+         #{merchantStatus,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="manualStatus != null">
+         #{manualStatus,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="shopcategory != null">
+         #{shopcategory,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="dataversion != null">
+         #{dataversion,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="addtime != null">
+         #{addtime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="updatetime != null">
+         #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="wareBigSmallModel != null">
+         #{wareBigSmallModel,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="warePackType != null">
+         #{warePackType,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="deleted != null">
+         #{deleted,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="categoryOri != null">
+         #{categoryOri,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="brandOri != null">
+         #{brandOri,jdbcType=CHAR},
+      </if>
+	    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.mall.item.bo.ItemInfo">
+    update item_info
+    <set>      <if test="merchantid != null">
+        merchantid = #{merchantid,jdbcType=INTEGER},
+      </if>
+	        <if test="ucid != null">
+        ucid = #{ucid,jdbcType=BIGINT},
+      </if>
+	        <if test="shopid != null">
+        shopid = #{shopid,jdbcType=INTEGER},
+      </if>
+	        <if test="outerid != null">
+        outerid = #{outerid,jdbcType=VARCHAR},
+      </if>
+	        <if test="itemInfoHashcode != null">
+        item_info_hashcode = #{itemInfoHashcode,jdbcType=INTEGER},
+      </if>
+	        <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+	        <if test="subtitle != null">
+        subtitle = #{subtitle,jdbcType=VARCHAR},
+      </if>
+	        <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+	        <if test="starttime != null">
+        starttime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="endtime != null">
+        endtime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="merchantStatus != null">
+        merchant_status = #{merchantStatus,jdbcType=TINYINT},
+      </if>
+	        <if test="manualStatus != null">
+        manual_status = #{manualStatus,jdbcType=TINYINT},
+      </if>
+	        <if test="shopcategory != null">
+        shopcategory = #{shopcategory,jdbcType=VARCHAR},
+      </if>
+	        <if test="dataversion != null">
+        dataversion = #{dataversion,jdbcType=BIGINT},
+      </if>
+	        <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="wareBigSmallModel != null">
+        ware_big_small_model = #{wareBigSmallModel,jdbcType=INTEGER},
+      </if>
+	        <if test="warePackType != null">
+        ware_pack_type = #{warePackType,jdbcType=INTEGER},
+      </if>
+	        <if test="deleted != null">
+        deleted = #{deleted,jdbcType=TINYINT},
+      </if>
+	        <if test="categoryOri != null">
+        category_ori = #{categoryOri,jdbcType=VARCHAR},
+      </if>
+	        <if test="brandOri != null">
+        brand_ori = #{brandOri,jdbcType=CHAR},
+      </if>
+	      </set>
+    where 1=1 and itemid = #{itemid,jdbcType=BIGINT}  
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.mall.item.bo.ItemInfo">
+    update item_info
+    set 
+     	merchantid = #{merchantid,jdbcType=INTEGER},
+    	ucid = #{ucid,jdbcType=BIGINT},
+    	shopid = #{shopid,jdbcType=INTEGER},
+    	outerid = #{outerid,jdbcType=VARCHAR},
+    	item_info_hashcode = #{itemInfoHashcode,jdbcType=INTEGER},
+    	title = #{title,jdbcType=VARCHAR},
+    	subtitle = #{subtitle,jdbcType=VARCHAR},
+    	url = #{url,jdbcType=VARCHAR},
+    	starttime = #{starttime,jdbcType=TIMESTAMP},
+    	endtime = #{endtime,jdbcType=TIMESTAMP},
+    	merchant_status = #{merchantStatus,jdbcType=TINYINT},
+    	manual_status = #{manualStatus,jdbcType=TINYINT},
+    	shopcategory = #{shopcategory,jdbcType=VARCHAR},
+    	dataversion = #{dataversion,jdbcType=BIGINT},
+    	addtime = #{addtime,jdbcType=TIMESTAMP},
+    	updatetime = #{updatetime,jdbcType=TIMESTAMP},
+    	ware_big_small_model = #{wareBigSmallModel,jdbcType=INTEGER},
+    	ware_pack_type = #{warePackType,jdbcType=INTEGER},
+    	deleted = #{deleted,jdbcType=TINYINT},
+    	category_ori = #{categoryOri,jdbcType=VARCHAR},
+    	brand_ori = #{brandOri,jdbcType=CHAR}
+        where 1=1 and itemid = #{itemid,jdbcType=BIGINT}  
+  </update>
+
+</mapper>

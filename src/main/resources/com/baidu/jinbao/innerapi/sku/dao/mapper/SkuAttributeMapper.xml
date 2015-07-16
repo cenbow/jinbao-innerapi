@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baidu.jinbao.innerapi.sku.dao.mapper.SkuAttributeMapper">
+	<!-- ===========================SELECT======================== -->
+	<select id="batchSelect" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM sku_attribute_${splitNumber}
+		<where>
+			<if test="condition.idList != null and condition.idList.size() > 0">
+				id IN
+				<foreach item="item" index="index" collection="condition.idList"
+					open="(" separator="," close=")"> #{item}</foreach>
+			</if>
+			<if
+				test="condition.skuInnerIdList != null and condition.skuInnerIdList.size() > 0">
+				AND sku_innerid IN
+				<foreach item="item" index="index" collection="condition.skuInnerIdList"
+					open="(" separator="," close=")"> #{item}</foreach>
+			</if>
+			<if test="condition.skuIdList != null and condition.skuIdList.size() > 0">
+				AND skuid IN
+				<foreach item="item" index="index" collection="condition.skuIdList"
+					open="(" separator="," close=")"> #{item}</foreach>
+			</if>
+		</where>
+	</select>
+	<!-- =============================DELETE===================== -->
+	<delete id="batchDelete">
+		DELETE FROM sku_attribute_${splitNumber}
+		<where>
+			<if test="condition.idList != null and condition.idList.size() > 0">
+				id IN
+				<foreach item="item" index="index" collection="condition.idList"
+					open="(" separator="," close=")"> #{item}</foreach>
+			</if>
+			<if
+				test="condition.skuInnerIdList != null and condition.skuInnerIdList.size() > 0">
+				AND sku_innerid IN
+				<foreach item="item" index="index" collection="condition.skuInnerIdList"
+					open="(" separator="," close=")"> #{item}</foreach>
+			</if>
+			<if test="condition.skuIdList != null and condition.skuIdList.size() > 0">
+				AND skuid IN
+				<foreach item="item" index="index" collection="condition.skuIdList"
+					open="(" separator="," close=")"> #{item}</foreach>
+			</if>
+		</where>
+	</delete>
+	<!-- =========================INSERT========================= -->
+	<insert id="batchInsert">
+		INSERT INTO sku_attribute_${splitNumber}
+		(
+		sku_innerid,
+		skuid,
+		merchantid,
+		property_id,
+		property_values,
+		property_hash,
+		addtime,
+		updatetime
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.skuInnerid,jdbcType=BIGINT},
+			#{item.skuid,jdbcType=VARCHAR},
+			#{item.merchantid,jdbcType=BIGINT},
+			#{item.propertyId,jdbcType=VARCHAR},
+			#{item.propertyValues,jdbcType=VARCHAR},
+			#{item.propertyHash,jdbcType=CHAR},
+			#{item.addtime,jdbcType=TIMESTAMP},
+			#{item.updatetime,jdbcType=TIMESTAMP}
+			)
+		</foreach>
+	</insert>
+	<!-- =========================UPDATE========================= -->
+	<update id="batchUpdate">
+		UPDATE
+		sku_attribute_${splitNumber}
+		<trim prefix="SET" suffixOverrides=",">
+			<trim prefix="sku_innerid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.skuInnerid!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.skuInnerid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="skuid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.skuid!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.skuid,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="merchantid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.merchantid!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.merchantid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="property_id=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.propertyId!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.propertyId,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="property_values=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.propertyValues!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.propertyValues,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="property_hash=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.propertyHash!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.propertyHash,jdbcType=CHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="addtime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.addtime!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.addtime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="updatetime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.updatetime!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.updatetime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+		WHERE id IN
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item.id,jdbcType=BIGINT}
+		</foreach>
+	</update>
+	<!-- =========================UPDATE BY SKUID========================= -->
+    <update id="updateBySkuId">
+        update sku_attribute_${splitNumber}
+        <set>
+            <if test="item.skuInnerid != null">
+                sku_innerid = #{item.skuInnerid,jdbcType=BIGINT},
+            </if>
+            <if test="item.merchantid != null">
+                merchantid = #{item.merchantid,jdbcType=BIGINT},
+            </if>
+            <if test="item.propertyId != null">
+                property_id = #{item.propertyId,jdbcType=VARCHAR},
+            </if>
+            <if test="item.propertyValues != null">
+                property_values = #{item.propertyValues,jdbcType=VARCHAR},
+            </if>
+            <if test="item.propertyHash != null">
+                property_hash = #{item.propertyHash,jdbcType=CHAR},
+            </if>
+            <if test="item.addtime != null">
+                addtime = #{item.addtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="item.updatetime != null">
+                updatetime = #{item.updatetime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where 1=1 and skuid = #{item.skuid,jdbcType=VARCHAR}
+    </update>
+</mapper>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.innerapi.sku.dao.mapper.SkuCommentMapper">
+
+  <resultMap id="BaseResultMap" type="com.baidu.jinbao.innerapi.sku.bo.SkuComment">
+			<id     column="id"		jdbcType="BIGINT"		property="id" />
+	 		<result column="sku_innerid"		jdbcType="BIGINT"		property="skuInnerid" />
+			<result column="skuid"		jdbcType="VARCHAR"		property="skuid" />
+			<result column="reviewcount"		jdbcType="INTEGER"		property="reviewcount" />
+			<result column="goodcount"		jdbcType="INTEGER"		property="goodcount" />
+			<result column="medcount"		jdbcType="INTEGER"		property="medcount" />
+			<result column="badcount"		jdbcType="INTEGER"		property="badcount" />
+			<result column="tags"		jdbcType="VARCHAR"		property="tags" />
+			<result column="score"		jdbcType="DOUBLE"		property="score" />
+			<result column="addtime"		jdbcType="TIMESTAMP"		property="addtime" />
+			<result column="updatetime"		jdbcType="TIMESTAMP"		property="updatetime" />
+	  </resultMap>
+  
+  <sql id="Base_Column_List">
+	id,sku_innerid,skuid,reviewcount,goodcount,medcount,badcount,tags,score,addtime,updatetime  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sku_comment
+    where 1=1  and id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sku_comment
+    where 1=1 and id = #{id,jdbcType=BIGINT}  </delete>
+  
+  <insert id="insert" parameterType="com.baidu.jinbao.innerapi.sku.bo.SkuComment" useGeneratedKeys="true" keyProperty="id">
+    insert into sku_comment 
+	(id, sku_innerid, skuid, reviewcount, goodcount, medcount, badcount, tags, score, addtime, updatetime)
+    values 
+	( #{id,jdbcType=BIGINT},#{skuInnerid,jdbcType=BIGINT},#{skuid,jdbcType=VARCHAR},#{reviewcount,jdbcType=INTEGER},#{goodcount,jdbcType=INTEGER},#{medcount,jdbcType=INTEGER},#{badcount,jdbcType=INTEGER},#{tags,jdbcType=VARCHAR},#{score,jdbcType=DOUBLE},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.baidu.jinbao.innerapi.sku.bo.SkuComment" useGeneratedKeys="true" keyProperty="id">
+    insert into sku_comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		
+	  <if test="id != null">
+        id,
+      </if>
+				
+	  <if test="skuInnerid != null">
+        sku_innerid,
+      </if>
+			
+	  <if test="skuid != null">
+        skuid,
+      </if>
+			
+	  <if test="reviewcount != null">
+        reviewcount,
+      </if>
+			
+	  <if test="goodcount != null">
+        goodcount,
+      </if>
+			
+	  <if test="medcount != null">
+        medcount,
+      </if>
+			
+	  <if test="badcount != null">
+        badcount,
+      </if>
+			
+	  <if test="tags != null">
+        tags,
+      </if>
+			
+	  <if test="score != null">
+        score,
+      </if>
+			
+	  <if test="addtime != null">
+        addtime,
+      </if>
+			
+	  <if test="updatetime != null">
+        updatetime,
+      </if>
+	    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+			
+	  <if test="id != null">
+         #{id,jdbcType=BIGINT},
+      </if>
+				
+	  <if test="skuInnerid != null">
+         #{skuInnerid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="skuid != null">
+         #{skuid,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="reviewcount != null">
+         #{reviewcount,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="goodcount != null">
+         #{goodcount,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="medcount != null">
+         #{medcount,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="badcount != null">
+         #{badcount,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="tags != null">
+         #{tags,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="score != null">
+         #{score,jdbcType=DOUBLE},
+      </if>
+			
+	  <if test="addtime != null">
+         #{addtime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="updatetime != null">
+         #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.innerapi.sku.bo.SkuComment">
+    update sku_comment
+    <set>      <if test="skuInnerid != null">
+        sku_innerid = #{skuInnerid,jdbcType=BIGINT},
+      </if>
+	        <if test="skuid != null">
+        skuid = #{skuid,jdbcType=VARCHAR},
+      </if>
+	        <if test="reviewcount != null">
+        reviewcount = #{reviewcount,jdbcType=INTEGER},
+      </if>
+	        <if test="goodcount != null">
+        goodcount = #{goodcount,jdbcType=INTEGER},
+      </if>
+	        <if test="medcount != null">
+        medcount = #{medcount,jdbcType=INTEGER},
+      </if>
+	        <if test="badcount != null">
+        badcount = #{badcount,jdbcType=INTEGER},
+      </if>
+	        <if test="tags != null">
+        tags = #{tags,jdbcType=VARCHAR},
+      </if>
+	        <if test="score != null">
+        score = #{score,jdbcType=DOUBLE},
+      </if>
+	        <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	      </set>
+    where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.innerapi.sku.bo.SkuComment">
+    update sku_comment
+    set 
+     	sku_innerid = #{skuInnerid,jdbcType=BIGINT},
+    	skuid = #{skuid,jdbcType=VARCHAR},
+    	reviewcount = #{reviewcount,jdbcType=INTEGER},
+    	goodcount = #{goodcount,jdbcType=INTEGER},
+    	medcount = #{medcount,jdbcType=INTEGER},
+    	badcount = #{badcount,jdbcType=INTEGER},
+    	tags = #{tags,jdbcType=VARCHAR},
+    	score = #{score,jdbcType=DOUBLE},
+    	addtime = #{addtime,jdbcType=TIMESTAMP},
+    	updatetime = #{updatetime,jdbcType=TIMESTAMP}
+        where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+
+</mapper>

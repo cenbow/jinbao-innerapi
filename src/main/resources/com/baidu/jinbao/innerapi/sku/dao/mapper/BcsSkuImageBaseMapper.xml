@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.innerapi.sku.dao.mapper.BcsSkuImageMapper">
+
+  <resultMap id="BaseResultMap" type="com.baidu.jinbao.innerapi.sku.bo.BcsSkuImage">
+			<id     column="id"		jdbcType="BIGINT"		property="id" />
+	 		<result column="sku_innerid"		jdbcType="BIGINT"		property="skuInnerid" />
+			<result column="skuid"		jdbcType="VARCHAR"		property="skuid" />
+			<result column="image_url"		jdbcType="VARCHAR"		property="imageUrl" />
+			<result column="image_bcs_url"		jdbcType="VARCHAR"		property="imageBcsUrl" />
+			<result column="status"		jdbcType="TINYINT"		property="status" />
+			<result column="addtime"		jdbcType="TIMESTAMP"		property="addtime" />
+			<result column="updatetime"		jdbcType="TIMESTAMP"		property="updatetime" />
+			<result column="errormessage"		jdbcType="VARCHAR"		property="errormessage" />
+			<result column="width"		jdbcType="INTEGER"		property="width" />
+			<result column="height"		jdbcType="INTEGER"		property="height" />
+			<result column="content_md5"		jdbcType="CHAR"		property="contentMd5" />
+			<result column="sequence"		jdbcType="INTEGER"		property="sequence" />
+			<result column="gips_image"		jdbcType="VARCHAR"		property="gipsImage" />
+			<result column="type"		jdbcType="TINYINT"		property="type" />
+	  </resultMap>
+  
+  <sql id="Base_Column_List">
+	id,sku_innerid,skuid,image_url,image_bcs_url,status,addtime,updatetime,errormessage,width,height,content_md5,sequence,gips_image,type  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bcs_sku_image
+    where 1=1  and id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bcs_sku_image
+    where 1=1 and id = #{id,jdbcType=BIGINT}  </delete>
+  
+  <insert id="insert" parameterType="com.baidu.jinbao.innerapi.sku.bo.BcsSkuImage" useGeneratedKeys="true" keyProperty="id">
+    insert into bcs_sku_image 
+	(id, sku_innerid, skuid, image_url, image_bcs_url, status, addtime, updatetime, errormessage, width, height, content_md5, sequence, gips_image, type)
+    values 
+	( #{id,jdbcType=BIGINT},#{skuInnerid,jdbcType=BIGINT},#{skuid,jdbcType=VARCHAR},#{imageUrl,jdbcType=VARCHAR},#{imageBcsUrl,jdbcType=VARCHAR},#{status,jdbcType=TINYINT},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP},#{errormessage,jdbcType=VARCHAR},#{width,jdbcType=INTEGER},#{height,jdbcType=INTEGER},#{contentMd5,jdbcType=CHAR},#{sequence,jdbcType=INTEGER},#{gipsImage,jdbcType=VARCHAR},#{type,jdbcType=TINYINT})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.baidu.jinbao.innerapi.sku.bo.BcsSkuImage" useGeneratedKeys="true" keyProperty="id">
+    insert into bcs_sku_image
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		
+	  <if test="id != null">
+        id,
+      </if>
+				
+	  <if test="skuInnerid != null">
+        sku_innerid,
+      </if>
+			
+	  <if test="skuid != null">
+        skuid,
+      </if>
+			
+	  <if test="imageUrl != null">
+        image_url,
+      </if>
+			
+	  <if test="imageBcsUrl != null">
+        image_bcs_url,
+      </if>
+			
+	  <if test="status != null">
+        status,
+      </if>
+			
+	  <if test="addtime != null">
+        addtime,
+      </if>
+			
+	  <if test="updatetime != null">
+        updatetime,
+      </if>
+			
+	  <if test="errormessage != null">
+        errormessage,
+      </if>
+			
+	  <if test="width != null">
+        width,
+      </if>
+			
+	  <if test="height != null">
+        height,
+      </if>
+			
+	  <if test="contentMd5 != null">
+        content_md5,
+      </if>
+			
+	  <if test="sequence != null">
+        sequence,
+      </if>
+			
+	  <if test="gipsImage != null">
+        gips_image,
+      </if>
+			
+	  <if test="type != null">
+        type,
+      </if>
+	    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+			
+	  <if test="id != null">
+         #{id,jdbcType=BIGINT},
+      </if>
+				
+	  <if test="skuInnerid != null">
+         #{skuInnerid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="skuid != null">
+         #{skuid,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="imageUrl != null">
+         #{imageUrl,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="imageBcsUrl != null">
+         #{imageBcsUrl,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="status != null">
+         #{status,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="addtime != null">
+         #{addtime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="updatetime != null">
+         #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="errormessage != null">
+         #{errormessage,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="width != null">
+         #{width,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="height != null">
+         #{height,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="contentMd5 != null">
+         #{contentMd5,jdbcType=CHAR},
+      </if>
+			
+	  <if test="sequence != null">
+         #{sequence,jdbcType=INTEGER},
+      </if>
+			
+	  <if test="gipsImage != null">
+         #{gipsImage,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="type != null">
+         #{type,jdbcType=TINYINT},
+      </if>
+	    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.innerapi.sku.bo.BcsSkuImage">
+    update bcs_sku_image
+    <set>      <if test="skuInnerid != null">
+        sku_innerid = #{skuInnerid,jdbcType=BIGINT},
+      </if>
+	        <if test="skuid != null">
+        skuid = #{skuid,jdbcType=VARCHAR},
+      </if>
+	        <if test="imageUrl != null">
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+	        <if test="imageBcsUrl != null">
+        image_bcs_url = #{imageBcsUrl,jdbcType=VARCHAR},
+      </if>
+	        <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+	        <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="errormessage != null">
+        errormessage = #{errormessage,jdbcType=VARCHAR},
+      </if>
+	        <if test="width != null">
+        width = #{width,jdbcType=INTEGER},
+      </if>
+	        <if test="height != null">
+        height = #{height,jdbcType=INTEGER},
+      </if>
+	        <if test="contentMd5 != null">
+        content_md5 = #{contentMd5,jdbcType=CHAR},
+      </if>
+	        <if test="sequence != null">
+        sequence = #{sequence,jdbcType=INTEGER},
+      </if>
+	        <if test="gipsImage != null">
+        gips_image = #{gipsImage,jdbcType=VARCHAR},
+      </if>
+	        <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+	      </set>
+    where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.innerapi.sku.bo.BcsSkuImage">
+    update bcs_sku_image
+    set 
+     	sku_innerid = #{skuInnerid,jdbcType=BIGINT},
+    	skuid = #{skuid,jdbcType=VARCHAR},
+    	image_url = #{imageUrl,jdbcType=VARCHAR},
+    	image_bcs_url = #{imageBcsUrl,jdbcType=VARCHAR},
+    	status = #{status,jdbcType=TINYINT},
+    	addtime = #{addtime,jdbcType=TIMESTAMP},
+    	updatetime = #{updatetime,jdbcType=TIMESTAMP},
+    	errormessage = #{errormessage,jdbcType=VARCHAR},
+    	width = #{width,jdbcType=INTEGER},
+    	height = #{height,jdbcType=INTEGER},
+    	content_md5 = #{contentMd5,jdbcType=CHAR},
+    	sequence = #{sequence,jdbcType=INTEGER},
+    	gips_image = #{gipsImage,jdbcType=VARCHAR},
+    	type = #{type,jdbcType=TINYINT}
+        where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+
+</mapper>

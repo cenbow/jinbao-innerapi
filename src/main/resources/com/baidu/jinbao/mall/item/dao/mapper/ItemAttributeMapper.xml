@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baidu.jinbao.mall.item.dao.mapper.ItemAttributeMapper">
+
+	<update id="update" parameterType="com.baidu.jinbao.mall.item.bo.ItemAttribute">
+		update item_attribute
+		<set>
+			<if test="itemid != null">
+				itemid = #{itemid,jdbcType=BIGINT},
+			</if>
+			<if test="propertyId != null">
+				property_id = #{propertyId,jdbcType=VARCHAR},
+			</if>
+			<if test="propertyValues != null">
+				property_values = #{propertyValues,jdbcType=VARCHAR},
+			</if>
+			<if test="propertyMd5 != null">
+				property_md5 = #{propertyMd5,jdbcType=CHAR},
+			</if>
+			<if test="addtime != null">
+				addtime = #{addtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where 1=1 and itemid = #{itemid,jdbcType=BIGINT}
+	</update>
+
+	<delete id="delete" parameterType="java.lang.Long">
+		delete from item_attribute
+		where 1=1 and itemid = #{itemid,jdbcType=BIGINT}
+	</delete>
+	
+	<select id="selectByItemId" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from item_attribute
+		where 1=1 and itemid = #{itemid,jdbcType=BIGINT}
+	</select>
+	
+	<insert id="insertOne" parameterType="com.baidu.jinbao.mall.item.bo.ItemAttribute"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into item_attribute
+		(itemid, property_id, property_values, property_md5, addtime,
+		updatetime)
+		values
+		(
+		#{itemid,jdbcType=BIGINT},#{propertyId,jdbcType=VARCHAR},#{propertyValues,jdbcType=VARCHAR},#{propertyMd5,jdbcType=CHAR},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP})
+	</insert>
+	
+		
+	<select id="batchSelectByItemIdList" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM item_attribute
+		WHERE itemid IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	
+</mapper>

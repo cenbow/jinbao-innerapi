@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.baidu.jinbao.innerapi.category.dao.mapper.CategoryPropertyValueMapper">
+	<resultMap id="BaseValResultMap" type="com.baidu.jinbao.innerapi.category.bo.BaseVal">
+		<id column="base_id" jdbcType="BIGINT" property="id" />
+		<result column="base_value" jdbcType="VARCHAR" property="value" />
+	</resultMap>
+	<resultMap id="PropertyValueInfoResultMap"
+		type="com.baidu.jinbao.mall.category.vo.PropertyValueInfo">
+		<association property="categoryPropertyValue"
+			javaType="com.baidu.jinbao.innerapi.category.bo.CategoryPropertyValue"
+			resultMap="BaseResultMap" />
+		<association property="baseVal"
+			javaType="com.baidu.jinbao.innerapi.category.bo.BaseVal" resultMap="BaseValResultMap" />
+	</resultMap>
+	<!-- batch selectPropertyInfo -->
+	<select id="batchSelectPropertyValueInfo" resultMap="PropertyValueInfoResultMap">
+		SELECT
+		a.id as id,a.c_id as c_id,a.isleaf as isleaf,a.pid as pid,a.vid
+		as
+		vid,a.alias as alias,a.image_url as image_url,
+		a.active as
+		active,a.addtime as addtime,a.updatetime as updatetime,
+		b.id as
+		base_id,b.value as base_value
+		FROM
+		category_property_value a
+		INNER JOIN (
+		<trim suffixOverrides="UNION ALL">
+			<foreach item="item" index="index" collection="list"
+				separator=" UNION ALL ">
+				SELECT #{item.cid,jdbcType=BIGINT} as c_id,#{item.pid,jdbcType=BIGINT} as
+				pid</foreach>
+		</trim>
+		)temp ON a.c_id = temp.c_id and a.pid = temp.pid
+		INNER JOIN base_val b
+		on a.vid=b.id
+	</select>
+
+	<!-- ===========================SELECT======================== -->
+	<select id="batchSelect" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM category_property_value
+		WHERE id IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")"> #{item}</foreach>
+	</select>
+	<!-- =============================DELETE===================== -->
+	<delete id="batchDelete">
+		DELETE FROM category_property_value
+		WHERE id IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">#{item}</foreach>
+	</delete>
+	<!-- =========================INSERT========================= -->
+	<insert id="batchInsert">
+		INSERT INTO category_property_value
+		(
+		c_id,
+		isleaf,
+		pid,
+		vid,
+		alias,
+		image_url,
+		active,
+		addtime,
+		updatetime
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.cId,jdbcType=INTEGER},
+			#{item.isleaf,jdbcType=TINYINT},
+			#{item.pid,jdbcType=BIGINT},
+			#{item.vid,jdbcType=BIGINT},
+			#{item.alias,jdbcType=VARCHAR},
+			#{item.imageUrl,jdbcType=VARCHAR},
+			#{item.active,jdbcType=TINYINT},
+			#{item.addtime,jdbcType=TIMESTAMP},
+			#{item.updatetime,jdbcType=TIMESTAMP}
+			)
+		</foreach>
+	</insert>
+	<!-- =========================UPDATE========================= -->
+	<update id="batchUpdate">
+		UPDATE
+		category_property_value
+		<trim prefix="SET" suffixOverrides=",">
+			<trim prefix="c_id=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.cId!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.cId,jdbcType=INTEGER}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="isleaf=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.isleaf!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.isleaf,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="pid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.pid!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.pid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="vid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.vid!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.vid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="alias=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.alias!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.alias,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="image_url=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.imageUrl!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.imageUrl,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="active=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.active!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.active,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="addtime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.addtime!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.addtime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="updatetime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.updatetime!=null">
+						WHEN id = #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.updatetime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+		WHERE id IN
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item.id,jdbcType=BIGINT}
+		</foreach>
+	</update>
+</mapper>

@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baidu.jinbao.innerapi.spu.dao.mapper.CspuInfoMapper">
+	<!-- ===========================SELECT======================== -->
+	<select id="batchSelect" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM cspu_info
+		WHERE cspuid IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")"> #{item}</foreach>
+	</select>
+	<!-- =============================DELETE===================== -->
+	<delete id="batchDelete">
+		DELETE FROM cspu_info
+		WHERE cspuid IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">#{item}</foreach>
+	</delete>
+	<!-- =========================INSERT========================= -->
+	<insert id="batchInsert">
+		INSERT INTO cspu_info
+		(
+		cid,
+		spuid,
+		name,
+		alias,
+		brand,
+		product_model,
+		product_upc,
+		sale_attribute,
+		attribute,
+		sale_attribute_orig,
+		attribute_orig,
+		extend_attribute,
+		pack_list,
+		price,
+		url,
+		big_field,
+		deleted,
+		active,
+		level,
+		cspu_from,
+		addtime,
+		updatetime
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.cid,jdbcType=BIGINT},
+			#{item.spuid,jdbcType=BIGINT},
+			#{item.name,jdbcType=VARCHAR},
+			#{item.alias,jdbcType=VARCHAR},
+			#{item.brand,jdbcType=BIGINT},
+			#{item.productModel,jdbcType=VARCHAR},
+			#{item.productUpc,jdbcType=VARCHAR},
+			#{item.saleAttribute,jdbcType=LONGVARCHAR},
+			#{item.attribute,jdbcType=LONGVARCHAR},
+			#{item.saleAttributeOrig,jdbcType=LONGVARCHAR},
+			#{item.attributeOrig,jdbcType=LONGVARCHAR},
+			#{item.extendAttribute,jdbcType=VARCHAR},
+			#{item.packList,jdbcType=VARCHAR},
+			#{item.price,jdbcType=DECIMAL},
+			#{item.url,jdbcType=VARCHAR},
+			#{item.bigField,jdbcType=LONGVARBINARY},
+			#{item.deleted,jdbcType=TINYINT},
+			#{item.active,jdbcType=TINYINT},
+			#{item.level,jdbcType=BIGINT},
+			#{item.cspuFrom,jdbcType=TINYINT},
+			#{item.addtime,jdbcType=TIMESTAMP},
+			#{item.updatetime,jdbcType=TIMESTAMP}
+			)
+		</foreach>
+	</insert>
+	<!-- =========================UPDATE========================= -->
+	<update id="batchUpdate">
+		UPDATE
+		cspu_info
+		<trim prefix="SET" suffixOverrides=",">
+			<trim prefix="cid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.cid!=null">
+						WHEN cspuid = #{item.cspuid,jdbcType=BIGINT}
+						THEN
+						#{item.cid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="spuid=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.spuid!=null">
+						WHEN cspuid = #{item.cspuid,jdbcType=BIGINT}
+						THEN
+						#{item.spuid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="name=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.name!=null">
+						WHEN cspuid = #{item.cspuid,jdbcType=BIGINT}
+						THEN
+						#{item.name,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="alias=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.alias!=null">
+						WHEN cspuid = #{item.cspuid,jdbcType=BIGINT}
+						THEN
+						#{item.alias,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="brand=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.brand!=null">
+						WHEN cspuid = #{item.cspuid,jdbcType=BIGINT}
+						THEN
+						#{item.brand,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="product_model=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.productModel!=null">
+						WHEN cspuid = #{item.cspuid,jdbcType=BIGINT}
+						THEN
+						#{item.productModel,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="product_upc=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.productUpc!=null">
+						WHEN cspuid = #{item.cspuid,jdbcType=BIGINT}
+						THEN
+						#{item.productUpc,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="sale_attribute=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.saleAttribute!=null">
+						WHEN cspuid = #{item.cspuid,jdbcType=BIGINT}
+						THEN
+						#{item.saleAttribute,jdbcType=LONGVARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="attribute=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.attribute!=null">
+						WHEN cspuid = #{item.cspuid,jdbcType=BIGINT}
+						THEN
+						#{item.attribute,jdbcType=LONGVARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="sale_attribute_orig=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.saleAttributeOrig!=null">
+						WHEN cspuid = #{item.cspuid,jdbcType=BIGINT}
+						THEN
+						#{item.saleAttributeOrig,jdbcType=LONGVARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="attribute_orig=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.attributeOrig!=null">
+						WHEN cspuid = #{item.cspuid,jdbcType=BIGINT}
+						THEN
+						#{item.attributeOrig,jdbcType=LONGVARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="extend_attribute=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.extendAttribute!=null">
+						WHEN cspuid = #{item.cspuid,jdbcType=BIGINT}
+						THEN
+						#{item.extendAttribute,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="pack_list=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.packList!=null">
+						WHEN cspuid = #{item.cspuid,jdbcType=BIGINT}
+						THEN
+						#{item.packList,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="price=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.price!=null">
+						WHEN cspuid = #{item.cspuid,jdbcType=BIGINT}
+						THEN
+						#{item.price,jdbcType=DECIMAL}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="url=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.url!=null">
+						WHEN cspuid = #{item.cspuid,jdbcType=BIGINT}
+						THEN
+						#{item.url,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="big_field=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.bigField!=null">
+						WHEN cspuid = #{item.cspuid,jdbcType=BIGINT}
+						THEN
+						#{item.bigField,jdbcType=LONGVARBINARY}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="deleted=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.deleted!=null">
+						WHEN cspuid = #{item.cspuid,jdbcType=BIGINT}
+						THEN
+						#{item.deleted,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="active=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.active!=null">
+						WHEN cspuid = #{item.cspuid,jdbcType=BIGINT}
+						THEN
+						#{item.active,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="level=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.level!=null">
+						WHEN cspuid = #{item.cspuid,jdbcType=BIGINT}
+						THEN
+						#{item.level,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="cspu_from=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.cspuFrom!=null">
+						WHEN cspuid = #{item.cspuid,jdbcType=BIGINT}
+						THEN
+						#{item.cspuFrom,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="addtime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.addtime!=null">
+						WHEN cspuid = #{item.cspuid,jdbcType=BIGINT}
+						THEN
+						#{item.addtime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="updatetime=CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.updatetime!=null">
+						WHEN cspuid = #{item.cspuid,jdbcType=BIGINT}
+						THEN
+						#{item.updatetime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+		WHERE cspuid IN
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item.cspuid,jdbcType=BIGINT}
+		</foreach>
+	</update>
+</mapper>

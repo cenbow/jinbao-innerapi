@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.innerapi.category.dao.mapper.BasePropertyMapper">
+
+  <resultMap id="BaseResultMap" type="com.baidu.jinbao.innerapi.category.bo.BaseProperty">
+			<id     column="id"		jdbcType="BIGINT"		property="id" />
+	 		<result column="property_name"		jdbcType="VARCHAR"		property="propertyName" />
+			<result column="en_name"		jdbcType="VARCHAR"		property="enName" />
+	  </resultMap>
+  
+  <sql id="Base_Column_List">
+	id,property_name,en_name  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_property
+    where 1=1  and id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from base_property
+    where 1=1 and id = #{id,jdbcType=BIGINT}  </delete>
+  
+  <insert id="insert" parameterType="com.baidu.jinbao.innerapi.category.bo.BaseProperty" useGeneratedKeys="true" keyProperty="id">
+    insert into base_property 
+	(id, property_name, en_name)
+    values 
+	( #{id,jdbcType=BIGINT},#{propertyName,jdbcType=VARCHAR},#{enName,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.baidu.jinbao.innerapi.category.bo.BaseProperty" useGeneratedKeys="true" keyProperty="id">
+    insert into base_property
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		
+	  <if test="id != null">
+        id,
+      </if>
+				
+	  <if test="propertyName != null">
+        property_name,
+      </if>
+			
+	  <if test="enName != null">
+        en_name,
+      </if>
+	    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+			
+	  <if test="id != null">
+         #{id,jdbcType=BIGINT},
+      </if>
+				
+	  <if test="propertyName != null">
+         #{propertyName,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="enName != null">
+         #{enName,jdbcType=VARCHAR},
+      </if>
+	    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.innerapi.category.bo.BaseProperty">
+    update base_property
+    <set>      <if test="propertyName != null">
+        property_name = #{propertyName,jdbcType=VARCHAR},
+      </if>
+	        <if test="enName != null">
+        en_name = #{enName,jdbcType=VARCHAR},
+      </if>
+	      </set>
+    where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.innerapi.category.bo.BaseProperty">
+    update base_property
+    set 
+     	property_name = #{propertyName,jdbcType=VARCHAR},
+    	en_name = #{enName,jdbcType=VARCHAR}
+        where 1=1 and id = #{id,jdbcType=BIGINT}  
+  </update>
+
+</mapper>

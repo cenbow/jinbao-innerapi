@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.innerapi.demo.dao.mapper.DemoMapper">
+
+  <resultMap id="BaseResultMap" type="com.baidu.jinbao.innerapi.demo.bo.Demo">
+	   </resultMap>
+  
+  <sql id="Base_Column_List">
+	  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from demo
+    where 1=1 
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from demo
+    where 1=1   </delete>
+  
+  <insert id="insert" parameterType="com.baidu.jinbao.innerapi.demo.bo.Demo" useGeneratedKeys="true" keyProperty="${modelData.dbtable.primaryKeyColumns.get(0).dbTableColumnName}">
+    insert into demo 
+	()
+    values 
+	()
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.baidu.jinbao.innerapi.demo.bo.Demo" useGeneratedKeys="true" keyProperty="${modelData.dbtable.primaryKeyColumns.get(0).dbTableColumnName}">
+    insert into demo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+		    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.innerapi.demo.bo.Demo">
+    update demo
+    <set>    </set>
+    where 1=1   
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.innerapi.demo.bo.Demo">
+    update demo
+    set 
+         where 1=1   
+  </update>
+
+</mapper>

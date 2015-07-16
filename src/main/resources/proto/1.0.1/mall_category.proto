@@ -1,0 +1,120 @@
+package com.baidu.jinbao.mall.rpc;
+
+option java_outer_classname = "MallCategoryRpc";  
+option java_generic_services = true;
+
+
+message EmptyRequest {  
+    optional int64 id=1;
+}
+
+//  ------------- category 相关表 --------------------------
+message CategoryId {  
+	optional int64 categoryId=1;
+}
+
+message CategoryDto {  
+	optional int64 categoryid=1;
+	optional int64 parentid=2;
+	optional string name=3;
+	optional int32 isleaf=4;
+	optional int32 pos=5;
+	optional string addtime=6;
+	optional string updatetime=7;
+	optional int32 deleted=8;
+}
+
+message CategoryDtoResponse {  
+	optional int32 status=1;
+	optional string message=2;
+	optional CategoryDto categoryDto=3;
+}
+
+message CategoryDtoListResponse {  
+	optional int32 status=1;
+	optional string message=2;
+	repeated CategoryDto categoryDtoList=3;
+}
+
+
+service mallCategoryRpcService
+{
+		// protobuf不允许输入参数为空，顾创建了一个不包含任务数据的输入参数对象
+        rpc getAllCategoryInfo(EmptyRequest) returns (CategoryDtoListResponse);
+		rpc getCategoryInfo(CategoryId) returns (CategoryDtoListResponse);
+};
+
+//  ------------- category property 相关表 --------------------------
+message PropertyId {  
+	optional int64 cid=1;
+	optional int64 pid=2;
+}
+
+message PropertyIdList {  
+    repeated PropertyId propertyIdList=1;
+}
+
+message BasePropertyDto {  
+	optional int64 id=1;
+	optional string propertyName=2;
+	optional string enName=3;
+}
+message CategoryPropertyDto {  
+	optional int64 id=1;
+	optional int32 cId=2;
+	optional int32 isleaf=3;
+	optional string name=4;
+	optional int64 pid=5;
+	optional int32 isRequired=6;
+	optional int32 isSelfdefine=7;
+	optional int32 type=8;
+	optional string valueRange=9;
+	optional int32 propType=10;
+	optional int32 sequence=11;
+	optional int32 active=12;
+	optional string addtime=13;
+	optional string updatetime=14;
+}
+
+message PropertyInfo {  
+	optional CategoryPropertyDto categoryPropertyDto=1;
+	optional BasePropertyDto basePropertyDto=2;
+}
+
+message PropertyInfoResponse {  
+	optional int32 status=1;
+	optional string message=2;
+	repeated PropertyInfo propertyInfoList=3;
+}
+
+message PropertyValueInfoResponse {  
+	optional int32 status=1;
+	optional string message=2;
+	repeated PropertyValueInfo propertyValueInfoList=3;
+}
+message PropertyValueInfo {  
+	optional CategoryPropertyValueDto categoryPropertyValueDto=1;
+	optional BaseValDto baseValDto=2;
+}
+message BaseValDto {  
+	optional int64 id=1;
+	optional string value=2;
+}
+message CategoryPropertyValueDto {  
+	optional int64 id=1;
+	optional int32 cId=2;
+	optional int32 isleaf=3;
+	optional int64 pid=4;
+	optional int64 vid=5;
+	optional string alias=6;
+	optional string imageUrl=7;
+	optional int32 active=8;
+	optional string addtime=9;
+	optional string updatetime=10;
+}
+
+service mallCategoryPropertyRpcService
+{
+        rpc getPropertyInfo(PropertyIdList) returns (PropertyInfoResponse);
+		rpc getPropertyValueInfo(PropertyIdList) returns (PropertyValueInfoResponse);
+};

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.innerapi.category.dao.mapper.BaseValMapper">
+
+	<resultMap id="BaseResultMap" type="com.baidu.jinbao.innerapi.category.bo.BaseVal">
+		<id column="id" jdbcType="BIGINT" property="id" />
+		<result column="value" jdbcType="VARCHAR" property="value" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,value
+	</sql>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from base_val
+		where 1=1 and id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from
+		base_val
+		where 1=1 and id = #{id,jdbcType=BIGINT}
+	</delete>
+
+	<insert id="insert" parameterType="com.baidu.jinbao.innerapi.category.bo.BaseVal"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into base_val
+		(id, value)
+		values
+		( #{id,jdbcType=BIGINT},#{value,jdbcType=VARCHAR})
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.baidu.jinbao.innerapi.category.bo.BaseVal"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into base_val
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+
+			<if test="id != null">
+				id,
+			</if>
+
+			<if test="value != null">
+				value,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+
+			<if test="value != null">
+				#{value,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.innerapi.category.bo.BaseVal">
+		update base_val
+		<set>
+			<if test="value != null">
+				value = #{value,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where 1=1 and id = #{id,jdbcType=BIGINT}
+	</update>
+
+
+
+	<update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.innerapi.category.bo.BaseVal">
+		update base_val
+		set
+		value = #{value,jdbcType=VARCHAR}
+		where 1=1 and id =
+		#{id,jdbcType=BIGINT}
+	</update>
+
+</mapper>

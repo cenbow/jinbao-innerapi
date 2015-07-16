@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baidu.jinbao.innerapi.spu.dao.mapper.SpuInfoMapper">
+
+  <resultMap id="BaseResultMap" type="com.baidu.jinbao.innerapi.spu.bo.SpuInfo">
+			<id     column="spuid"		jdbcType="BIGINT"		property="spuid" />
+	 		<result column="cid"		jdbcType="BIGINT"		property="cid" />
+			<result column="name"		jdbcType="VARCHAR"		property="name" />
+			<result column="brand"		jdbcType="BIGINT"		property="brand" />
+			<result column="product_model"		jdbcType="VARCHAR"		property="productModel" />
+			<result column="deleted"		jdbcType="TINYINT"		property="deleted" />
+			<result column="active"		jdbcType="TINYINT"		property="active" />
+			<result column="addtime"		jdbcType="TIMESTAMP"		property="addtime" />
+			<result column="updatetime"		jdbcType="TIMESTAMP"		property="updatetime" />
+	  </resultMap>
+  
+  <sql id="Base_Column_List">
+	spuid,cid,name,brand,product_model,deleted,active,addtime,updatetime  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from spu_info
+    where 1=1  and spuid = #{spuid,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from spu_info
+    where 1=1 and spuid = #{spuid,jdbcType=BIGINT}  </delete>
+  
+  <insert id="insert" parameterType="com.baidu.jinbao.innerapi.spu.bo.SpuInfo" useGeneratedKeys="true" keyProperty="spuid">
+    insert into spu_info 
+	(spuid, cid, name, brand, product_model, deleted, active, addtime, updatetime)
+    values 
+	( #{spuid,jdbcType=BIGINT},#{cid,jdbcType=BIGINT},#{name,jdbcType=VARCHAR},#{brand,jdbcType=BIGINT},#{productModel,jdbcType=VARCHAR},#{deleted,jdbcType=TINYINT},#{active,jdbcType=TINYINT},#{addtime,jdbcType=TIMESTAMP},#{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.baidu.jinbao.innerapi.spu.bo.SpuInfo" useGeneratedKeys="true" keyProperty="spuid">
+    insert into spu_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		
+	  <if test="spuid != null">
+        spuid,
+      </if>
+				
+	  <if test="cid != null">
+        cid,
+      </if>
+			
+	  <if test="name != null">
+        name,
+      </if>
+			
+	  <if test="brand != null">
+        brand,
+      </if>
+			
+	  <if test="productModel != null">
+        product_model,
+      </if>
+			
+	  <if test="deleted != null">
+        deleted,
+      </if>
+			
+	  <if test="active != null">
+        active,
+      </if>
+			
+	  <if test="addtime != null">
+        addtime,
+      </if>
+			
+	  <if test="updatetime != null">
+        updatetime,
+      </if>
+	    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+			
+	  <if test="spuid != null">
+         #{spuid,jdbcType=BIGINT},
+      </if>
+				
+	  <if test="cid != null">
+         #{cid,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="name != null">
+         #{name,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="brand != null">
+         #{brand,jdbcType=BIGINT},
+      </if>
+			
+	  <if test="productModel != null">
+         #{productModel,jdbcType=VARCHAR},
+      </if>
+			
+	  <if test="deleted != null">
+         #{deleted,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="active != null">
+         #{active,jdbcType=TINYINT},
+      </if>
+			
+	  <if test="addtime != null">
+         #{addtime,jdbcType=TIMESTAMP},
+      </if>
+			
+	  <if test="updatetime != null">
+         #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.baidu.jinbao.innerapi.spu.bo.SpuInfo">
+    update spu_info
+    <set>      <if test="cid != null">
+        cid = #{cid,jdbcType=BIGINT},
+      </if>
+	        <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+	        <if test="brand != null">
+        brand = #{brand,jdbcType=BIGINT},
+      </if>
+	        <if test="productModel != null">
+        product_model = #{productModel,jdbcType=VARCHAR},
+      </if>
+	        <if test="deleted != null">
+        deleted = #{deleted,jdbcType=TINYINT},
+      </if>
+	        <if test="active != null">
+        active = #{active,jdbcType=TINYINT},
+      </if>
+	        <if test="addtime != null">
+        addtime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+	        <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+	      </set>
+    where 1=1 and spuid = #{spuid,jdbcType=BIGINT}  
+  </update>
+  
+  
+  
+  <update id="updateByPrimaryKey" parameterType="com.baidu.jinbao.innerapi.spu.bo.SpuInfo">
+    update spu_info
+    set 
+     	cid = #{cid,jdbcType=BIGINT},
+    	name = #{name,jdbcType=VARCHAR},
+    	brand = #{brand,jdbcType=BIGINT},
+    	product_model = #{productModel,jdbcType=VARCHAR},
+    	deleted = #{deleted,jdbcType=TINYINT},
+    	active = #{active,jdbcType=TINYINT},
+    	addtime = #{addtime,jdbcType=TIMESTAMP},
+    	updatetime = #{updatetime,jdbcType=TIMESTAMP}
+        where 1=1 and spuid = #{spuid,jdbcType=BIGINT}  
+  </update>
+
+</mapper>

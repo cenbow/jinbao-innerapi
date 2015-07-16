@@ -1,0 +1,372 @@
+package com.baidu.jinbao.innerapi.rpc;
+
+option java_outer_classname = "SkuRpc";  
+option java_generic_services = true;
+
+import "common.proto";
+
+// sku表相关查询条件
+message SkuCondition {  
+		repeated int64 idList=1;
+		repeated int64 skuInnerIdList=2;
+		repeated string skuIdList=3;
+}
+
+message SkuTotalInfoDto {  
+		optional SkuInfoDto skuInfoDto=1;
+		optional SkuAttributeDto skuAttributeDto=2;
+		optional SkuCdtDto skuCdtDto=3;
+		optional SkuDescriptionDto skuDescriptionDto=4;
+		optional SkuPpsDto skuPpsDto=5;
+		optional SkuLevelDto skuLevelDto=6;
+		optional SkuCommentDto skuCommentDto=7;
+		optional SkuCspuDto skuCspuDto=8;
+}
+
+message SkuTotalInfoDtoList {  
+		repeated SkuTotalInfoDto dtoList=1;
+}
+
+//  ------------- sku_info 表 --------------------------
+message SkuInfoDto {  
+        optional int64 skuInnerid=1;
+        optional int64 skuHashkey=2;
+        optional string skuid=3;
+        optional int64 merchantid=4;
+        optional string uniqueKey=5;
+        optional int64 feedid=6;
+        optional int64 ucid=7;
+        optional string title=8;
+        optional string subtitle=9;
+        optional string url=10;
+        optional string mobileurl=11;
+        optional string outerid=12;
+        optional string categoryOri=13;
+        optional string brandOri=14;
+        optional string starttime=15;
+        optional string endtime=16;
+        optional int32 merchantStatus=17;
+        optional int32 manualStatus=18;
+        optional string signature=19;
+        optional int32 isselfopen=20;
+        optional int64 dataversion=21;
+        optional string inactivetime=22;
+        optional string addtime=23;
+        optional string updatetime=24;
+        optional int32 deleted=25;
+        optional string sellerName=26;
+        optional int64 upc=27;
+}
+
+message SkuInfoDtoList
+{
+		repeated SkuInfoDto dto = 1;
+}
+
+
+message SkuInfoSearchResponse
+{
+		required int32 status = 1;				// 标志位 0:成功，1：失败
+		required string message = 2; 			//  描述信息
+		optional SkuInfoDtoList voList = 3; 	// 类目表记录List
+}
+
+service skuInfoRpcService
+{
+        rpc insertRecords(SkuInfoDtoList) returns (ModifyResponse);
+		rpc updateRecords(SkuInfoDtoList) returns (ModifyResponse);
+		rpc deleteRecords(SkuCondition) returns (ModifyResponse);
+		rpc getRecords(SkuCondition) returns (SkuInfoSearchResponse);
+		rpc updateInsert(SkuTotalInfoDto) returns (ModifyResponse);
+		
+		rpc insertSkuTotalInfo(SkuTotalInfoDto) returns (ModifyResponse);
+		rpc insertSkuTotalInfoList(SkuTotalInfoDtoList) returns (ModifyResponse);
+};
+
+//  ------------- sku_attribute 表 --------------------------
+message SkuAttributeDto {  
+        optional int64 id=1;
+        optional int64 skuInnerid=2;
+        optional string skuid=3;
+        optional int64 merchantid=4;
+        optional string propertyId=5;
+        optional string propertyValues=6;
+        optional string propertyHash=7;
+        optional string addtime=8;
+        optional string updatetime=9;
+}
+
+message SkuAttributeDtoList
+{
+		repeated SkuAttributeDto dto = 1;
+}
+
+
+message SkuAttributeSearchResponse
+{
+		required int32 status = 1;				// 标志位 0:成功，1：失败
+		required string message = 2; 			//  描述信息
+		optional SkuAttributeDtoList voList = 3; 	// 类目表记录List
+}
+
+service skuAttributeRpcService
+{
+        rpc insertRecords(SkuAttributeDtoList) returns (ModifyResponse);
+		rpc updateRecords(SkuAttributeDtoList) returns (ModifyResponse);
+		rpc deleteRecords(SkuCondition) returns (ModifyResponse);
+		rpc getRecords(SkuCondition) returns (SkuAttributeSearchResponse);
+};
+
+//  ------------- sku_cdt 表 --------------------------
+message SkuCdtDto {  
+        optional int64 id=1;
+        optional int64 skuInnerid=2;
+        optional string skuid=3;
+        optional int64 leafcategoryid=4;
+        optional int32 classificationtype=5;
+        optional float confidence=6;
+        optional string addtime=7;
+        optional string updatetime=8;
+}
+
+
+message SkuCdtDtoList
+{
+		repeated SkuCdtDto dto = 1;
+}
+
+
+message SkuCdtSearchResponse
+{
+		required int32 status = 1;				// 标志位 0:成功，1：失败
+		required string message = 2; 			//  描述信息
+		optional SkuCdtDtoList voList = 3; 	// 类目表记录List
+}
+
+service skuCdtRpcService
+{
+        rpc insertRecords(SkuCdtDtoList) returns (ModifyResponse);
+		rpc updateRecords(SkuCdtDtoList) returns (ModifyResponse);
+		rpc deleteRecords(SkuCondition) returns (ModifyResponse);
+		rpc getRecords(SkuCondition) returns (SkuCdtSearchResponse);
+};
+
+//  ------------- sku_description 表 --------------------------
+message SkuDescriptionDto {  
+        optional int64 id=1;
+        optional int64 merchantid=2;
+        optional int64 skuInnerid=3;
+        optional string skuid=4;
+        optional bytes skuDescOri=5;
+        optional string pdHash=6;
+        optional bytes skuDesc=7;
+        optional int32 pdStatus=8;
+        optional int32 area=9;
+        optional int32 wordCount=10;
+        optional string addtime=11;
+        optional string updatetime=12;
+}
+
+message SkuDescriptionDtoList
+{
+		repeated SkuDescriptionDto dto = 1;
+}
+
+
+message SkuDescriptionSearchResponse
+{
+		required int32 status = 1;				// 标志位 0:成功，1：失败
+		required string message = 2; 			//  描述信息
+		optional SkuDescriptionDtoList voList = 3; 	// 类目表记录List
+}
+
+service skuDescriptionRpcService
+{
+        rpc insertRecords(SkuDescriptionDtoList) returns (ModifyResponse);
+		rpc updateRecords(SkuDescriptionDtoList) returns (ModifyResponse);
+		rpc deleteRecords(SkuCondition) returns (ModifyResponse);
+		rpc getRecords(SkuCondition) returns (SkuDescriptionSearchResponse);
+};
+
+//  ------------- sku_pps 表 --------------------------
+message SkuPpsDto {  
+		optional int64 id=1;
+		optional int64 merchantid=2;
+		optional int64 skuInnerid=3;
+		optional string skuid=4;
+		optional int32 regionid=5;
+		optional int32 terminal=6;
+		optional float promotionInfo=7;
+		optional float promotionPriceMachine=8;
+		optional float promotionPriceManual=9;
+		optional float originalprice=10;
+		optional float discountprice=11;
+		optional int32 stock=12;
+		optional int32 postPay=13;
+		optional string mUpdateTime=14;
+		optional string addtime=15;
+		optional string updatetime=16;
+}
+
+message SkuPpsDtoList
+{
+		repeated SkuPpsDto dto = 1;
+}
+
+
+message SkuPpsSearchResponse
+{
+		required int32 status = 1;				// 标志位 0:成功，1：失败
+		required string message = 2; 			//  描述信息
+		optional SkuPpsDtoList voList = 3; 	// 类目表记录List
+}
+
+service skuPpsRpcService
+{
+        rpc insertRecords(SkuPpsDtoList) returns (ModifyResponse);
+		rpc updateRecords(SkuPpsDtoList) returns (ModifyResponse);
+		rpc deleteRecords(SkuCondition) returns (ModifyResponse);
+		rpc getRecords(SkuCondition) returns (SkuPpsSearchResponse);
+};
+
+
+//  ------------- sku_level 表 --------------------------
+message SkuLevelDto {  
+        optional int64 id=1;
+        optional int64 skuInnerid=2;
+        optional string skuid=3;
+        optional int32 level=4;
+        optional string addtime=5;
+        optional string updatetime=6;
+}
+
+message SkuLevelDtoList
+{
+		repeated SkuLevelDto dto = 1;
+}
+
+
+message SkuLevelSearchResponse
+{
+		required int32 status = 1;				// 标志位 0:成功，1：失败
+		required string message = 2; 			//  描述信息
+		optional SkuLevelDtoList voList = 3; 	// 类目表记录List
+}
+
+service skuLevelRpcService
+{
+        rpc insertRecords(SkuLevelDtoList) returns (ModifyResponse);
+		rpc updateRecords(SkuLevelDtoList) returns (ModifyResponse);
+		rpc deleteRecords(SkuCondition) returns (ModifyResponse);
+		rpc getRecords(SkuCondition) returns (SkuLevelSearchResponse);
+};
+
+//  ------------- sku_comment 表 --------------------------
+message SkuCommentDto {  
+        optional int64 id=1;
+        optional int64 skuInnerid=2;
+        optional string skuid=3;
+        optional int32 reviewcount=4;
+        optional int32 goodcount=5;
+        optional int32 medcount=6;
+        optional int32 badcount=7;
+        optional string tags=8;
+        optional double score=9;
+        optional string addtime=10;
+        optional string updatetime=11;
+}
+
+message SkuCommentDtoList
+{
+		repeated SkuCommentDto dto = 1;
+}
+
+
+message SkuCommentSearchResponse
+{
+		required int32 status = 1;				// 标志位 0:成功，1：失败
+		required string message = 2; 			//  描述信息
+		optional SkuCommentDtoList voList = 3; 	// 类目表记录List
+}
+
+service skuCommentRpcService
+{
+        rpc insertRecords(SkuCommentDtoList) returns (ModifyResponse);
+		rpc updateRecords(SkuCommentDtoList) returns (ModifyResponse);
+		rpc deleteRecords(SkuCondition) returns (ModifyResponse);
+		rpc getRecords(SkuCondition) returns (SkuCommentSearchResponse);
+};
+
+//  ------------- sku_cspu 表 --------------------------
+message SkuCspuDto {  
+        optional int64 id=1;
+        optional int64 skuInnerid=2;
+        optional string skuid=3;
+        optional int64 cspuid=4;
+        optional int32 type=5;
+        optional float confidence=6;
+        optional string addtime=7;
+        optional string updatetime=8;
+}
+
+message SkuCspuDtoList
+{
+		repeated SkuCspuDto dto = 1;
+}
+
+
+message SkuCspuSearchResponse
+{
+		required int32 status = 1;				// 标志位 0:成功，1：失败
+		required string message = 2; 			//  描述信息
+		optional SkuCspuDtoList voList = 3; 	// 类目表记录List
+}
+
+service skuCspuRpcService
+{
+        rpc insertRecords(SkuCspuDtoList) returns (ModifyResponse);
+		rpc updateRecords(SkuCspuDtoList) returns (ModifyResponse);
+		rpc deleteRecords(SkuCondition) returns (ModifyResponse);
+		rpc getRecords(SkuCondition) returns (SkuCspuSearchResponse);
+};
+
+
+//  ------------- bcs_sku_image 表 --------------------------
+message BcsSkuImageDto {  
+        optional int64 id=1;
+        optional int64 skuInnerid=2;
+        optional string skuid=3;
+        optional string imageUrl=4;
+        optional string imageBcsUrl=5;
+        optional int32 status=6;
+        optional string addtime=7;
+        optional string updatetime=8;
+        optional string errormessage=9;
+        optional int32 width=10;
+        optional int32 height=11;
+        optional string contentMd5=12;
+        optional int32 sequence=13;
+        optional string gipsImage=14;
+        optional int32 type=15;
+}
+
+message BcsSkuImageDtoList
+{
+		repeated BcsSkuImageDto dto = 1;
+}
+
+message BcsSkuImageSearchResponse
+{
+		required int32 status = 1;				// 标志位 0:成功，1：失败
+		required string message = 2; 			//  描述信息
+		optional BcsSkuImageDtoList voList = 3; 	// 类目表记录List
+}
+
+service bcsSkuImageRpcService
+{
+        rpc insertRecords(BcsSkuImageDtoList) returns (ModifyResponse);
+		rpc updateRecords(BcsSkuImageDtoList) returns (ModifyResponse);
+		rpc deleteRecords(SkuCondition) returns (ModifyResponse);
+		rpc getRecords(SkuCondition) returns (BcsSkuImageSearchResponse);
+};
+

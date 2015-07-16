@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baidu.jinbao.innerapi.jinbaocommon.dao.mapper.MerchantInfoMapper" >
+    <insert id="batchInsert">
+		INSERT INTO merchant_info
+		(
+		ucid, name, addtime, updatetime
+		)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.ucid,jdbcType=BIGINT},#{item.name,jdbcType=VARCHAR},
+			#{item.addtime, jdbcType=TIMESTAMP},#{item.updatetime,
+			jdbcType=TIMESTAMP})
+		</foreach>
+	</insert>
+
+	<update id="batchUpdate">
+		UPDATE merchant_info
+		<trim prefix="SET" suffixOverrides=",">
+			<trim prefix="ucid = CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.ucid!=null">
+						WHEN id= #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.ucid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="name = CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.name!=null">
+						WHEN id= #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.name,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="updatetime = CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.updatetime!=null">
+						WHEN id= #{item.id,jdbcType=BIGINT}
+						THEN
+						#{item.updatetime,jdbcType=TIMESTAMP}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+		WHERE id IN
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item.id,jdbcType=BIGINT}
+		</foreach>
+	</update>
+
+	<delete id="batchDelete">
+		DELETE
+		FROM merchant_info
+		WHERE id IN
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
+
+	<select id="batchSelect" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM merchant_info
+		WHERE id IN
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item}
+		</foreach>
+	</select>
+ 
+</mapper>

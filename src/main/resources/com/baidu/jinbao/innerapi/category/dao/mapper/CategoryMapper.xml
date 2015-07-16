@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baidu.jinbao.innerapi.category.dao.mapper.CategoryMapper">
+    <!-- ===========================SELECT======================== -->
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM category
+        WHERE
+        deleted=0
+    </select>
+    <!-- ===========================SELECT======================== -->
+    <select id="selectByParentid" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM category
+        WHERE 1=1 and deleted=0 and parentid = #{parentid,jdbcType=BIGINT}
+    </select>  
+	<!-- ===========================SELECT======================== -->
+	<select id="batchSelect" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM category
+		WHERE deleted=0 and categoryid IN
+		<foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	<!-- =============================DELETE===================== -->
+    <update id="batchDelete">
+        update category
+        set deleted=1
+        WHERE categoryid IN
+        <foreach item="item" index="index" collection="list" open="("
+            separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+	<!-- =========================INSERT========================= -->
+	<insert id="batchInsert">
+		INSERT INTO category
+		(parentid, name, isleaf, pos, addtime, updatetime,
+		deleted)
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(#{item.parentid,
+			jdbcType=BIGINT},#{item.name,
+			jdbcType=VARCHAR},#{item.isleaf,
+			jdbcType=TINYINT},#{item.pos,
+			jdbcType=INTEGER},#{item.addtime,
+			jdbcType=TIMESTAMP},#{item.updatetime,
+			jdbcType=TIMESTAMP},#{item.deleted, jdbcType=TINYINT})
+		</foreach>
+	</insert>
+
+	<!-- =========================UPDATE========================= -->
+	<update id="batchUpdate">
+		UPDATE category
+		<trim prefix="SET" suffixOverrides=",">
+			<trim prefix="parentid = CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.parentid!=null">
+						WHEN categoryid= #{item.categoryid,jdbcType=BIGINT}
+						THEN
+						#{item.parentid,jdbcType=BIGINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="name = CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.name!=null">
+						WHEN categoryid=#{item.categoryid,jdbcType=BIGINT}
+						THEN
+						#{item.name,jdbcType=VARCHAR}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="isleaf= CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.isleaf!=null">
+						WHEN categoryid=#{item.categoryid, jdbcType=BIGINT}
+						THEN
+						#{item.isleaf,jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="pos= CASE" suffix="END,">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.pos != null">
+						WHEN categoryid=#{item.categoryid, jdbcType=BIGINT}
+						THEN
+						#{item.pos,jdbcType=INTEGER}
+					</if>
+				</foreach>
+			</trim>
+			<trim prefix="deleted= CASE" suffix="END">
+				<foreach collection="list" item="item" index="index"
+					separator=" ">
+					<if test="item.deleted!=null">
+						WHEN categoryid=#{item.categoryid, jdbcType=BIGINT}
+						THEN
+						#{item.deleted, jdbcType=TINYINT}
+					</if>
+				</foreach>
+			</trim>
+		</trim>
+		WHERE categoryid IN
+		<foreach collection="list" item="item" index="index" open="("
+			close=")" separator=",">
+			#{item.categoryid,jdbcType=BIGINT}
+		</foreach>
+	</update>
+</mapper>
